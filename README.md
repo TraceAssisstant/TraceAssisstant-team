@@ -74,6 +74,10 @@ main
 dev--id
 
 代码提交规范：
+
+不允许组员直接将自己的push与main分支进行合并，main分支已被保护；
+在每次准备提出merge请求之前，确保自己的分支已更新至最新。
+
 *重点在commit步骤*
 *commit提交必填项为提交标题*
 标题的书写规范： <type>[<type2>,<type3>...]: <subject>
