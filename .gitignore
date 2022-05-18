@@ -14,3 +14,4 @@
 .cxx
 local.properties
 /.idea/
+/app/src/test/java/com/example/traceassistant/test.kt
