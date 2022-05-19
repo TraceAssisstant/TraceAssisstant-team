@@ -20,14 +20,14 @@ object Repository {
         sndao = AppDatabase.getDatabase(GlobalApplication.context).SignNatureDao()
     }
 
-//    向签名图片数据库插入图文
+//    插入图文
     fun insertSN(signNature: SignNature){
         thread {
             sndao.insertSN(signNature)
         }
     }
 
-//    从签名图片数据库根据id获取图文类
+//    根据id获取图文类
 //    返回一个用Result<T>封装的实例(此处封装的实例是signNature实体类的实例)，请利用getOrNull()将封装的数据取出
     fun loadSNById(id:Int) = liveData(Dispatchers.IO){
         val result = try {

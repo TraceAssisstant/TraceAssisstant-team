@@ -15,4 +15,3 @@
 local.properties
 /.idea/
 /app/src/test/java/com/example/traceassistant/test.kt
-/app/src/main/java/com/example/traceassistant/MainActivity.kt
