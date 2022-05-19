@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 //        测试代码@Noble047
         binding.testBtn.setOnClickListener(){
             Repository.initSndao()
-            val signNature1= SignNature("you life","image/image01.jpg")
+            val signNature1= SignNature("you life",114514)
             Repository.insertSN(signNature1)
             Repository.loadSNById(1).observe(this){data->
                 Log.d("RepositoryTest",data.getOrNull().toString())
@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
 
 //        val sndao = AppDatabase.getDatabase(this).SignNatureDao()
 //
-//        val signNature1= SignNature("you life","image/image01.jpg")   //测试用例
-//        val signNature2= SignNature("my life","image/image02.jpg")
+//        val signNature1= SignNature("you life",11)   //测试用例
+//        val signNature2= SignNature("my life",1111)
 //
 //
 //        thread {
