@@ -40,6 +40,20 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 dependencies {
 
+//    lifecycle以及livedata依赖
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+
+//    material库依赖
+    implementation 'com.google.android.material:material:1.6.0'
+
+//    下拉刷新布局依赖
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+//    kotlin协程依赖
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'

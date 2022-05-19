@@ -12,5 +12,3 @@ data class SignNature(val text:String, val imageUrl:String){
                 return "id(day): "+id+" "+super.toString()
         }
 }
-
-
