@@ -20,13 +20,35 @@ class MainActivity : AppCompatActivity() {
 
 
 //        测试代码@Noble047
-        binding.testBtn.setOnClickListener(){
-            Repository.initSndao()
-            val signNature1= SignNature("you life",114514)
-            Repository.insertSN(signNature1)
-            Repository.loadSNById(1).observe(this){data->
-                Log.d("RepositoryTest",data.getOrNull().toString())
+//        测试内容：点击按钮将会切换图片以及对应的签名，
+//        图片与签名的初始资源需要在软件第一次运行时插入
+        Repository.initSndao()
+//            批量插入图片签名资源
+            var strList = mutableListOf<String>()
+            var imageList = mutableListOf<Int>()
+
+            for (k in R.drawable.background01..R.drawable.background05){
+                imageList.add(k)
+                strList.add("签名${k}")
             }
+        Repository.batchInsertSN(strList,imageList)
+
+        Repository.SNList()
+
+        var i = 1
+        binding.testBtn.setOnClickListener(){
+            if (i<5){
+                i += 1
+            }else {
+                i = 1
+            }
+            Repository.loadSNById(i).observe(this){data->
+                val signature = data.getOrNull() as SignNature
+                val (str,id) = signature
+                binding.Signature.text = str
+                binding.ImageTest.setImageResource(id)
+            }
+
         }
 //        @Noble047
 

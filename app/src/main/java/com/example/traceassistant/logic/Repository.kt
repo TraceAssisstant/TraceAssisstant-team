@@ -27,6 +27,17 @@ object Repository {
         }
     }
 
+//    批量插入图文，以初始化
+//    参数1：签名组成的列表，参数2：图片id组成的列表
+    fun batchInsertSN(strList: MutableList<String>,imageIdList: MutableList<Int>){
+        val i = strList.size
+        for (k in 1..i){
+            val str = strList[k-1]
+            val image = imageIdList[k-1]
+            insertSN(SignNature(str,image))
+        }
+    }
+
 //    根据id获取图文类
 //    返回一个用Result<T>封装的实例(此处封装的实例是signNature实体类的实例)，请利用getOrNull()将封装的数据取出
     fun loadSNById(id:Int) = liveData(Dispatchers.IO){
@@ -40,9 +51,13 @@ object Repository {
 
 
 
-    //    测试GlobalApplication类全局获取context功能运作正常
-    fun test(){
-        GlobalApplication.context.toString().showToast();
+    //    遍历数据库
+    fun SNList(){
+        thread {
+            for (sn in sndao.SNList()){
+                Log.d("对sn图文的遍历:",sn.toString())
+            }
+        }
     }
 
 

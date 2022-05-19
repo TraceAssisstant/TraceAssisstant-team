@@ -11,4 +11,6 @@ data class SignNature(val text:String, val imageUrl:Int){
         override fun toString(): String {
                 return "id(day): "+id+" text :"+text+" imgurl: "+imageUrl
         }
+
+
 }
