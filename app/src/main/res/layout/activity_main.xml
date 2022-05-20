@@ -7,13 +7,12 @@
     tools:context=".MainActivity">
 
 
-
     <Button
         android:id="@+id/testBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="205dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="92dp"
         android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,8 +21,8 @@
         android:id="@+id/ImageTest"
         android:layout_width="306dp"
         android:layout_height="206dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="296dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="196dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,10 +31,9 @@
         android:id="@+id/Signature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="20dp"
         android:text="签名"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImageTest" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

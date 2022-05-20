@@ -81,8 +81,5 @@ class MainActivity : AppCompatActivity() {
 //            sndao.deleteSNById(2);
 //
 //        }
-
-
-
     }
 }
