@@ -23,9 +23,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_view2)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Repository.initSndao()
+//        批量插入图片签名资源
+        var strList = mutableListOf<String>()
+        var imageList = mutableListOf<Int>()
+
+        for (k in R.drawable.background01..R.drawable.background05){
+            imageList.add(k)
+            strList.add("签名${k}")
+        }
+        Repository.batchInsertSN(strList,imageList)
+
+        Repository.SNList()
 
 //        测试代码@cx330
-        //        测试内容：点击按钮将会切换图片以及对应的签名，
+//        测试内容：点击按钮将会切换图片以及对应的签名，
         var i=1
 
         binding.testBtn.setOnClickListener {
