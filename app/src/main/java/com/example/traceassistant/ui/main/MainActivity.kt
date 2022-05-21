@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.traceassistant.R
-import com.example.traceassistant.databinding.ActivityCollectionViewBinding
 import com.example.traceassistant.databinding.ActivityMainView2Binding
 import com.example.traceassistant.logic.Entity.SignNature
 

@@ -3,26 +3,56 @@ package com.example.traceassistant
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.traceassistant.databinding.ActivityMainBinding
+//import com.example.traceassistant.databinding.ActivityMainView2Binding
 import com.example.traceassistant.logic.Database.AppDatabase
 import com.example.traceassistant.logic.Entity.SignNature
 import com.example.traceassistant.logic.Repository
+import com.example.traceassistant.ui.main.MainViewModel
 import kotlin.concurrent.thread
 import kotlin.math.sign
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main_view2)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        测试代码@cx330
+        //        测试内容：点击按钮将会切换图片以及对应的签名，
+        var i=1
+
+        binding.testBtn.setOnClickListener {
+            if (i<5){
+                i += 1
+            }else {
+                i = 1
+            }
+
+            viewModel.showSN(i)
+        }
+        viewModel.mainViewLiveData.observe(this, Observer { result->
+            val signature = result.getOrNull()
+            if (signature!=null){
+                val (str,id) = signature as SignNature
+                println("ll")
+                binding.Signature.text = str
+                binding.ImageTest.setImageResource(id) }
+            }
+           )
+
 
 
 //        测试代码@Noble047
 //        测试内容：点击按钮将会切换图片以及对应的签名，
 //        图片与签名的初始资源需要在软件第一次运行时插入
-        Repository.initSndao()
+//        Repository.initSndao()
 //            批量插入图片签名资源
 //            var strList = mutableListOf<String>()
 //            var imageList = mutableListOf<Int>()
@@ -48,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 //                binding.Signature.text = str
 //                binding.ImageTest.setImageResource(id)
 //            }
-
+//
 //        }
 //        @Noble047
 
