@@ -6,4 +6,211 @@
     android:layout_height="match_parent"
     tools:context=".ui.affairsCollection.CollectionView">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="#C3C3C3"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!--        主页刷新按钮-->
+        <ImageButton
+            android:id="@+id/refreshButton"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#C3C3C3"
+            app:srcCompat="@android:drawable/stat_notify_sync" />
+
+        <!--        习惯养成界面按钮-->
+        <ImageButton
+            android:id="@+id/habitButton"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#C3C3C3"
+            app:srcCompat="@android:drawable/ic_menu_compass" />
+
+        <!--        数据分析界面按钮-->
+        <ImageButton
+            android:id="@+id/analyseButton"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#C3C3C3"
+            app:srcCompat="@android:drawable/ic_menu_mapmode" />
+
+        <!--        用户设置界面-->
+        <ImageButton
+            android:id="@+id/userButton"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#C3C3C3"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+    </LinearLayout>
+<!--用于搜索坐标地点的搜索框-->
+
+    <!--    用于查看坐标的地图组件-->
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchPlace"
+        android:layout_width="365dp"
+        android:layout_height="40dp"
+        android:background="@drawable/search_shape"
+        android:queryHint="请输入搜索内容"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
+
+    <!--坐标选点提示-->
+    <ImageView
+        android:id="@+id/wenzi3"
+        android:layout_width="106dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/wenzi3" />
+
+    <!--    根据数据推荐的坐标点1-->
+
+    <!--    根据数据推荐的坐标点2-->
+    <ImageView
+        android:id="@+id/wenzi2"
+        android:layout_width="370dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/wenzi2" />
+
+    <!--    根据数据推荐的坐标点3-->
+    <Button
+        android:id="@+id/button0"
+        style="@android:style/Widget.Button"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_shape"
+        android:text="五食堂"
+        android:textAlignment="center"
+        android:textColor="#ACA7A7"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/wenzi2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.329"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <!--    根据数据推荐的坐标点4-->
+
+    <!--    根据数据推荐的坐标点5-->
+
+    <Button
+        android:id="@+id/button1"
+        style="@android:style/Widget.Button"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_shape"
+        android:text="蜜雪冰城"
+        android:textAlignment="center"
+        android:textColor="#ACA7A7"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/wenzi2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/button0"
+        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <!--    根据数据推荐的坐标点6-->
+
+    <Button
+        android:id="@+id/button2"
+        style="@android:style/Widget.Button"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_shape"
+        android:text="西山操场"
+        android:textAlignment="center"
+        android:textColor="#ACA7A7"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/wenzi2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@android:style/Widget.Button"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_shape"
+        android:text="四食堂"
+        android:textAlignment="center"
+        android:textColor="#ACA7A7"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/wenzi2"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button0"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <Button
+        android:id="@+id/button4"
+        style="@android:style/Widget.Button"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_shape"
+        android:text="宿舍C区"
+        android:textAlignment="center"
+        android:textColor="#ACA7A7"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/wenzi2"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button1"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <Button
+        android:id="@+id/button5"
+        style="@android:style/Widget.Button"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/button_shape"
+        android:text="西山浴室"
+        android:textAlignment="center"
+        android:textColor="#ACA7A7"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/wenzi2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintVertical_bias="0.652" />
 </androidx.constraintlayout.widget.ConstraintLayout>

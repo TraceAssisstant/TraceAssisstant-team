@@ -19,18 +19,18 @@ interface SignNatureDao {
     /**
      *根据id(星期信息)返回图文实体类
      */
-    @Query("select * from SignNature where id = :tid ")
+    @Query("select * from sign_nature where id = :tid ")
     fun loadSNById(tid: Int):SignNature
 
     /**
      * 删除SignNature
      */
-    @Query("delete from SignNature where id = :tid")
+    @Query("delete from sign_nature where id = :tid")
     fun deleteSNById(tid: Int):Int
 
     /**
      * 遍历SignNature列表
      */
-    @Query("select * from SignNature ")
+    @Query("select * from sign_nature ")
     fun SNList() :List<SignNature>
 }

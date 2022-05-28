@@ -18,7 +18,8 @@ abstract class AppDatabase : RoomDatabase() {
                 return it
             }
             return Room.databaseBuilder(context.applicationContext,
-                AppDatabase::class.java, "sign_nature")
+                AppDatabase::class.java, "AppDatabase")
+                .fallbackToDestructiveMigration()
                 .build().apply {
                     instance = this
                 }

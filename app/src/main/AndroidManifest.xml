@@ -22,14 +22,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceAssistant">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.affairsCollection.addElementsView"
             android:exported="false" />
         <activity
             android:name=".ui.setting.SettingView"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainView"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".ui.habit.HabitView"
             android:exported="false" />
@@ -46,12 +53,13 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true"
+            android:label="智醒">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 
