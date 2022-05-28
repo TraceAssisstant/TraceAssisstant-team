@@ -19,19 +19,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-//        测试代码@Noble047
 //        测试内容：点击按钮将会切换图片以及对应的签名，
 //        图片与签名的初始资源需要在软件第一次运行时插入
         Repository.initSndao()
-//            批量插入图片签名资源
-            var strList = mutableListOf<String>()
-            var imageList = mutableListOf<Int>()
+//        批量插入图片签名资源
+        var strList = mutableListOf<String>()
+        var imageList = mutableListOf<Int>()
 
-            for (k in R.drawable.background01..R.drawable.background05){
-                imageList.add(k)
-                strList.add("签名${k}")
-            }
-        Repository.batchInsertSN(strList,imageList)
+        for (k in R.drawable.background01..R.drawable.background05){
+            imageList.add(k)
+            strList.add("签名${k}")
+        }
+
+        try {
+            Repository.batchInsertSN(strList,imageList)
+        }catch (e:Exception){
+            Log.w("插入错误",e)
+        }
 
         Repository.SNList()
 
@@ -50,36 +54,5 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-//        @Noble047
-
-
-
-//        val sndao = AppDatabase.getDatabase(this).SignNatureDao()
-//
-//        val signNature1= SignNature("you life",11)   //测试用例
-//        val signNature2= SignNature("my life",1111)
-//
-//
-//        thread {
-//            sndao.insertSN(signNature1)
-//            sndao.insertSN(signNature2)    //添加数据测试
-//        }
-//
-//        thread{
-//
-//
-//           Log.d("根据id查找图文信息:",sndao.loadSNById(1).toString())
-//
-//        }
-//        thread {
-//            for (sn in sndao.SNList()){
-//                Log.d("对sn图文的遍历:",sn.toString())
-//            }
-//        }
-//
-//        thread{
-//            sndao.deleteSNById(2);
-//
-//        }
     }
 }
