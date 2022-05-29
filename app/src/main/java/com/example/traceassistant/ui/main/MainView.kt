@@ -6,11 +6,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.traceassistant.R
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.logic.Entity.SignNature
+import com.example.traceassistant.logic.Repository
 import com.example.traceassistant.ui.affairsCollection.CollectionView
 import com.example.traceassistant.ui.affairsCollection.addElementsView
 
@@ -27,6 +29,24 @@ class MainView : AppCompatActivity() {
         setContentView(binding.root)
 
 //        @cx330测试
+        Repository.initSndao()
+//        批量插入图片签名资源
+        var strList = mutableListOf<String>()
+        var imageList = mutableListOf<Int>()
+
+        for (k in R.drawable.background01..R.drawable.background05){
+            imageList.add(k)
+            strList.add("签名${k}")
+        }
+
+        try {
+            Repository.batchInsertSN(strList,imageList)
+        }catch (e:Exception){
+            Log.w("插入错误",e)
+        }
+
+        Repository.SNList()
+        
         val intentFilter = IntentFilter()
         intentFilter.addAction("android.intent.action.TIME_TICK")
         timeChangeReceiver = TimeChangeReceiver()
