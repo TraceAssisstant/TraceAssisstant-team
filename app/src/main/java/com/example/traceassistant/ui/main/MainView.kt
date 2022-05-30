@@ -28,10 +28,10 @@ class MainView : AppCompatActivity() {
         setContentView(binding.root)
 
 //        @cx330测试
-      viewModel.loadRepository()
+        viewModel.loadRepository()
 
 
-        //        测试代码@cx330
+//        测试代码@cx330
 //        点击图片切换背景，签名
         var id=0
         binding.mainImage.setOnClickListener {
@@ -49,20 +49,13 @@ class MainView : AppCompatActivity() {
 
         viewModel.mainViewLiveData.observe(this, Observer { result->
             val signature = result.getOrNull()
-//            Toast.makeText(this, "kkk", Toast.LENGTH_SHORT).show()
-
             if (signature!=null){
                 val (str,id) = signature as SignNature
-//                Toast.makeText(this, "qqq", Toast.LENGTH_SHORT).show()
-
                 binding.daySentence.text = str
                 binding.mainImage.setImageResource(id)
-
             }else{
-                //                Toast.makeText(this, "tt", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(this, "tt", Toast.LENGTH_SHORT).show()
             }
-
         }
         )
 
