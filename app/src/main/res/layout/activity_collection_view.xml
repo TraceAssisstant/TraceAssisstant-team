@@ -55,9 +55,7 @@
     </LinearLayout>
 <!--用于搜索坐标地点的搜索框-->
 
-    <!--    用于查看坐标的地图组件-->
-
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchPlace"
         android:layout_width="365dp"
         android:layout_height="40dp"
@@ -70,19 +68,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.046" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="327dp"
-        android:layout_height="415dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+<!--    为降低初期开发复杂性，谷歌地图部分暂时关闭-->
+<!--    <com.google.android.gms.maps.MapView-->
+<!--        android:id="@+id/mapView"-->
+<!--        android:layout_width="327dp"-->
+<!--        android:layout_height="415dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.552"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/searchPlace"-->
+<!--        app:layout_constraintVertical_bias="0.062"-->
+<!--        tools:ignore="MissingClass" />-->
+
+<!--    暂时用于替代地图显示的图片-->
+    <ImageView
+        android:id="@+id/map"
+        android:layout_width="361dp"
+        android:layout_height="442dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchPlace"
-        app:layout_constraintVertical_bias="0.062"
-        tools:ignore="MissingClass" />
+        app:layout_constraintVertical_bias="0.042"
+        app:srcCompat="@drawable/map" />
 
     <!--坐标选点提示-->
+
     <ImageView
         android:id="@+id/wenzi3"
         android:layout_width="106dp"
@@ -91,13 +103,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:layout_constraintVertical_bias="0.023"
+        app:layout_constraintTop_toBottomOf="@+id/searchPlace"
+        app:layout_constraintVertical_bias="0.83"
         app:srcCompat="@drawable/wenzi3" />
 
-    <!--    根据数据推荐的坐标点1-->
-
-    <!--    根据数据推荐的坐标点2-->
     <ImageView
         android:id="@+id/wenzi2"
         android:layout_width="370dp"
@@ -106,11 +115,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
+        app:layout_constraintTop_toBottomOf="@+id/searchPlace"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/wenzi2" />
 
-    <!--    根据数据推荐的坐标点3-->
     <Button
         android:id="@+id/button0"
         style="@android:style/Widget.Button"
@@ -124,14 +132,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/wenzi2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.329"
+        app:layout_constraintHorizontal_bias="0.338"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:layout_constraintVertical_bias="0.098" />
-
-    <!--    根据数据推荐的坐标点4-->
-
-    <!--    根据数据推荐的坐标点5-->
+        app:layout_constraintTop_toBottomOf="@+id/searchPlace"
+        app:layout_constraintVertical_bias="0.92" />
 
     <Button
         android:id="@+id/button1"
@@ -146,19 +150,16 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/wenzi2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="@+id/button0"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:layout_constraintVertical_bias="0.098" />
-
-    <!--    根据数据推荐的坐标点6-->
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button0"
+        app:layout_constraintTop_toBottomOf="@+id/searchPlace"
+        app:layout_constraintVertical_bias="0.92" />
 
     <Button
         android:id="@+id/button2"
         style="@android:style/Widget.Button"
         android:layout_width="98dp"
         android:layout_height="40dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/button_shape"
         android:text="西山操场"
         android:textAlignment="center"
@@ -169,8 +170,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/searchPlace"
+        app:layout_constraintVertical_bias="0.92" />
 
     <Button
         android:id="@+id/button3"
@@ -188,7 +189,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button0"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button4"
@@ -203,17 +204,16 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/wenzi2"
         app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button1"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button5"
         style="@android:style/Widget.Button"
         android:layout_width="98dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
         android:background="@drawable/button_shape"
         android:text="西山浴室"
         android:textAlignment="center"
@@ -222,6 +222,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/wenzi2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toEndOf="@+id/wenzi3"
         app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintVertical_bias="1.0" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

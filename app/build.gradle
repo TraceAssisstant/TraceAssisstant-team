@@ -60,6 +60,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation files('libs\\AMap_Search_V8.1.0_20211029.jar')
     implementation files('libs\\Android_Map3D_SDK_V9.1.0_20220210.jar')
+//    implementation files('libs\\Android_Map3D_SDK_V2.0.0_20220210.jar')
     implementation 'com.android.car.ui:car-ui-lib:+'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
