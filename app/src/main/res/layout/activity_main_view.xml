@@ -96,6 +96,7 @@
         android:layout_height="355dp"
         android:src="@drawable/zhutu"
         android:background="@drawable/zhutu_shape"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
