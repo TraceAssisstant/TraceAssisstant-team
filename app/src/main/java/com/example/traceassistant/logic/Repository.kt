@@ -9,7 +9,9 @@ import com.example.traceassistant.logic.Dao.SignNatureDao
 import com.example.traceassistant.logic.Database.AppDatabase
 import com.example.traceassistant.logic.Entity.SignNature
 import kotlinx.coroutines.Dispatchers
+import java.sql.SQLException
 import kotlin.concurrent.thread
+import kotlin.math.sign
 
 object Repository {
 
@@ -24,6 +26,11 @@ object Repository {
     fun insertSN(signNature: SignNature){
         thread {
             sndao.insertSN(signNature)
+            try {
+                sndao.insertSN(signNature)
+            }catch (e: SQLException){
+                Log.d("insert error",e.toString())
+            }
         }
     }
 
