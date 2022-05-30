@@ -22,7 +22,7 @@ class MainViewModel:ViewModel() {
         var strList = mutableListOf<String>()
         var imageList = mutableListOf<Int>()
 
-        for (k in R.drawable.background01..R.drawable.background02){
+        for (k in R.drawable.background01..R.drawable.background04){
             imageList.add(k)
             strList.add("签名${k}")
         }
