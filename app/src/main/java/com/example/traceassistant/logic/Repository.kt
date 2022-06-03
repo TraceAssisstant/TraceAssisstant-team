@@ -17,13 +17,17 @@ object Repository {
 
 //    初始化数据库dao sndao
     fun initSndao(){
-        sndao = AppDatabase.getDatabase(GlobalApplication.context).SignNatureDao()
+        sndao = AppDatabase.getDatabase(GlobalApplication.context).signNatureDao()
     }
 
 //    插入图文
     fun insertSN(signNature: SignNature){
         thread {
+            try{
             sndao.insertSN(signNature)
+            }catch (e:Exception){
+                Log.d("warning:",e.toString())
+            }
         }
     }
 
@@ -34,7 +38,13 @@ object Repository {
         for (k in 1..i){
             val str = strList[k-1]
             val image = imageIdList[k-1]
-            insertSN(SignNature(str,image))
+
+            try{
+                insertSN(SignNature(str,image))
+            }catch (e:Exception){
+                Log.d("warning:",e.toString())
+            }
+
         }
     }
 
