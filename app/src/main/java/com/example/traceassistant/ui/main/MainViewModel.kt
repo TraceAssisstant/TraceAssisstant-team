@@ -19,27 +19,26 @@ class MainViewModel : ViewModel() {
     }
 
     //    加载数据库资源
-    fun loadRepository(): Int {
+    fun loadRepository() {
+        val lastId=5//图文资源的总数，可扩展
+        var flag=false//记录是否插入图文
         Repository.initSndao()
     //     批量插入图片签名资源
         var strList = mutableListOf<String>()
         var imageList = mutableListOf<Int>()
-        var lastId = 0
         for (k in R.drawable.background01..R.drawable.background05) {
             imageList.add(k)
             strList.add("签名${k}")
-            lastId++
             Log.d("k", k.toString())
         }
-        Log.d("lastid", lastId.toString())
-
-
+        //Log.d("lastid", lastId.toString())
+        Log.d("imgSize1",imageList.size.toString())
+        Log.d("strSize1",strList.size.toString())
     //    避免数据重复插入
-        if (Repository.loadSNById(lastId) == null) {
+        if (!flag) {
             Repository.batchInsertSN(strList, imageList)
+            flag=true
         }
-
         Repository.SNList()
-        return lastId
     }
 }
