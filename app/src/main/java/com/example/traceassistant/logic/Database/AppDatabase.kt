@@ -23,6 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
             return Room.databaseBuilder(context.applicationContext,
                 AppDatabase::class.java, "AppDatabase")
                 .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()     //开放主线程数据库操作权限
                 .build().apply {
                     instance = this
                 }

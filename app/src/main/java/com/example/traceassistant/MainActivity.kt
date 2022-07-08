@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         Repository.SNList()
+        //资源数量测试
+        Log.d("资源数量",Repository.getSnNumber().toString())
 
         var i = 1
         binding.testBtn.setOnClickListener(){
@@ -54,5 +56,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
     }
 }

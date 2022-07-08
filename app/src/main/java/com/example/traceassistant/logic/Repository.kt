@@ -60,5 +60,18 @@ object Repository {
         }
     }
 
+    //返回数据库中图文记录条数
+    fun getSnNumber():Int{
+        var num = 0;
+
+        var list: List<SignNature> = sndao.SNList()
+            for (sn in list) {
+                Log.d("对sn图文的:", sn.toString())
+                num = num + 1
+            }
+
+        return num;
+    }
+
 
 }
