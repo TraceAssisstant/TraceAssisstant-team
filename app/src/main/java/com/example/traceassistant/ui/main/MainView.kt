@@ -28,12 +28,7 @@ class MainView : AppCompatActivity() {
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel.loadRepository()//加载图文资源
-        //注册监听器，每隔一分钟/一小时 根据日期赋予图文id
-        val intentFilter = IntentFilter();
-        intentFilter.addAction("android.intent.action.TIME_TICK")//每分钟通知一次，测试用
-        //intentFilter.addAction("android.intent.action.DATE_CHANGE")//日期变化通知
-        timeChangeReceiver = TimeChangeReceiver()
-        registerReceiver(timeChangeReceiver, intentFilter)
+
 
         //观察id变化，更换图文
         viewModel.mainViewLiveData.observe(this, Observer { result ->
@@ -56,9 +51,22 @@ class MainView : AppCompatActivity() {
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        //注册监听器，每隔一分钟/一小时 根据日期赋予图文id
+        val intentFilter = IntentFilter();
+        intentFilter.addAction("android.intent.action.TIME_TICK")//每分钟通知一次，测试用
+        //intentFilter.addAction("android.intent.action.DATE_CHANGE")//日期变化通知
+        timeChangeReceiver = TimeChangeReceiver()
+        registerReceiver(timeChangeReceiver, intentFilter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(timeChangeReceiver)
+    }
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(timeChangeReceiver)
     }
     inner class TimeChangeReceiver:BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
