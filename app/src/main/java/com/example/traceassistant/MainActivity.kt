@@ -30,14 +30,17 @@ class MainActivity : AppCompatActivity() {
             imageList.add(k)
             strList.add("签名${k}")
         }
-
+        Repository.SNList()
+        //资源数量测试
+        Log.d("资源数量",Repository.getSnNumber().toString())
         try {
             Repository.batchInsertSN(strList,imageList)
+
         }catch (e:Exception){
             Log.w("插入错误",e)
         }
 
-        Repository.SNList()
+
 
         var i = 1
         binding.testBtn.setOnClickListener(){
@@ -54,5 +57,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
     }
 }

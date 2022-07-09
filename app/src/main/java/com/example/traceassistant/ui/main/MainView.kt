@@ -4,16 +4,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.logic.Entity.SignNature
 import com.example.traceassistant.ui.affairsCollection.CollectionView
 import java.util.*
-
 
 class MainView : AppCompatActivity() {
 
@@ -22,6 +21,7 @@ class MainView : AppCompatActivity() {
     lateinit var timeChangeReceiver: TimeChangeReceiver
     var id = 0 //资源id，随时间变化
     var lastId=5//资源数量，后续可扩展
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,7 @@ class MainView : AppCompatActivity() {
                 binding.daySentence.text = str
                 binding.mainImage.setImageResource(id)
             }
-        }
-        )
+        })
 
 
         //        以下代码皆仅是测试
@@ -49,7 +48,6 @@ class MainView : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -61,14 +59,13 @@ class MainView : AppCompatActivity() {
         registerReceiver(timeChangeReceiver, intentFilter)
     }
 
+
     override fun onStop() {
         super.onStop()
         unregisterReceiver(timeChangeReceiver)
     }
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-    inner class TimeChangeReceiver:BroadcastReceiver(){
+
+    inner class TimeChangeReceiver: BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("start","广播开启")
             val c = Calendar.getInstance()

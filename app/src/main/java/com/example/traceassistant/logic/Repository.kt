@@ -22,9 +22,12 @@ object Repository {
 
 //    插入图文
     fun insertSN(signNature: SignNature){
-        thread {
-            sndao.insertSN(signNature)
+        try{
+        sndao.insertSN(signNature)
+        }catch (e:Exception){
+            Log.w("插入错误(可忽略)",e)
         }
+
     }
 
 //    批量插入图文，以初始化
@@ -58,6 +61,19 @@ object Repository {
                 Log.d("对sn图文的遍历:",sn.toString())
             }
         }
+    }
+
+    //返回数据库中图文记录条数
+    fun getSnNumber():Int{
+        var num = 0;
+
+        var list: List<SignNature> = sndao.SNList()
+            for (sn in list) {
+                Log.d("对sn图文的:", sn.toString())
+                num = num + 1
+            }
+
+        return num;
     }
 
 
