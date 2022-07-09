@@ -22,8 +22,11 @@ object Repository {
 
 //    插入图文
     fun insertSN(signNature: SignNature){
-
+        try{
         sndao.insertSN(signNature)
+        }catch (e:Exception){
+            Log.w("插入错误(可忽略)",e)
+        }
 
     }
 
