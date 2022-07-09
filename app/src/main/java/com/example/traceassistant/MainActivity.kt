@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.traceassistant.databinding.ActivityMainBinding
 import com.example.traceassistant.logic.Database.AppDatabase
+import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Entity.SignNature
 import com.example.traceassistant.logic.Repository
 import kotlin.concurrent.thread
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
             imageList.add(k)
             strList.add("签名${k}")
         }
+
         Repository.SNList()
         //资源数量测试
         Log.d("资源数量",Repository.getSnNumber().toString())
@@ -39,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         }catch (e:Exception){
             Log.w("插入错误",e)
         }
-
-
 
         var i = 1
         binding.testBtn.setOnClickListener(){
@@ -56,6 +56,17 @@ class MainActivity : AppCompatActivity() {
                 binding.ImageTest.setImageResource(id)
             }
 
+        }
+
+        Repository.initAFDao()
+
+        var affair01 = AffairForm("取快递","去新一区快递超市取快递",1657353897,119.523083,32.209777,10.0,2,2,"快递","ring.MP3",false)
+        Repository.insertAffiar(affair01)
+
+        var list :List<AffairForm> = Repository.getAffairList();
+
+        for( af in  list){
+            Log.d("事务:",af.toString())
         }
 
     }

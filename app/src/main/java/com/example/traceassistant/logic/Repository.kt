@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.showToast
+import com.example.traceassistant.logic.Dao.AffairFormDao
 import com.example.traceassistant.logic.Dao.SignNatureDao
 import com.example.traceassistant.logic.Database.AppDatabase
+import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Entity.SignNature
 import kotlinx.coroutines.Dispatchers
 import kotlin.concurrent.thread
@@ -14,11 +16,13 @@ import kotlin.concurrent.thread
 object Repository {
 
     lateinit var sndao: SignNatureDao
+    lateinit var affairFormDao: AffairFormDao
 
 //    初始化数据库dao sndao
     fun initSndao(){
         sndao = AppDatabase.getDatabase(GlobalApplication.context).SignNatureDao()
     }
+
 
 //    插入图文
     fun insertSN(signNature: SignNature){
@@ -27,7 +31,6 @@ object Repository {
         }catch (e:Exception){
             Log.w("插入错误(可忽略)",e)
         }
-
     }
 
 //    批量插入图文，以初始化
@@ -76,5 +79,23 @@ object Repository {
         return num;
     }
 
+    //初始化数据库dao sndao
+    fun initAFDao(){
+        affairFormDao = AppDatabase.getDatabase(GlobalApplication.context).affairFormDao()
+    }
+
+    //插入事务数据
+    fun insertAffiar(affairForm: AffairForm){
+        try{
+            affairFormDao.affairInsert(affairForm)
+        }catch(e:Exception){
+            Log.w("插入错误(可忽略)",e)
+        }
+    }
+
+    //根据事务进行时间遍历事务数据
+    fun getAffairList():List<AffairForm>{
+        return affairFormDao.affairQueryByTime()
+    }
 
 }
