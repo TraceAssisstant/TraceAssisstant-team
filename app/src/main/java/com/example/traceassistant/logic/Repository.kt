@@ -22,9 +22,9 @@ object Repository {
 
 //    插入图文
     fun insertSN(signNature: SignNature){
-        thread {
-            sndao.insertSN(signNature)
-        }
+
+        sndao.insertSN(signNature)
+
     }
 
 //    批量插入图文，以初始化
