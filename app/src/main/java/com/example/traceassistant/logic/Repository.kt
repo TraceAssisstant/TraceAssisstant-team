@@ -64,11 +64,9 @@ object Repository {
         emit(result)
     }
 
-
     /**
      * 遍历数据库
      */
-
     fun SNList(){
         thread {
             for (sn in sndao.SNList()){
