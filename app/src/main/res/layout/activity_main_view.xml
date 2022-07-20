@@ -7,6 +7,8 @@
     tools:context=".ui.main.MainView">
 
 <!--    添加新事务按钮-->
+
+
     <Button
         android:id="@+id/addButton"
         android:layout_width="223dp"
@@ -22,10 +24,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.563"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
-
+        app:layout_constraintVertical_bias="0.855" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -75,6 +77,8 @@
             app:srcCompat="@android:drawable/btn_star_big_off" />
     </LinearLayout>
     <!--装饰的横线-->
+
+    <!--    主页背景图片-->
     <ImageView
         android:id="@+id/hengxian"
         android:layout_width="392dp"
@@ -86,15 +90,13 @@
         app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.529"
+        app:layout_constraintVertical_bias="0.667"
         tools:ignore="MissingConstraints" />
 
-<!--    主页背景图片-->
     <ImageView
         android:id="@+id/mainImage"
         android:layout_width="355dp"
         android:layout_height="355dp"
-        android:src="@drawable/zhutu"
         android:background="@drawable/zhutu_shape"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,19 +106,12 @@
         app:layout_constraintCircleRadius="15px"
         tools:ignore="MissingConstraints" />
 
-    <!--“上滑进入事物列表”图样-->
-    <ImageView
-        android:id="@+id/shanghua"
-        android:layout_width="220dp"
-        android:layout_height="82dp"
-        android:src="@drawable/shanghua"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.953" />
 <!--每日句子-->
+
+    <!--日期号-->
+
+    <!--年月-->
+
     <TextView
         android:id="@+id/daySentence"
         android:layout_width="334dp"
@@ -130,11 +125,8 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.659" />
+        app:layout_constraintVertical_bias="0.734" />
 
-<!--日期号-->
-
-    <!--年月-->
     <TextView
         android:id="@+id/zhutu_day"
         android:layout_width="wrap_content"

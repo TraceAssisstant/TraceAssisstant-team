@@ -29,6 +29,9 @@ class MainView : AppCompatActivity() {
         setContentView(binding.root)
         viewModel.loadRepository()//加载图文资源
 
+        val date = Calendar.getInstance()
+        id = date[Calendar.DAY_OF_MONTH]%lastId+1
+        viewModel.getSN(id)
 
         //观察id变化，更换图文
         viewModel.mainViewLiveData.observe(this, Observer { result ->
@@ -70,9 +73,9 @@ class MainView : AppCompatActivity() {
             Log.d("start","广播开启")
             val c = Calendar.getInstance()
             var mMinute=c[Calendar.MINUTE]//获取当前分钟  测试用
-            var mDay=c[Calendar.DAY_OF_WEEK_IN_MONTH] //获取当前日期
+            var mDay=c[Calendar.DAY_OF_MONTH] //获取当前日期
             //id从1开始所以+1
-            id=mMinute%lastId+1
+            id=mDay%lastId+1
             Log.d("id",id.toString())
             viewModel.getSN(id)
         }
