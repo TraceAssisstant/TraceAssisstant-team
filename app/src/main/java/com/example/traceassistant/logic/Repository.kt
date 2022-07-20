@@ -40,7 +40,9 @@ object Repository {
 
     /**
      * 批量插入图文，以初始化
-        参数1：签名组成的列表，参数2：图片id组成的列表
+     * @param strList: MutableList<String> 签名组成的列表
+     * @param imageIdList: MutableList<Int> 图片id组成的列表
+     * @return null
      */
     fun batchInsertSN(strList: MutableList<String>,imageIdList: MutableList<Int>){
         val i = strList.size
