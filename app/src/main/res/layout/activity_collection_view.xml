@@ -71,19 +71,6 @@
                     android:layout_height="300px" />
             </com.google.android.material.textfield.TextInputLayout>
 
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="重复类型">-->
-
-<!--                <AutoCompleteTextView-->
-<!--                    android:id="@+id/repeatType"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:inputType="none" />-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
-
             <Button
                 android:id="@+id/datePick"
                 android:layout_width="200dp"
@@ -91,7 +78,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:text="选择日期"
-                android:textColor="#0E0E0E" />
+                android:textColor="@color/white" />
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="50dp"
@@ -102,11 +89,101 @@
                 android:layout_height="50dp"
                 android:id="@+id/timePick"
                 android:text="选择时间"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"/>
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:id="@+id/timeShow"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="重要级别"
+                android:layout_marginTop="20dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="响铃"
+                    android:id="@+id/ring"/>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="振动"
+                    android:id="@+id/vibration"/>
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    android:id="@+id/tagGroup"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/study"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="学习"
+                        android:textAlignment="center"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/work"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="工作"
+                        android:textAlignment="center"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/rest"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="休息"
+                        android:textAlignment="center"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/entertainment"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="娱乐"
+                        android:textAlignment="center"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/sleep"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="睡觉"
+                        android:textAlignment="center"/>
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
         </LinearLayout>
     </ScrollView>
 

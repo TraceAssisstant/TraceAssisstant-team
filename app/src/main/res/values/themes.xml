@@ -16,6 +16,8 @@
         <!-- Customize your theme here. -->
 
         <item name="materialCalendarTheme">@style/ThemeOverlay.TraceAssisstant.DatePicker</item>
+
+        <item name="materialThemeOverlay">@style/ThemeOverlay.TraceAssisstant.Chip.Choice</item>
     </style>
     
     <style name="ThemeOverlay.TraceAssisstant.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
@@ -23,5 +25,9 @@
         <item name="colorOnPrimary">#7481E3</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Material3.MediumComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.TraceAssisstant.Chip.Choice" parent="">
+        <item name="elevationOverlayEnabled">false</item>
     </style>
 </resources>

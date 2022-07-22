@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.databinding.ActivityCollectionViewBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -17,14 +18,6 @@ class CollectionView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        /**
-         * 重复类型复选下拉框
-         * 已作废
-         */
-//        val items = listOf("工作日（周一至周五）","双休日（周六周日）","每天")
-//        val adapter = ArrayAdapter(this,R.layout.list_item,items)
-//        binding.repeatType.setAdapter(adapter)
 
         /**
          * 日期选择框
@@ -68,6 +61,49 @@ class CollectionView : AppCompatActivity() {
 
         binding.timePick.setOnClickListener(){
             picker.show(supportFragmentManager,"时间选择")
+        }
+
+        /**
+         * 重要级别复选下拉框
+         */
+        val items = listOf("1","2","3","4","5")
+        val adapter = ArrayAdapter(this,R.layout.list_item,items)
+        binding.level.setAdapter(adapter)
+
+        /**
+         * tag信息获取
+         * tag标签默认单选
+         * 当前代码为选中tag后用Toast显示出对应的tag名称
+         */
+        binding.tagGroup.setOnCheckedStateChangeListener { group, checkedId ->
+            val id =  group.checkedChipId
+            when(id){
+                R.id.study -> "学习".showToast()
+                R.id.work -> "工作".showToast()
+                R.id.rest -> "休息".showToast()
+                R.id.entertainment -> "娱乐".showToast()
+                R.id.sleep -> "睡觉".showToast()
+            }
+        }
+
+        /**
+         * 响铃与振动开关
+         * 响铃的铃声选择功能待定
+         */
+        binding.ring.setOnCheckedChangeListener { button, ischecked ->
+            if (ischecked){
+                "开启响铃".showToast()
+            }else{
+                "禁用响铃".showToast()
+            }
+        }
+
+        binding.vibration.setOnCheckedChangeListener { button, ischecked ->
+            if (ischecked){
+                "开启振动".showToast()
+            }else{
+                "禁用振动".showToast()
+            }
         }
     }
 }
