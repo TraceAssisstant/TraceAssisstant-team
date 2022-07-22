@@ -22,14 +22,13 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="411dp"
+        android:layout_height="605dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.269">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +39,7 @@
             <!--用于暂时替地图组件占位-->
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="900px"
+                android:layout_height="346dp"
                 android:src="@drawable/background01" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -79,28 +78,30 @@
                 android:layout_marginBottom="20dp"
                 android:text="选择日期"
                 android:textColor="@color/white" />
+
             <TextView
+                android:id="@+id/dateShow"
                 android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:id="@+id/dateShow"/>
+                android:layout_height="50dp" />
 
             <Button
-                android:layout_width="200dp"
-                android:layout_height="50dp"
                 android:id="@+id/timePick"
-                android:text="选择时间"
-                android:textColor="@color/white"/>
-            <TextView
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:id="@+id/timeShow"/>
+                android:text="选择时间"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/timeShow"
+                android:layout_width="200dp"
+                android:layout_height="50dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:hint="重要级别"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:hint="重要级别">
 
                 <AutoCompleteTextView
                     android:id="@+id/level"
@@ -115,16 +116,16 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/ring"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="响铃"
-                    android:id="@+id/ring"/>
+                    android:text="响铃" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/vibration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="振动"
-                    android:id="@+id/vibration"/>
+                    android:text="振动" />
             </LinearLayout>
 
             <HorizontalScrollView
@@ -132,10 +133,10 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/tagGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:singleLine="true"
-                    android:id="@+id/tagGroup"
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
@@ -145,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:text="学习"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/work"
@@ -154,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:text="工作"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/rest"
@@ -163,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:text="休息"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/entertainment"
@@ -172,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:text="娱乐"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/sleep"
@@ -181,10 +182,19 @@
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:text="睡觉"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/buttom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

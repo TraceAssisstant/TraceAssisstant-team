@@ -1,11 +1,17 @@
 package com.example.traceassistant.ui.affairsCollection
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.databinding.ActivityCollectionViewBinding
+import com.example.traceassistant.ui.affairShow.ShowView
+import com.example.traceassistant.ui.habit.HabitView
+import com.example.traceassistant.ui.main.MainView
+import com.example.traceassistant.ui.setting.SettingView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -18,6 +24,11 @@ class CollectionView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * 导航栏
+         */
+        Navigation.initialize(R.id.addPage,this,binding.bottomNavigation)
 
         /**
          * 日期选择框
