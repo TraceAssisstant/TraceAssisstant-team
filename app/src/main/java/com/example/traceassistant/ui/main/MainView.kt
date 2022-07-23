@@ -38,6 +38,13 @@ class MainView : AppCompatActivity() {
          */
         Navigation.initialize(R.id.homePage,this,binding.bottomNavigation)
 
+        /**
+         * 日期
+         */
+        val dateToday = Calendar.getInstance()
+        binding.dayToday.text = dateToday[Calendar.DAY_OF_MONTH].toString()
+        binding.monthToday.text = "${dateToday[Calendar.YEAR].toString()}年 ${dateToday[Calendar.MONTH]+1}月"
+
         viewModel.loadRepository()//加载图文资源
 
         val date = Calendar.getInstance()

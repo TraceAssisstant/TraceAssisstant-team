@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.traceassistant.databinding.ActivityMainBinding
-import com.example.traceassistant.logic.Database.AppDatabase
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Entity.SignNature
 import com.example.traceassistant.logic.Repository
