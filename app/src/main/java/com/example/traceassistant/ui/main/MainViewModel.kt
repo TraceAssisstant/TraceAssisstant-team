@@ -29,16 +29,11 @@ class MainViewModel : ViewModel() {
         for (k in R.drawable.background01..R.drawable.background05) {
             imageList.add(k)
             strList.add("签名${k}")
-            Log.d("k", k.toString())
         }
-        //Log.d("lastid", lastId.toString())
-        Log.d("imgSize1",imageList.size.toString())
-        Log.d("strSize1",strList.size.toString())
     //    避免数据重复插入
         if (!flag) {
             Repository.batchInsertSN(strList, imageList)
             flag=true
         }
-        Repository.SNList()
     }
 }

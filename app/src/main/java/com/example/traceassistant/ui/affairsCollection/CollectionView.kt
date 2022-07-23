@@ -1,15 +1,19 @@
 package com.example.traceassistant.ui.affairsCollection
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.databinding.ActivityCollectionViewBinding
 import com.example.traceassistant.logic.Entity.AffairForm
+import com.example.traceassistant.logic.Repository
+import com.example.traceassistant.ui.main.MainView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -139,11 +143,16 @@ class CollectionView : AppCompatActivity() {
 
             val level = binding.level.text.toString().toInt()
             val tag = tagSelected
-            val ringMusic: String = isring.toString()
-            val isshake = isvibration
+            val ringMusic: Boolean= isring
+            val isshake: Boolean = isvibration
 
-//            val data = AffairForm(title,content,time,0.0,0.0,0.0,0,level,tag,ringMusic,isshake)
-            Log.d("时间戳:",time.toString())
+            val data = AffairForm(title,content,time,0.0,0.0,0.0,0,level,tag,ringMusic,isshake)
+
+            viewModel.insertAffair(data)
+
+            val intent = Intent(this,MainView::class.java)
+            this.startActivity(intent)
+
 
         }
     }
