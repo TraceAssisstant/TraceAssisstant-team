@@ -12,7 +12,8 @@
     <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS" /> -->
     <!-- 允许读设备等信息，用于问题排查 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <!--开启前台服务权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <application
         android:name=".Tools.GlobalApplication"
         android:allowBackup="true"
@@ -21,6 +22,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceAssistant">
+        <activity
+            android:name=".service.AffairNotification"
+            android:exported="false" />
+
+        <service
+            android:name=".service.AffairService"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
             android:name=".ui.affairsCollection.addElementsView"
             android:exported="false" />
@@ -35,7 +45,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.habit.HabitView"
@@ -55,11 +64,13 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="智醒">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 

@@ -1,0 +1,60 @@
+package com.example.traceassistant.service
+
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.core.app.NotificationCompat
+import com.example.traceassistant.R
+
+class AffairNotification : AppCompatActivity() {
+
+    //赋默认值
+    var title: String = "未获取到事务标题"
+    var contentText: String = "未获取到事务详细信息"
+    var notificationCode:Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_affair_notification)
+
+        //获取消息内容参数
+        if (intent != null) {
+            title = intent.getStringExtra("title").toString()
+            contentText = intent.getStringExtra("contentText").toString()
+        }
+
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
+                NotificationManager
+
+        //版本控制
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            val channel =
+                NotificationChannel("normal", "Normal", NotificationManager.IMPORTANCE_DEFAULT)
+            manager.createNotificationChannel(channel)
+        }
+
+        //此处为点击消息后进入的具体页面
+        val intent = Intent(this, AffairNotification::class.java)
+        val pi = PendingIntent.getActivity(this, 0, intent, 0)
+        val notification = NotificationCompat.Builder(this, "normal")
+            .setContentTitle(title)
+            .setContentText(contentText)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setLargeIcon(
+                BitmapFactory.decodeResource(
+                    resources,
+                    R.drawable.ic_launcher_foreground
+                )
+            )
+            .setAutoCancel(true)
+            .setContentIntent(pi)    //点击提示后回到具体通知页面2
+            .build()
+        manager.notify(notificationCode, notification)
+    }
+}
