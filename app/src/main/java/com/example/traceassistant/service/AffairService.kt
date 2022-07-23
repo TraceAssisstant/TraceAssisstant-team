@@ -27,7 +27,7 @@ class AffairService : Service() {
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
                 NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel("my_service", "前台Service通知",
+            val channel = NotificationChannel("AffairService", "前台Service通知",
                 NotificationManager.IMPORTANCE_DEFAULT)
             manager.createNotificationChannel(channel)
         }
@@ -37,7 +37,7 @@ class AffairService : Service() {
         val pi = PendingIntent.getActivity(this, 0, intent, 0)
 
         //前台状态栏信息
-        val notification = NotificationCompat.Builder(this, "my_service")
+        val notification = NotificationCompat.Builder(this, "AffairService")
             .setContentTitle("事务助手")
             .setContentText("事务助手正在运行")
             .setSmallIcon(R.mipmap.ic_launcher)

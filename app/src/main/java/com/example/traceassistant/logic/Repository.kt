@@ -27,8 +27,9 @@ object Repository {
 
 
     /**
-     *  插入图文
-     *  */
+     * 存储图文对象
+     * @param signNature : 签名对象
+     */
 
     fun insertSN(signNature: SignNature){
         try{
@@ -54,8 +55,8 @@ object Repository {
     }
 
     /**
-     *    根据id获取图文类
-     *    返回一个用Result<T>封装的实例(此处封装的实例是signNature实体类的实例)，请利用getOrNull()将封装的数据取出
+     * 根据id获取图文类
+     * @param id ：图文表记录的id
      */
     fun loadSNById(id:Int) = liveData(Dispatchers.IO){
         val result = try {
@@ -78,7 +79,8 @@ object Repository {
     }
 
     /**
-     *     返回数据库中图文记录条数
+     *返回数据库中图文记录条数
+     * @return num :图文记录总条数
      */
     fun getSnNumber():Int{
         var num = 0;
@@ -101,6 +103,7 @@ object Repository {
 
     /**
      * 插入事务数据
+     * @param affairForm :事务对象
      */
     fun insertAffiar(affairForm: AffairForm){
         try{
@@ -111,7 +114,8 @@ object Repository {
     }
 
     /**
-     * 根据事务进行时间遍历事务数据
+     * 根据事务时间 遍历事务数据
+     * @return List<AffairForm> :根据时间排序的事务列表
      */
     fun getAffairList():List<AffairForm>{
         return affairFormDao.affairQueryByTime()
