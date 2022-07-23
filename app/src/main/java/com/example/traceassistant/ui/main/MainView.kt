@@ -13,6 +13,7 @@ import com.example.traceassistant.R
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.logic.Entity.SignNature
+import com.example.traceassistant.service.AffairService
 import com.example.traceassistant.ui.affairShow.ShowView
 import com.example.traceassistant.ui.affairsCollection.CollectionView
 import com.example.traceassistant.ui.habit.HabitView
@@ -32,7 +33,11 @@ class MainView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        /**
+         * 开启后台服务
+         */
+        val intent = Intent(this, AffairService::class.java)
+        startService(intent)
         /**
          * 导航栏
          */

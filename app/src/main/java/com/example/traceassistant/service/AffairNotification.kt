@@ -9,8 +9,10 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.core.app.NotificationCompat
 import com.example.traceassistant.R
+import com.example.traceassistant.ui.main.MainView
 
 class AffairNotification : AppCompatActivity() {
 
@@ -22,6 +24,15 @@ class AffairNotification : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_affair_notification)
+
+        var buttonOK: Button = findViewById(R.id.buttonOK)
+        var buttonRE: Button = findViewById(R.id.buttonRe)
+
+        //返回主页面
+        buttonOK.setOnClickListener {
+            var intent = Intent(this,MainView::class.java)
+            startActivity(intent)
+        }
 
         //获取消息内容参数
         if (intent != null) {
@@ -35,14 +46,14 @@ class AffairNotification : AppCompatActivity() {
         //版本控制
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
             val channel =
-                NotificationChannel("normal", "Normal", NotificationManager.IMPORTANCE_DEFAULT)
+                NotificationChannel("important", "important", NotificationManager.IMPORTANCE_HIGH)
             manager.createNotificationChannel(channel)
         }
 
         //此处为点击消息后进入的具体页面
         val intent = Intent(this, AffairNotification::class.java)
         val pi = PendingIntent.getActivity(this, 0, intent, 0)
-        val notification = NotificationCompat.Builder(this, "normal")
+        val notification = NotificationCompat.Builder(this, "important")
             .setContentTitle(title)
             .setContentText(contentText)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -53,7 +64,7 @@ class AffairNotification : AppCompatActivity() {
                 )
             )
             .setAutoCancel(true)
-            .setContentIntent(pi)    //点击提示后回到具体通知页面2
+            .setContentIntent(pi)
             .build()
         manager.notify(notificationCode, notification)
     }
