@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/habitPage"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_timer_24"
+        android:title="习惯养成" />
+
+    <item
+        android:id="@+id/addPage"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="添加事务" />
+
+    <item
+        android:id="@+id/homePage"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="主页" />
+
+    <item
+        android:id="@+id/showPage"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_ballot_24"
+        android:title="日程表" />
+
+    <item
+        android:id="@+id/settingPage"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="设置" />
+</menu>

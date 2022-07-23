@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.showToast
+import com.example.traceassistant.logic.Dao.AffairFormDao
 import com.example.traceassistant.logic.Dao.SignNatureDao
 import com.example.traceassistant.logic.Database.AppDatabase
+import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Entity.SignNature
 import kotlinx.coroutines.Dispatchers
 import kotlin.concurrent.thread
@@ -14,24 +16,34 @@ import kotlin.concurrent.thread
 object Repository {
 
     lateinit var sndao: SignNatureDao
+    lateinit var affairFormDao: AffairFormDao
 
-//    初始化数据库dao sndao
+    /**
+     * 初始化数据库dao sndao
+     */
     fun initSndao(){
         sndao = AppDatabase.getDatabase(GlobalApplication.context).SignNatureDao()
     }
 
-//    插入图文
+
+    /**
+     *  插入图文
+     *  */
+
     fun insertSN(signNature: SignNature){
         try{
         sndao.insertSN(signNature)
         }catch (e:Exception){
             Log.w("插入错误(可忽略)",e)
         }
-
     }
 
-//    批量插入图文，以初始化
-//    参数1：签名组成的列表，参数2：图片id组成的列表
+    /**
+     * 批量插入图文，以初始化
+     * @param strList: MutableList<String> 签名组成的列表
+     * @param imageIdList: MutableList<Int> 图片id组成的列表
+     * @return null
+     */
     fun batchInsertSN(strList: MutableList<String>,imageIdList: MutableList<Int>){
         val i = strList.size
         for (k in 1..i){
@@ -41,8 +53,10 @@ object Repository {
         }
     }
 
-//    根据id获取图文类
-//    返回一个用Result<T>封装的实例(此处封装的实例是signNature实体类的实例)，请利用getOrNull()将封装的数据取出
+    /**
+     *    根据id获取图文类
+     *    返回一个用Result<T>封装的实例(此处封装的实例是signNature实体类的实例)，请利用getOrNull()将封装的数据取出
+     */
     fun loadSNById(id:Int) = liveData(Dispatchers.IO){
         val result = try {
             Result.success(sndao.loadSNById(id))
@@ -52,9 +66,9 @@ object Repository {
         emit(result)
     }
 
-
-
-    //    遍历数据库
+    /**
+     * 遍历数据库
+     */
     fun SNList(){
         thread {
             for (sn in sndao.SNList()){
@@ -63,7 +77,9 @@ object Repository {
         }
     }
 
-    //返回数据库中图文记录条数
+    /**
+     *     返回数据库中图文记录条数
+     */
     fun getSnNumber():Int{
         var num = 0;
 
@@ -76,5 +92,29 @@ object Repository {
         return num;
     }
 
+    /**
+     *  初始化affair数据库操作对象
+     */
+    fun initAFDao(){
+        affairFormDao = AppDatabase.getDatabase(GlobalApplication.context).affairFormDao()
+    }
+
+    /**
+     * 插入事务数据
+     */
+    fun insertAffiar(affairForm: AffairForm){
+        try{
+            affairFormDao.affairInsert(affairForm)
+        }catch(e:Exception){
+            Log.w("插入错误(可忽略)",e)
+        }
+    }
+
+    /**
+     * 根据事务进行时间遍历事务数据
+     */
+    fun getAffairList():List<AffairForm>{
+        return affairFormDao.affairQueryByTime()
+    }
 
 }

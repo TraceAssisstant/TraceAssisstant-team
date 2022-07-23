@@ -7,135 +7,60 @@
     tools:context=".ui.main.MainView">
 
 <!--    添加新事务按钮-->
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="223dp"
-        android:layout_height="74dp"
-        android:backgroundTint="#120303"
-        android:fontFamily="sans-serif-condensed"
-        android:insetLeft="6dp"
-        android:insetRight="6dp"
-        android:text="点击添加事务"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="65px"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="411dp"
-        android:layout_height="52dp"
-        android:background="#C3C3C3"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-<!--        主页刷新按钮-->
-        <ImageButton
-            android:id="@+id/refreshButton"
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="#C3C3C3"
-            app:srcCompat="@android:drawable/stat_notify_sync" />
-
-<!--        习惯养成界面按钮-->
-        <ImageButton
-            android:id="@+id/habitButton"
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="#C3C3C3"
-            app:srcCompat="@android:drawable/ic_menu_compass" />
-
-<!--        数据分析界面按钮-->
-        <ImageButton
-            android:id="@+id/analyseButton"
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="#C3C3C3"
-            app:srcCompat="@android:drawable/ic_menu_mapmode" />
-
-<!--        用户设置界面-->
-        <ImageButton
-            android:id="@+id/userButton"
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="#C3C3C3"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-    </LinearLayout>
     <!--装饰的横线-->
+
+    <!--    主页背景图片-->
+
+    <!--每日句子-->
+
+    <!--日期号-->
+
+    <!--年月-->
+
+
     <ImageView
         android:id="@+id/hengxian"
-        android:layout_width="392dp"
-        android:layout_height="124dp"
-        android:layout_marginTop="236dp"
+        android:layout_width="377dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="436dp"
         android:src="@drawable/hengxian"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.529"
         tools:ignore="MissingConstraints" />
 
-<!--    主页背景图片-->
     <ImageView
         android:id="@+id/mainImage"
         android:layout_width="355dp"
         android:layout_height="355dp"
-        android:src="@drawable/zhutu"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/zhutu_shape"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/hengxian"
+        app:layout_constraintCircleRadius="15px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115"
-        app:layout_constraintCircleRadius="15px"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
-    <!--“上滑进入事物列表”图样-->
-    <ImageView
-        android:id="@+id/shanghua"
-        android:layout_width="220dp"
-        android:layout_height="82dp"
-        android:src="@drawable/shanghua"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.953" />
-<!--每日句子-->
     <TextView
         android:id="@+id/daySentence"
         android:layout_width="334dp"
         android:layout_height="28dp"
+        android:layout_marginTop="448dp"
         android:fontFamily="serif"
         android:text="人间总是混沌局，谁也不多余，谁也不必须."
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.659" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-<!--日期号-->
-
-    <!--年月-->
     <TextView
         android:id="@+id/zhutu_day"
         android:layout_width="wrap_content"
@@ -166,6 +91,15 @@
         app:layout_constraintStart_toStartOf="@+id/mainImage"
         app:layout_constraintTop_toTopOf="@+id/mainImage"
         app:layout_constraintVertical_bias="0.421" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/buttom" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

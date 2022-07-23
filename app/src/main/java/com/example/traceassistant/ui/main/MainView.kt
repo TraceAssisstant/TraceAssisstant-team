@@ -9,9 +9,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.traceassistant.R
+import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.logic.Entity.SignNature
+import com.example.traceassistant.ui.affairShow.ShowView
 import com.example.traceassistant.ui.affairsCollection.CollectionView
+import com.example.traceassistant.ui.habit.HabitView
+import com.example.traceassistant.ui.setting.SettingView
 import java.util.*
 
 class MainView : AppCompatActivity() {
@@ -27,8 +32,17 @@ class MainView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * 导航栏
+         */
+        Navigation.initialize(R.id.homePage,this,binding.bottomNavigation)
+
         viewModel.loadRepository()//加载图文资源
 
+        val date = Calendar.getInstance()
+        id = date[Calendar.DAY_OF_MONTH]%lastId+1
+        viewModel.getSN(id)
 
         //观察id变化，更换图文
         viewModel.mainViewLiveData.observe(this, Observer { result ->
@@ -39,14 +53,6 @@ class MainView : AppCompatActivity() {
                 binding.mainImage.setImageResource(id)
             }
         })
-
-
-        //        以下代码皆仅是测试
-        //        向“添加事务”按钮添加跳转到事务收集页面的方法
-        binding.addButton.setOnClickListener() {
-            val intent = Intent(this, CollectionView::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onStart() {
@@ -70,9 +76,9 @@ class MainView : AppCompatActivity() {
             Log.d("start","广播开启")
             val c = Calendar.getInstance()
             var mMinute=c[Calendar.MINUTE]//获取当前分钟  测试用
-            var mDay=c[Calendar.DAY_OF_WEEK_IN_MONTH] //获取当前日期
+            var mDay=c[Calendar.DAY_OF_MONTH] //获取当前日期
             //id从1开始所以+1
-            id=mMinute%lastId+1
+            id=mDay%lastId+1
             Log.d("id",id.toString())
             viewModel.getSN(id)
         }
