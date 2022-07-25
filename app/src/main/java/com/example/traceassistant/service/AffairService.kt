@@ -9,18 +9,25 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.traceassistant.R
+import com.example.traceassistant.logic.Entity.AffairForm
+import com.example.traceassistant.logic.Repository
 import com.example.traceassistant.ui.main.MainView
 
 class AffairService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        val notificationIntent = Intent(this, AffairNotification::class.java)
+        val notificationIntent = Intent(this, NotificationService::class.java)
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        //定时通知测试，即在服务开启后4秒左右推送通知
-        doNotificate("拿快递","去江苏大学新一区快递超市拿快递",notificationIntent,System.currentTimeMillis()+4000)
+        //初始化数据库并获取事务信息
+        Repository.initAFDao()
+        var list :List<AffairForm> = Repository.getAffairList();
 
+        //将事务添加到通知队列
+        for( af in  list){
+            doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time)
+        }
 
         //开启前台服务
         Log.d("MyService", "onCreate executed")
@@ -38,8 +45,8 @@ class AffairService : Service() {
 
         //前台状态栏信息
         val notification = NotificationCompat.Builder(this, "AffairService")
-            .setContentTitle("事务助手")
-            .setContentText("事务助手正在运行")
+            .setContentTitle("智醒事务助手")
+            .setContentText("事务助手正在运行...")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
             .setContentIntent(pi)
@@ -50,7 +57,7 @@ class AffairService : Service() {
     }
 
     /**
-     * 执行信息通知的方法
+     * 执行定时信息通知的方法
      */
     fun doNotificate(title:String ,content:String,intent: Intent,time:Long){
         intent.putExtra("title",title)
@@ -60,7 +67,7 @@ class AffairService : Service() {
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             time,
-            PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         )
 
     }
