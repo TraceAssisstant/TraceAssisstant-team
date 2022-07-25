@@ -12,4 +12,4 @@ fun Int.showToast(duration: Int = Toast.LENGTH_SHORT){
     Toast.makeText(GlobalApplication.context,this,duration).show()
 }
 
-//
+fun Boolean.toInt() = if (this) 1 else 0
