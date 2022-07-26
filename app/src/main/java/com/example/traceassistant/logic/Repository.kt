@@ -121,4 +121,24 @@ object Repository {
         return affairFormDao.affairQueryByTime()
     }
 
+    /**
+     * 根据日期返回当天的事务,按照时间戳排序
+     * @param date:yyyy-mm-dd格式的日期字符串
+     * @return List<AffairForm> 事务列表
+     */
+    fun getAffairListByDate(date:String ):List<AffairForm>{
+        return affairFormDao.affairQueryByDate(date)
+    }
+
+    /**
+     * 删除所有事务(一般用来处理测试数据,慎用)
+     */
+    fun deleteAffairAll(){
+        try{
+            affairFormDao.affairDeleteAll()
+        }catch(e:Exception){
+            Log.w("删除错误,无记录(可忽略)",e)
+        }
+    }
+
 }

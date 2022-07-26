@@ -3,6 +3,7 @@ package com.example.traceassistant.logic.Dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.traceassistant.logic.Entity.AffairForm
 
 @Dao
@@ -27,6 +28,12 @@ interface AffairFormDao {
     fun affairQueryByTime():List<AffairForm>
 
     /**
+     *  根据日期返回当天的事务,按照时间戳排序
+     */
+    @Query("select * from affair_form where date = :tdate order by time")
+    fun affairQueryByDate(tdate:String):List<AffairForm>
+
+    /**
      * 根据等级高低顺序返回所有事务的列表
      */
     @Query("select * from affair_form order by level")
@@ -37,6 +44,12 @@ interface AffairFormDao {
      */
     @Query("delete from affair_form where id= :tid")
     fun affairDeleteById(tid:Int)
+
+    /**
+     * 删除所有事务
+     */
+    @Query("delete from affair_form")
+    fun affairDeleteAll()
 
 
 }
