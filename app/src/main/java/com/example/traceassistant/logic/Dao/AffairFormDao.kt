@@ -51,5 +51,9 @@ interface AffairFormDao {
     @Query("delete from affair_form")
     fun affairDeleteAll()
 
-
+    /**
+     * 更新事务信息
+     */
+    @Update
+    fun affairUpdate(affairForm: AffairForm)
 }

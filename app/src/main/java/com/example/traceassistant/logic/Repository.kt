@@ -141,4 +141,16 @@ object Repository {
         }
     }
 
+    /**
+     * 根据主键id来对事务信息进行删除
+     * @param AffairForm
+     */
+    fun updateAffair(affairForm: AffairForm){
+        try{
+            affairFormDao.affairUpdate(affairForm)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+    }
+
 }
