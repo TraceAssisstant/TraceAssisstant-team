@@ -73,6 +73,11 @@ class AffairAdapter(val data: List<AffairForm>): RecyclerView.Adapter<AffairAdap
              */
             intent.putExtra("vibration",dataP.isShake)
 
+            /**
+             * @return Int
+             */
+            intent.putExtra("id",dataP.id)
+
             it.context.startActivity(intent)
         }
 
