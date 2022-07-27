@@ -12,6 +12,13 @@ import com.example.traceassistant.ui.setting.SettingView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 object Navigation {
+
+    /**
+     * 初始化导航栏
+     * @param id 设置当前选中的导航栏图标
+     * @param context 上下文
+     * @param bottomNavigationView 导航栏id
+     */
     fun initialize(id: Int,context: Context,bottomNavigationView: BottomNavigationView){
         bottomNavigationView.selectedItemId = id
         bottomNavigationView.setOnItemSelectedListener { item->

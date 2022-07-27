@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.affairsCollection.CollectionView">
+    tools:context=".ui.affairShow.AlterView">
 
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="411dp"
         android:layout_height="605dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
@@ -26,7 +25,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="346dp"
-                android:src="@drawable/background01" />
+                android:src="@drawable/background03" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -37,7 +36,7 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/affairTitle"
+                    android:id="@+id/alterTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -51,13 +50,13 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/affairContent"
+                    android:id="@+id/alterContent"
                     android:layout_width="match_parent"
                     android:layout_height="300px" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/datePick"
+                android:id="@+id/alterDatePick"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
@@ -66,19 +65,19 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/dateShow"
+                android:id="@+id/alterDateShow"
                 android:layout_width="200dp"
                 android:layout_height="50dp" />
 
             <Button
-                android:id="@+id/timePick"
+                android:id="@+id/alterTimePick"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:text="选择时间"
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/timeShow"
+                android:id="@+id/alterTimeShow"
                 android:layout_width="200dp"
                 android:layout_height="50dp" />
 
@@ -90,7 +89,7 @@
                 android:hint="重要级别">
 
                 <AutoCompleteTextView
-                    android:id="@+id/level"
+                    android:id="@+id/alterLevel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none" />
@@ -102,13 +101,13 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/ring"
+                    android:id="@+id/alterRing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="响铃" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/vibration"
+                    android:id="@+id/alterVibration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="振动" />
@@ -119,14 +118,14 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/tagGroup"
+                    android:id="@+id/alterTagGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:singleLine="true"
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/study"
+                        android:id="@+id/alterStudy"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -135,7 +134,7 @@
                         android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/work"
+                        android:id="@+id/alterWork"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -144,7 +143,7 @@
                         android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/rest"
+                        android:id="@+id/alterRest"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -153,7 +152,7 @@
                         android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/entertainment"
+                        android:id="@+id/alterEntertainment"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -162,7 +161,7 @@
                         android:textAlignment="center" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/sleep"
+                        android:id="@+id/alterSleep"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
@@ -175,7 +174,7 @@
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/submitBtn"
+        android:id="@+id/alterSubmitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"

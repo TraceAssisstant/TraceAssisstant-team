@@ -10,6 +10,5 @@ class CollectionViewModel: ViewModel() {
     fun insertAffair(data: AffairForm){
         Repository.initAFDao()
         Repository.insertAffiar(data)
-        Log.d("事务列表:",Repository.getAffairList().toString())
     }
 }

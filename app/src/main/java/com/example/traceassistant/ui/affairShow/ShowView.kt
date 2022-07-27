@@ -2,6 +2,7 @@ package com.example.traceassistant.ui.affairShow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.Navigation
@@ -9,6 +10,7 @@ import com.example.traceassistant.databinding.ActivityShowViewBinding
 import com.example.traceassistant.logic.Repository
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
+import java.util.*
 
 class ShowView : AppCompatActivity() {
     lateinit var binding: ActivityShowViewBinding
@@ -17,6 +19,14 @@ class ShowView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityShowViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * 需要显示的事务数据集
+         */
+        Repository.initAFDao()
+        val c = Calendar.getInstance()
+        val dateStr: String = String.format("%4d-%02d-%02d",c[Calendar.YEAR],c[Calendar.MONTH]+1,c[Calendar.DAY_OF_MONTH])
+        var affairList = Repository.getAffairListByDate(dateStr)
 
         /**
          * 导航栏
@@ -42,6 +52,8 @@ class ShowView : AppCompatActivity() {
             val date = SimpleDateFormat("yyyy-MM-dd").format(dateStmap)
             binding.dateShow.text = date
             dateSelected = date
+
+            affairList = Repository.getAffairListByDate(dateSelected)
         }
 
         binding.datePick.setOnClickListener(){
@@ -52,7 +64,6 @@ class ShowView : AppCompatActivity() {
          * 数据显示
          */
         Repository.initAFDao()
-        val affairList = Repository.getAffairList()
         val layoutManager = LinearLayoutManager(this)
         binding.affairList.layoutManager = layoutManager
         val adapter = AffairAdapter(affairList)

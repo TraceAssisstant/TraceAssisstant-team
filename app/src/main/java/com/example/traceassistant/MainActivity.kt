@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
         Repository.initAFDao()
 
-        var affair01 = AffairForm("取快递","去新一区快递超市取快递",1657353897,119.523083,32.209777,10.0,2,2,"快递",false,false)
-        Repository.insertAffiar(affair01)
+//        var affair01 = AffairForm("取快递","去新一区快递超市取快递",1657353897,119.523083,32.209777,10.0,2,2,"快递",false,false)
+//        Repository.insertAffiar(affair01)
 
         var list :List<AffairForm> = Repository.getAffairList();
 

@@ -19,13 +19,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/affairList"
-        android:layout_width="413dp"
-        android:layout_height="609dp"
-        android:layout_marginTop="3dp"
+        android:layout_width="409dp"
+        android:layout_height="468dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePick" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dateShow"
