@@ -28,6 +28,8 @@ class ShowView : AppCompatActivity() {
         val dateStr: String = String.format("%4d-%02d-%02d",c[Calendar.YEAR],c[Calendar.MONTH]+1,c[Calendar.DAY_OF_MONTH])
         var affairList = Repository.getAffairListByDate(dateStr)
 
+        Log.d("all",Repository.getAffairList().toString())
+
         /**
          * 导航栏
          */
@@ -54,6 +56,11 @@ class ShowView : AppCompatActivity() {
             dateSelected = date
 
             affairList = Repository.getAffairListByDate(dateSelected)
+
+            val layoutManager = LinearLayoutManager(this)
+            binding.affairList.layoutManager = layoutManager
+            val adapter = AffairAdapter(affairList)
+            binding.affairList.adapter = adapter
         }
 
         binding.datePick.setOnClickListener(){
@@ -63,7 +70,6 @@ class ShowView : AppCompatActivity() {
         /**
          * 数据显示
          */
-        Repository.initAFDao()
         val layoutManager = LinearLayoutManager(this)
         binding.affairList.layoutManager = layoutManager
         val adapter = AffairAdapter(affairList)

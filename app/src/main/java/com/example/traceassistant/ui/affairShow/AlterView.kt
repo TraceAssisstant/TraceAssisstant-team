@@ -185,10 +185,7 @@ class AlterView : AppCompatActivity() {
                 Log.d("dataId",data.id.toString())
                 Log.d("dataAlter",data.toString())
 
-                /**
-                 * 代码位置预留
-                 * 修改事务数据
-                 */
+                viewModel.alterAffair(data)
 
             }catch (e: Exception){
                 Log.e("insertError",e.toString())
