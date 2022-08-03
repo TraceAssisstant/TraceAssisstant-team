@@ -33,7 +33,7 @@ class ShowView : AppCompatActivity() {
         /**
          * 导航栏
          */
-        Navigation.initialize(R.id.homePage,this,binding.bottomNavigation)
+        Navigation.initialize(R.id.showPage,this,binding.bottomNavigation)
 
         /**
          * 日期选择框

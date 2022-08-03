@@ -1,6 +1,5 @@
 package com.example.traceassistant.ui.affairsCollection
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Repository

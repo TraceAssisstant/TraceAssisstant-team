@@ -23,10 +23,16 @@
             android:orientation="vertical">
 
             <!--用于暂时替地图组件占位-->
-            <ImageView
+
+            <com.example.traceassistant.ui.affairsCollection.MapContainer
                 android:layout_width="match_parent"
-                android:layout_height="346dp"
-                android:src="@drawable/background01" />
+                android:layout_height="wrap_content">
+
+                <com.amap.api.maps.TextureMapView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:id="@+id/collectionMap"/>
+            </com.example.traceassistant.ui.affairsCollection.MapContainer>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

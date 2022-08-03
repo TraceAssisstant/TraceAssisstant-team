@@ -1,11 +1,20 @@
 package com.example.traceassistant.ui.affairsCollection
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
+import com.amap.api.maps.AMap
+import com.amap.api.maps.MapView
+import com.amap.api.maps.MapsInitializer
+import com.amap.api.maps.TextureMapView
+import com.amap.api.maps.model.MyLocationStyle
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.Navigation
@@ -22,6 +31,10 @@ import java.text.SimpleDateFormat
 
 class CollectionView : AppCompatActivity() {
     private lateinit var binding: ActivityCollectionViewBinding
+
+    private lateinit var mMapView: TextureMapView
+
+    private var aMap: AMap? = null
 
     val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
 
@@ -157,8 +170,50 @@ class CollectionView : AppCompatActivity() {
 
             val intent = Intent(this,MainView::class.java)
             this.startActivity(intent)
-
-
         }
+
+        /**
+         * 地图模块
+         */
+        MapsInitializer.updatePrivacyShow(this,true,true)
+        MapsInitializer.updatePrivacyAgree(this,true)
+
+        mMapView = binding.collectionMap
+        mMapView.onCreate(savedInstanceState)
+        if(aMap == null){
+            aMap = mMapView.map
+        }
+
+        val myLocationStyle: MyLocationStyle = MyLocationStyle()
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)
+        myLocationStyle.showMyLocation(true)
+        myLocationStyle.interval(2000)
+        myLocationStyle.strokeColor(Color.BLUE)
+        myLocationStyle.radiusFillColor(Color.RED)
+        myLocationStyle.anchor(0.0f,1.0f)
+        aMap?.uiSettings?.isMyLocationButtonEnabled = true
+        aMap?.isMyLocationEnabled = true
+        aMap?.myLocationStyle = myLocationStyle
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mMapView.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mMapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mMapView.onPause()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mMapView.onSaveInstanceState(outState)
     }
 }
