@@ -9,7 +9,7 @@ import com.example.traceassistant.logic.Dao.SignNatureDao
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Entity.SignNature
 
-@Database(version = 4, entities = [SignNature::class, AffairForm::class])
+@Database(version = 5, entities = [SignNature::class, AffairForm::class])
 abstract class AppDatabase : RoomDatabase() {
     abstract fun SignNatureDao(): SignNatureDao
     abstract fun affairFormDao(): AffairFormDao

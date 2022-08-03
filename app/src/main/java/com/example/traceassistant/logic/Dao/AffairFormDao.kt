@@ -56,4 +56,10 @@ interface AffairFormDao {
      */
     @Update
     fun affairUpdate(affairForm: AffairForm)
+
+    /**
+     * 根据id更新事务状态state
+     */
+    @Query("update affair_form set state = :state where id = :id")
+    fun affairStateUpdate(id:Int,state:Int)
 }

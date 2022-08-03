@@ -179,7 +179,7 @@ class AlterView : AppCompatActivity() {
                 val ringMusic: Boolean= isring
                 val isshake: Boolean = isvibration
 
-                val data = AffairForm(title,content,time, dateSelected,0.0,0.0,0.0,level,tag,ringMusic,isshake)
+                val data = AffairForm(title,content,time, dateSelected,0.0,0.0,0.0,level,tag,ringMusic,isshake,1)
                 data.id = intent.getIntExtra("id",0)
 
                 Log.d("dataId",data.id.toString())

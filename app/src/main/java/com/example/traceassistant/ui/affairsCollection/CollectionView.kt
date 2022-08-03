@@ -160,7 +160,7 @@ class CollectionView : AppCompatActivity() {
                 val ringMusic: Boolean= isring
                 val isshake: Boolean = isvibration
 
-                val data = AffairForm(title,content,time,dateSelected,0.0,0.0,0.0,level,tag,ringMusic,isshake)
+                val data = AffairForm(title,content,time,dateSelected,0.0,0.0,0.0,level,tag,ringMusic,isshake,0)
                 viewModel.insertAffair(data)
             }catch (e: Exception){
                 Log.e("insertError",e.toString())

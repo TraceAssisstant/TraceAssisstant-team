@@ -34,7 +34,7 @@ class MainView : AppCompatActivity() {
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         /**
-         * 开启后台服务
+         * 开启后台服务,暂时关闭
          */
         val intent = Intent(this, AffairService::class.java)
         startService(intent)

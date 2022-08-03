@@ -153,4 +153,17 @@ object Repository {
         }
     }
 
+    /**
+     * 根据主键id来对事务信息进行删除
+     * @param id:Int(事务id)
+     * @param state:Int(状态码)
+     */
+    fun updateDateAffair(id: Int,state:Int){
+        try{
+            affairFormDao.affairStateUpdate(id,state)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+    }
+
 }

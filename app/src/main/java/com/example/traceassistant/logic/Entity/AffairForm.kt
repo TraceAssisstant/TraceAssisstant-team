@@ -19,6 +19,7 @@ data class AffairForm(
     @ColumnInfo(name = "tag") val tag:String,
     @ColumnInfo(name = "ring_music") val ringMusic:Boolean,
     @ColumnInfo(name = "is_shake") val isShake:Boolean,
+    @ColumnInfo(name = "state") val state: Int
 ){
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0
