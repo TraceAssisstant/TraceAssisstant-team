@@ -1,23 +1,19 @@
 package com.example.traceassistant.ui.affairsCollection
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.amap.api.maps.AMap
-import com.amap.api.maps.MapView
 import com.amap.api.maps.MapsInitializer
 import com.amap.api.maps.TextureMapView
 import com.amap.api.maps.model.MyLocationStyle
 import com.example.traceassistant.R
-import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.Navigation
+import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.databinding.ActivityCollectionViewBinding
 import com.example.traceassistant.logic.Entity.AffairForm
@@ -26,7 +22,6 @@ import com.example.traceassistant.ui.main.MainView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import java.text.ParsePosition
 import java.text.SimpleDateFormat
 
 class CollectionView : AppCompatActivity() {
@@ -42,6 +37,11 @@ class CollectionView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * 定位权限申请
+         */
+        locationPermission(this)
 
         /**
          * 导航栏
@@ -184,6 +184,10 @@ class CollectionView : AppCompatActivity() {
             aMap = mMapView.map
         }
 
+
+        /**
+         * 地图定位蓝点
+         */
         val myLocationStyle: MyLocationStyle = MyLocationStyle()
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)
         myLocationStyle.showMyLocation(true)
@@ -194,6 +198,8 @@ class CollectionView : AppCompatActivity() {
         aMap?.uiSettings?.isMyLocationButtonEnabled = true
         aMap?.isMyLocationEnabled = true
         aMap?.myLocationStyle = myLocationStyle
+
+
 
     }
 
