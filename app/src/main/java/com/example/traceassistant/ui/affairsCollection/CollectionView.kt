@@ -10,7 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.amap.api.maps.AMap
 import com.amap.api.maps.MapsInitializer
 import com.amap.api.maps.TextureMapView
-import com.amap.api.maps.model.MyLocationStyle
+import com.amap.api.maps.model.*
+import com.amap.api.services.geocoder.GeocodeQuery
+import com.amap.api.services.geocoder.GeocodeResult
+import com.amap.api.services.geocoder.GeocodeSearch
+import com.amap.api.services.geocoder.RegeocodeResult
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.locationPermission
@@ -24,12 +28,17 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 
-class CollectionView : AppCompatActivity() {
+class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener,AMap.OnMapClickListener {
     private lateinit var binding: ActivityCollectionViewBinding
 
     private lateinit var mMapView: TextureMapView
 
     private var aMap: AMap? = null
+
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+
+    private lateinit var marker: Marker
 
     val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
 
@@ -160,7 +169,7 @@ class CollectionView : AppCompatActivity() {
                 val ringMusic: Boolean= isring
                 val isshake: Boolean = isvibration
 
-                val data = AffairForm(title,content,time,dateSelected,0.0,0.0,0.0,level,tag,ringMusic,isshake,0)
+                val data = AffairForm(title,content,time,dateSelected,longitude,latitude,0.0,level,tag,ringMusic,isshake,0)
                 viewModel.insertAffair(data)
             }catch (e: Exception){
                 Log.e("insertError",e.toString())
@@ -189,15 +198,26 @@ class CollectionView : AppCompatActivity() {
          * 地图定位蓝点
          */
         val myLocationStyle: MyLocationStyle = MyLocationStyle()
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER)
         myLocationStyle.showMyLocation(true)
         myLocationStyle.interval(2000)
         myLocationStyle.strokeColor(Color.BLUE)
-        myLocationStyle.radiusFillColor(Color.RED)
         myLocationStyle.anchor(0.0f,1.0f)
         aMap?.uiSettings?.isMyLocationButtonEnabled = true
         aMap?.isMyLocationEnabled = true
+        aMap?.setOnMapClickListener(this)
         aMap?.myLocationStyle = myLocationStyle
+
+        /**
+         * 地理搜索
+         */
+        val geocodeSearch = GeocodeSearch(this)
+        geocodeSearch.setOnGeocodeSearchListener(this)
+        binding.searchLocationBtn.setOnClickListener {
+            val searchStr = binding.searchLocation.text.toString()
+            val query = GeocodeQuery(searchStr,"0512")
+            geocodeSearch.getFromLocationNameAsyn(query)
+        }
 
 
 
@@ -221,5 +241,30 @@ class CollectionView : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mMapView.onSaveInstanceState(outState)
+    }
+
+
+    override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onMapClick(p0: LatLng?) {
+        if (this::marker.isInitialized){
+            marker.remove()
+        }
+        if (p0 != null) {
+            latitude = p0.latitude
+            longitude = p0.longitude
+
+            var markerOptions = MarkerOptions()
+            markerOptions.position(p0)
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_location_on_24))
+            marker = aMap!!?.addMarker(markerOptions)
+        }
+        Log.d("坐标","$latitude,$longitude")
     }
 }
