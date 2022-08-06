@@ -5,14 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.traceassistant.logic.Dao.AffairFormDao
+import com.example.traceassistant.logic.Dao.HabitDao
 import com.example.traceassistant.logic.Dao.SignNatureDao
 import com.example.traceassistant.logic.Entity.AffairForm
+import com.example.traceassistant.logic.Entity.Habit
 import com.example.traceassistant.logic.Entity.SignNature
 
-@Database(version = 5, entities = [SignNature::class, AffairForm::class])
+@Database(version = 6, entities = [SignNature::class, AffairForm::class,Habit::class])
 abstract class AppDatabase : RoomDatabase() {
     abstract fun SignNatureDao(): SignNatureDao
-    abstract fun affairFormDao(): AffairFormDao
+    abstract fun AffairFormDao(): AffairFormDao
+    abstract fun HabitDao(): HabitDao
     companion object {
         private var instance: AppDatabase? = null
         @Synchronized

@@ -3,12 +3,15 @@ package com.example.traceassistant.logic
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.room.Query
 import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.logic.Dao.AffairFormDao
+import com.example.traceassistant.logic.Dao.HabitDao
 import com.example.traceassistant.logic.Dao.SignNatureDao
 import com.example.traceassistant.logic.Database.AppDatabase
 import com.example.traceassistant.logic.Entity.AffairForm
+import com.example.traceassistant.logic.Entity.Habit
 import com.example.traceassistant.logic.Entity.SignNature
 import kotlinx.coroutines.Dispatchers
 import kotlin.concurrent.thread
@@ -17,9 +20,10 @@ object Repository {
 
     lateinit var sndao: SignNatureDao
     lateinit var affairFormDao: AffairFormDao
+    lateinit var habitDao: HabitDao;
 
     /**
-     * 初始化数据库dao sndao
+     * 初始化sndao**************************************************************************
      */
     fun initSndao(){
         sndao = AppDatabase.getDatabase(GlobalApplication.context).SignNatureDao()
@@ -95,10 +99,10 @@ object Repository {
     }
 
     /**
-     *  初始化affair数据库操作对象
+     *  初始化affair数据库操作对象**********************************************************************
      */
     fun initAFDao(){
-        affairFormDao = AppDatabase.getDatabase(GlobalApplication.context).affairFormDao()
+        affairFormDao = AppDatabase.getDatabase(GlobalApplication.context).AffairFormDao()
     }
 
     /**
@@ -166,4 +170,40 @@ object Repository {
         }
     }
 
+    /**
+     * 初始化habitDao*********************************************************************************
+     */
+    fun initHabitDao(){
+        habitDao = AppDatabase.getDatabase(GlobalApplication.context).HabitDao()
+    }
+
+    /**
+     * 插入习惯养成信息
+     * @param habit:Habit
+     */
+    fun habitInsert(habit: Habit){
+        try{
+            habitDao.habitInsert(habit);
+        }catch (e:Exception){
+            Log.w("插入错误(可忽略)",e)
+        }
+    }
+
+    /**
+     * 查询习惯养成记录,返回习惯列表
+     */
+    fun habitQuery():List<Habit>{
+        return habitDao.habitQuery()
+    }
+
+    /**
+     * 根据id删除习惯养成记录
+     */
+    fun habitDeleteById(id:Int){
+        try{
+            habitDao.habitDeleteById(id)}
+        catch (e:Exception){
+            Log.w("删除失败",e)
+        }
+    }
 }
