@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.Navigation
+import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.logic.Entity.SignNature
 import com.example.traceassistant.service.AffairService
@@ -34,10 +35,15 @@ class MainView : AppCompatActivity() {
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         /**
-         * 开启后台服务,暂时关闭
+         * 开启后台服务
          */
         val intent = Intent(this, AffairService::class.java)
         startService(intent)
+        /**
+         * 申请访问精确地址权限
+         */
+        locationPermission(this)
+
         /**
          * 导航栏
          */
