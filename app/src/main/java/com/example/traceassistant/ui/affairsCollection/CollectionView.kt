@@ -1,14 +1,23 @@
 package com.example.traceassistant.ui.affairsCollection
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
+import com.amap.api.maps.AMap
+import com.amap.api.maps.MapsInitializer
+import com.amap.api.maps.TextureMapView
+import com.amap.api.maps.model.*
+import com.amap.api.services.geocoder.GeocodeQuery
+import com.amap.api.services.geocoder.GeocodeResult
+import com.amap.api.services.geocoder.GeocodeSearch
+import com.amap.api.services.geocoder.RegeocodeResult
 import com.example.traceassistant.R
-import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.Navigation
+import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.databinding.ActivityCollectionViewBinding
 import com.example.traceassistant.logic.Entity.AffairForm
@@ -17,11 +26,19 @@ import com.example.traceassistant.ui.main.MainView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import java.text.ParsePosition
 import java.text.SimpleDateFormat
 
-class CollectionView : AppCompatActivity() {
+class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener,AMap.OnMapClickListener {
     private lateinit var binding: ActivityCollectionViewBinding
+
+    private lateinit var mMapView: TextureMapView
+
+    private var aMap: AMap? = null
+
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+
+    private lateinit var marker: Marker
 
     val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
 
@@ -29,6 +46,11 @@ class CollectionView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * 定位权限申请
+         */
+        locationPermission(this)
 
         /**
          * 导航栏
@@ -135,25 +157,114 @@ class CollectionView : AppCompatActivity() {
          * 表单提交按钮
          */
         binding.submitBtn.setOnClickListener(){
-            val title: String = binding.affairTitle.text.toString()
-            val content: String = binding.affairContent.text.toString()
-            val time = SimpleDateFormat("yyyy-MM-dd-HH-mm").parse("${dateSelected}-${timeSelected}",).time
+            try {
+                val title: String = binding.affairTitle.text.toString()
+                val content: String = binding.affairContent.text.toString()
+                val time = SimpleDateFormat("yyyy-MM-dd-HH-mm").parse("${dateSelected}-${timeSelected}",).time
 
-            Log.d("时间:", "${dateSelected}-${timeSelected}")
+                Log.d("时间:", "${dateSelected}-${timeSelected}")
 
-            val level = binding.level.text.toString().toInt()
-            val tag = tagSelected
-            val ringMusic: Boolean= isring
-            val isshake: Boolean = isvibration
+                val level = binding.level.text.toString().toInt()
+                val tag = tagSelected
+                val ringMusic: Boolean= isring
+                val isshake: Boolean = isvibration
 
-            val data = AffairForm(title,content,time,0.0,0.0,0.0,0,level,tag,ringMusic,isshake)
-
-            viewModel.insertAffair(data)
+                val data = AffairForm(title,content,time,dateSelected,longitude,latitude,0.0,level,tag,ringMusic,isshake,0)
+                viewModel.insertAffair(data)
+            }catch (e: Exception){
+                Log.e("insertError",e.toString())
+                Log.d("dataBase",Repository.getAffairList().toString())
+                return@setOnClickListener
+            }
 
             val intent = Intent(this,MainView::class.java)
             this.startActivity(intent)
-
-
         }
+
+        /**
+         * 地图模块
+         */
+        MapsInitializer.updatePrivacyShow(this,true,true)
+        MapsInitializer.updatePrivacyAgree(this,true)
+
+        mMapView = binding.collectionMap
+        mMapView.onCreate(savedInstanceState)
+        if(aMap == null){
+            aMap = mMapView.map
+        }
+
+
+        /**
+         * 地图定位蓝点
+         */
+        val myLocationStyle: MyLocationStyle = MyLocationStyle()
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER)
+        myLocationStyle.showMyLocation(true)
+        myLocationStyle.interval(2000)
+        myLocationStyle.strokeColor(Color.BLUE)
+        myLocationStyle.anchor(0.0f,1.0f)
+        aMap?.uiSettings?.isMyLocationButtonEnabled = true
+        aMap?.isMyLocationEnabled = true
+        aMap?.setOnMapClickListener(this)
+        aMap?.myLocationStyle = myLocationStyle
+
+        /**
+         * 地理搜索
+         */
+        val geocodeSearch = GeocodeSearch(this)
+        geocodeSearch.setOnGeocodeSearchListener(this)
+        binding.searchLocationBtn.setOnClickListener {
+            val searchStr = binding.searchLocation.text.toString()
+            val query = GeocodeQuery(searchStr,"0512")
+            geocodeSearch.getFromLocationNameAsyn(query)
+        }
+
+
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mMapView.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mMapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mMapView.onPause()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mMapView.onSaveInstanceState(outState)
+    }
+
+
+    override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onMapClick(p0: LatLng?) {
+        if (this::marker.isInitialized){
+            marker.remove()
+        }
+        if (p0 != null) {
+            latitude = p0.latitude
+            longitude = p0.longitude
+
+            var markerOptions = MarkerOptions()
+            markerOptions.position(p0)
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_location_on_24))
+            marker = aMap!!?.addMarker(markerOptions)
+        }
+        Log.d("坐标","$latitude,$longitude")
     }
 }

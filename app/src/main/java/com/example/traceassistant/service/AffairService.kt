@@ -24,10 +24,12 @@ class AffairService : Service() {
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
 
-        //将事务添加到通知队列
+
         for( af in  list){
-            doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time)
+            doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time*1000)
         }
+
+        doNotificate("测试通知标题","测试通知内容",notificationIntent,System.currentTimeMillis()+8000)
 
         //开启前台服务
         Log.d("MyService", "onCreate executed")
@@ -71,10 +73,7 @@ class AffairService : Service() {
         )
 
     }
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        Log.d("MyService", "onStartCommand executed")
-        return super.onStartCommand(intent, flags, startId)
-    }
+
     override fun onDestroy() {
         super.onDestroy()
         Log.d("MyService", "onDestroy executed")

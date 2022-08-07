@@ -17,6 +17,6 @@ data class SignNature(
 
 
         override fun toString(): String {
-                return "id(day): "+id+" text :"+text+" imgurl: "+imageUrl
+                return "id(day): "+id+" "+super.toString();
         }
 }

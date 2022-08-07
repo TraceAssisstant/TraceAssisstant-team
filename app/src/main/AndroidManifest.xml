@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.traceassistant">
-
     <!-- 允许访问网络，必选权限 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许获取粗略位置，若用GPS实现定位小蓝点功能则必选 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 允许获取设备和运营商信息，用于问题排查和网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选 -->
@@ -14,6 +13,8 @@
     <!-- 允许读设备等信息，用于问题排查 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 开启前台服务权限 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
     <application
         android:name=".Tools.GlobalApplication"
@@ -23,10 +24,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceAssistant">
+        <activity
+            android:name=".ui.affairShow.AlterView"
+            android:exported="false" />
+
         <service
             android:name=".service.NotificationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".service.AffairNotification"

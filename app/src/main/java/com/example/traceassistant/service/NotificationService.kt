@@ -29,7 +29,6 @@ class NotificationService : Service() {
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
                 NotificationManager
 
-
         //版本控制
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
             val channel =

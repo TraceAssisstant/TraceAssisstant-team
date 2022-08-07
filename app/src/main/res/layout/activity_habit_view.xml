@@ -6,4 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".ui.habit.HabitView">
 
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/buttom" />
+
+    <TextView
+        android:id="@+id/hours"
+        android:layout_width="118dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="125dp"
+        android:text="00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="serif"
+        android:textColor="#787474"
+        android:textSize="90sp"/>
+
+    <TextView
+        android:id="@+id/dot"
+        android:layout_width="51dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="135dp"
+        android:text=":"
+        android:fontFamily="serif"
+        android:textColor="#787474"
+        android:textSize="70sp"
+        app:layout_constraintStart_toEndOf="@+id/hours"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/minute"
+        android:layout_width="110dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="125dp"
+        android:text="00"
+        android:fontFamily="serif"
+        android:textColor="#787474"
+        android:textSize="90sp"
+        app:layout_constraintStart_toEndOf="@+id/dot"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/second"
+        android:layout_width="78dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="317dp"
+        android:layout_marginTop="30dp"
+        android:text="00"
+        android:fontFamily="serif"
+        android:textColor="#787474"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minute" />
+
+    <Button
+        android:id="@+id/start"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginBottom="191dp"
+        app:icon="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/stop"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="190dp"
+        app:icon="@drawable/ic_baseline_stop_24"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/pause"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="190dp"
+        app:icon="@drawable/ic_baseline_pause_24"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toStartOf="@+id/stop"
+        app:layout_constraintStart_toEndOf="@+id/start" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
