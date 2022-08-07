@@ -206,4 +206,53 @@ object Repository {
             Log.w("删除失败",e)
         }
     }
+
+    /**
+     * 根据日期返回 当天 专注的总时间和中断总时间
+     * @param 格式为 yyyy-mm-dd(2019-12-08)格式的日期 字符串
+     * @return 一个pair类型的返回值,包括两个变量:(focusTime,pauseTime) 专注时间,暂停时间
+     */
+    fun habitQueryByDate(date:String):Pair<Long,Long>{
+        var habitList : List<Habit> = habitDao.habitQueryByDate(date)
+        var focusTime : Long = 0
+        var pauseTime : Long = 0
+        for(habit in habitList){
+            focusTime+=habit.endTime-habit.beginTime
+            pauseTime+=habit.pauseTime
+        }
+        return Pair(focusTime,pauseTime)
+    }
+
+    /**
+     * 根据日期返回当前 月份 专注的总时间和中断总时间
+     * @param 格式为 yyyy-mm(2020-09)格式的 月份 字符串
+     * @return 一个pair类型的返回值,包括两个变量:(focusTime,pauseTime) 专注时间,暂停时间
+     */
+    fun habitQueryByMouth(date:String):Pair<Long,Long>{
+        var habitList : List<Habit> = habitDao.habitQueryByMouth(date+"%")
+        var focusTime : Long = 0
+        var pauseTime : Long = 0
+        for(habit in habitList){
+            focusTime+=habit.endTime-habit.beginTime
+            pauseTime+=habit.pauseTime
+        }
+        return Pair(focusTime,pauseTime)
+    }
+
+    /**
+     * 根据日期返回当前 年份 专注的总时间和中断总时间
+     * @param 格式为 yyyy(2020)格式的 月份 字符串
+     * @return 一个pair类型的返回值,包括两个变量:(focusTime,pauseTime) 专注时间,暂停时间
+     */
+    fun habitQueryByYear(date:String):Pair<Long,Long>{
+        var habitList : List<Habit> = habitDao.habitQueryByYear(date+"%")
+        var focusTime : Long = 0
+        var pauseTime : Long = 0
+        for(habit in habitList){
+            focusTime+=habit.endTime-habit.beginTime
+            pauseTime+=habit.pauseTime
+        }
+        return Pair(focusTime,pauseTime)
+    }
+
 }

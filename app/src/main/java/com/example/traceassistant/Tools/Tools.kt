@@ -34,11 +34,11 @@ fun locationPermission(activity: Activity){
         requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),100)
     }else{
         MaterialAlertDialogBuilder(activity,
-        com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog      )
             .setMessage("安卓版本号过低")
             .setPositiveButton("ok"){dialog,which ->
                 val intent = Intent(activity, MainView::class.java)
                 activity.startActivity(intent)
-            }
+        }
     }
 }

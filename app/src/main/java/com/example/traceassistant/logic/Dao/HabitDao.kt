@@ -23,4 +23,22 @@ interface HabitDao {
     @Query("delete from habit where id = :id")
     fun habitDeleteById(id:Int)
 
+    /**
+     * 根据日期查找当天的专注记录
+     */
+    @Query("select * from habit where date = :date")
+    fun habitQueryByDate(date : String):List<Habit>
+
+    /**
+     * 根据月份查找专注记录
+     */
+    @Query("select * from habit where date like :date")
+    fun habitQueryByMouth(date : String):List<Habit>
+
+    /**
+     * 根据年份查找专注记录
+     */
+    @Query("select * from habit where date like :date")
+    fun habitQueryByYear(date : String):List<Habit>
+
 }
