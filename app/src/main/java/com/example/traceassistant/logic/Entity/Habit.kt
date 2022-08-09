@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "habit")
 data class Habit(
-    @ColumnInfo(name = "tags") val tags :String,
-    @ColumnInfo(name="begin_time") val beginTime : Long,
-    @ColumnInfo(name="end_time") val endTime : Long,
-    @ColumnInfo(name="pause_time") val pauseTime : Long,
-    @ColumnInfo(name="date") val date :String
+    @ColumnInfo(name = "title") var title :String,
+    @ColumnInfo(name="begin_time") var beginTime : Long,
+    @ColumnInfo(name="end_time") var endTime : Long,
+    @ColumnInfo(name="pause_time") var pauseTime : Long,
+    @ColumnInfo(name="date") var date :String
 
 ){
     @PrimaryKey(autoGenerate = true)
