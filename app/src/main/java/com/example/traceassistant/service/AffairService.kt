@@ -23,7 +23,7 @@ class AffairService : Service() {
         //初始化数据库并获取事务信息
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
-        
+
         //开启前台服务
         Log.d("MyService", "服务已开启")
         try{
