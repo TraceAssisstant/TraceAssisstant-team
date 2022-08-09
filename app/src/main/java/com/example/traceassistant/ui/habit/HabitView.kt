@@ -13,6 +13,7 @@ class HabitView : AppCompatActivity() {
 
     lateinit var binding: ActivityHabitViewBinding
     val viewModel by lazy { ViewModelProvider(this).get(HabitViewModel::class.java) }
+    var btnNum=0//点击开始/暂停按钮的次数，奇数次开始计时，偶数次暂停计时
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +26,25 @@ class HabitView : AppCompatActivity() {
         Navigation.initialize(R.id.habitPage,this,binding.bottomNavigation)
 
         binding.start.setOnClickListener {
-            viewModel.start()
-        }
-        binding.pause.setOnClickListener {
-            viewModel.pause()
+            btnNum++
+            when{
+                btnNum==1->{
+                    viewModel.startTime()
+                    viewModel.start()
+                }//第一次开始计时时存入开始时间
+                btnNum%2==1->{
+                    viewModel.start()
+                    viewModel.latterPause()
+                }
+                btnNum%2==0->{
+                    viewModel.pause()
+                    viewModel.formerPause()
+                }
+            }
         }
         binding.stop.setOnClickListener {
             viewModel.stop()
+            btnNum=0
         }
 
         viewModel.hour.observe(this, Observer { h ->
