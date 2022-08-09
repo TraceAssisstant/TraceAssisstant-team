@@ -217,7 +217,7 @@ object Repository {
         var focusTime : Long = 0
         var pauseTime : Long = 0
         for(habit in habitList){
-            focusTime+=habit.endTime-habit.beginTime
+            focusTime+=habit.endTime-habit.beginTime-habit.pauseTime
             pauseTime+=habit.pauseTime
         }
         return Pair(focusTime,pauseTime)
@@ -233,7 +233,7 @@ object Repository {
         var focusTime : Long = 0
         var pauseTime : Long = 0
         for(habit in habitList){
-            focusTime+=habit.endTime-habit.beginTime
+            focusTime+=habit.endTime-habit.beginTime-habit.pauseTime
             pauseTime+=habit.pauseTime
         }
         return Pair(focusTime,pauseTime)
@@ -249,7 +249,7 @@ object Repository {
         var focusTime : Long = 0
         var pauseTime : Long = 0
         for(habit in habitList){
-            focusTime+=habit.endTime-habit.beginTime
+            focusTime+=habit.endTime-habit.beginTime-habit.pauseTime
             pauseTime+=habit.pauseTime
         }
         return Pair(focusTime,pauseTime)
