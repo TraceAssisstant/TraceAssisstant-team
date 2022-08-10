@@ -2,6 +2,7 @@ package com.example.traceassistant.ui.affairsCollection
 
 import android.content.Intent
 import android.graphics.Color
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,11 +12,10 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.MapsInitializer
 import com.amap.api.maps.TextureMapView
 import com.amap.api.maps.model.*
-import com.amap.api.services.geocoder.GeocodeQuery
-import com.amap.api.services.geocoder.GeocodeResult
-import com.amap.api.services.geocoder.GeocodeSearch
-import com.amap.api.services.geocoder.RegeocodeResult
+import com.amap.api.services.core.LatLonPoint
+import com.amap.api.services.geocoder.*
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.LocalNowLocation
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.Tools.showToast
@@ -28,7 +28,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 
-class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener,AMap.OnMapClickListener {
+class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener,AMap.OnMapClickListener,AMap.OnMyLocationChangeListener {
     private lateinit var binding: ActivityCollectionViewBinding
 
     private lateinit var mMapView: TextureMapView
@@ -39,6 +39,8 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
     private var longitude: Double = 0.0
 
     private lateinit var marker: Marker
+
+    val geocodeSearch = GeocodeSearch(this)
 
     val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
 
@@ -211,7 +213,7 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
         /**
          * 地理搜索
          */
-        val geocodeSearch = GeocodeSearch(this)
+        Log.d("Location",LocalNowLocation.getLocation()?.cityCode.toString())
         geocodeSearch.setOnGeocodeSearchListener(this)
         binding.searchLocationBtn.setOnClickListener {
             val searchStr = binding.searchLocation.text.toString()
@@ -245,11 +247,29 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
 
 
     override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
-        TODO("Not yet implemented")
+        if (p1 == 1000){
+            Log.d("SearchReq","Succeed")
+        }else{
+            Log.d("SearchReq","Fail")
+        }
     }
 
     override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
-        TODO("Not yet implemented")
+        if(p1 == 1000){
+            Log.d("SearchReq","Succeed")
+        }else{
+            Log.d("SearchReq","Fail")
+        }
+    }
+
+    override fun onMyLocationChange(location: Location?) {
+        if (location != null){
+            val query = RegeocodeQuery(LatLonPoint(location.latitude,location.longitude), 200F,GeocodeSearch.AMAP)
+            geocodeSearch.getFromLocationAsyn(query)
+        }else{
+            Log.d("LocationChangeErr","location is null")
+        }
+
     }
 
     override fun onMapClick(p0: LatLng?) {

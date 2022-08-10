@@ -69,6 +69,7 @@ dependencies {
     implementation files('libs\\Android_Map3D_SDK_V9.1.0_20220210.jar')
 
     implementation 'com.android.car.ui:car-ui-lib:2.0.0'
+    implementation files('libs\\AMap_Location_V6.1.0_20220402.jar')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
