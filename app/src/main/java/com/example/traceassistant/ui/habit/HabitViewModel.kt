@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traceassistant.logic.Entity.Habit
+import com.example.traceassistant.logic.Repository
 import java.util.*
 
 class HabitViewModel: ViewModel() {
@@ -18,11 +19,14 @@ class HabitViewModel: ViewModel() {
     private var timer: Timer? = null
     private var timerTask: TimerTask? = null
 
+    private var beginTime:Long=0
+    private var endTime:Long=0
+    private var pauseTime:Long=0
+    private var date:String="404"
+    private var title:String="工作"
     private var former:Long=0//按暂停计时时 开始获取的暂停时间
     private var latter:Long=0//按继续时时 结束获取的时间
-    private var pauseTime:Long=0
 
-    //需要提供一个空参的默认构造
     private var habit:Habit?=Habit("工作",1,1,1,"1")
     /**
      * 初始化
@@ -36,17 +40,18 @@ class HabitViewModel: ViewModel() {
      * 存入第一次开启计时的时间
      */
     fun startTime(){
-        var date:Date= Date()
-        Log.d("beginTime","${date.time}")
-        //habit!!.beginTime=date.time
+        var date1:Date= Date()
+        beginTime=date1.time
+        date=date1.toString()
+        Log.d("beginTime,date","begintime:${date1.time},date:${date}")
     }
     /**
      * 存入计时结束时的时间
      */
     fun stopTime(){
         var date:Date= Date()
+        endTime=date.time
         Log.d("endTime","${date.time}")
-        //habit!!.endTime=date.time
     }
     /**
      * 获取按下暂停时的时间
@@ -124,16 +129,22 @@ class HabitViewModel: ViewModel() {
      */
     fun stop(){
         timer?.cancel()
-        secondTime = 0
-        minuteTime = 0
-        hourTime = 0
-        initial()
-        stopTime()//停止时存入结束时间
-
         //如果有按下暂停，但没有按继续计时直接停止计时 计算暂停时间
         if (former!=0L&&former>latter){
             latterPause()
         }
+        stopTime()//停止时存入结束时间
+        //插入habit记录
+        Repository.initHabitDao()
+        val habit:Habit= Habit(title, beginTime, endTime, pauseTime, date)
+        Repository.habitInsert(habit)
+        //测试
+        val strTest=Repository.habitQuery().joinToString(",")
+        Log.d("habitList","${strTest}")
+        secondTime = 0
+        minuteTime = 0
+        hourTime = 0
+        initial()
         pauseTime=0
         latter=0
         former=0
