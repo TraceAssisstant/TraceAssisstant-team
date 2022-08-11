@@ -36,6 +36,12 @@ class MainView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * 定位权限申请
+         */
+        locationPermission(this)
+
         /**
          * 开启后台服务
          */
@@ -92,13 +98,13 @@ class MainView : AppCompatActivity() {
         MapsInitializer.updatePrivacyAgree(this,true)
         LocalNowLocation.initialize()
         LocalNowLocation.startLocation()
-        LocalNowLocation.stopLocation()
     }
 
 
     override fun onStop() {
         super.onStop()
         unregisterReceiver(timeChangeReceiver)
+        LocalNowLocation.stopLocation()
     }
 
     inner class TimeChangeReceiver: BroadcastReceiver(){

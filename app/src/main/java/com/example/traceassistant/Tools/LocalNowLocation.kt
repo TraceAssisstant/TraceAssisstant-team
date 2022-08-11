@@ -37,9 +37,11 @@ object LocalNowLocation: AMapLocationListener {
      */
     fun startLocation(){
         mLocationClient.startLocation()
+        Log.d("Location","start")
     }
     fun stopLocation(){
         mLocationClient.stopLocation()
+        Log.d("Location","stop")
     }
 
     override fun onLocationChanged(amapLocation: AMapLocation?) {
@@ -67,7 +69,7 @@ object LocalNowLocation: AMapLocationListener {
                  */
 
                 MyLocation = amapLocation
-//                Log.d("Location","succeed  ${MyLocation.city}")
+                Log.d("Location","succeed  ${MyLocation.city}")
             }else{
                 Log.d("LocationError","errorCode:${amapLocation.errorCode}//errorInfo:${amapLocation.errorInfo}")
             }

@@ -2,17 +2,13 @@ package com.example.traceassistant.ui.affairsCollection
 
 import android.content.Intent
 import android.graphics.Color
-import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
-import com.amap.api.maps.AMap
-import com.amap.api.maps.MapsInitializer
-import com.amap.api.maps.TextureMapView
+import com.amap.api.maps.*
 import com.amap.api.maps.model.*
-import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.geocoder.*
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.LocalNowLocation
@@ -28,7 +24,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 
-class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener,AMap.OnMapClickListener,AMap.OnMyLocationChangeListener {
+class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener,AMap.OnMapClickListener {
     private lateinit var binding: ActivityCollectionViewBinding
 
     private lateinit var mMapView: TextureMapView
@@ -217,13 +213,12 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
         geocodeSearch.setOnGeocodeSearchListener(this)
         binding.searchLocationBtn.setOnClickListener {
             val searchStr = binding.searchLocation.text.toString()
-            val query = GeocodeQuery(searchStr,"0512")
+            val query = GeocodeQuery(searchStr,LocalNowLocation.getLocation()?.cityCode.toString())
             geocodeSearch.getFromLocationNameAsyn(query)
         }
 
-
-
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -233,6 +228,14 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
     override fun onResume() {
         super.onResume()
         mMapView.onResume()
+        /**
+         * 将视角移动到当前定位点
+         */
+        if (LocalNowLocation.getLocation()?.latitude != null && LocalNowLocation.getLocation()?.longitude != null){
+            val cameraPosition = CameraPosition(LatLng(LocalNowLocation.getLocation()!!.latitude,LocalNowLocation.getLocation()!!.longitude),10f,0f,0f)
+            val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
+            aMap?.moveCamera(cameraUpdate)
+        }
     }
 
     override fun onPause() {
@@ -246,6 +249,9 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
     }
 
 
+    /**
+     * 处理逆地理搜索结果
+     */
     override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
         if (p1 == 1000){
             Log.d("SearchReq","Succeed")
@@ -254,6 +260,9 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
         }
     }
 
+    /**
+     * 处理地理信息搜索结果
+     */
     override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
         if(p1 == 1000){
             Log.d("SearchReq","Succeed")
@@ -262,16 +271,9 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
         }
     }
 
-    override fun onMyLocationChange(location: Location?) {
-        if (location != null){
-            val query = RegeocodeQuery(LatLonPoint(location.latitude,location.longitude), 200F,GeocodeSearch.AMAP)
-            geocodeSearch.getFromLocationAsyn(query)
-        }else{
-            Log.d("LocationChangeErr","location is null")
-        }
-
-    }
-
+    /**
+     * 点击地图插入标记点并记录该点的坐标
+     */
     override fun onMapClick(p0: LatLng?) {
         if (this::marker.isInitialized){
             marker.remove()
