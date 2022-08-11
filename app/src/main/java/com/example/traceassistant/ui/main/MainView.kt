@@ -84,10 +84,15 @@ class MainView : AppCompatActivity() {
         timeChangeReceiver = TimeChangeReceiver()
         registerReceiver(timeChangeReceiver, intentFilter)
 
+
+        /**
+         * 执行一次定位
+         */
         MapsInitializer.updatePrivacyShow(this,true,true)
         MapsInitializer.updatePrivacyAgree(this,true)
         LocalNowLocation.initialize()
         LocalNowLocation.startLocation()
+        LocalNowLocation.stopLocation()
     }
 
 

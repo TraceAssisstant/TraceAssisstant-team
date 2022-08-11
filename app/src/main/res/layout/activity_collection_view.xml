@@ -37,7 +37,7 @@
                         android:id="@+id/searchLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
