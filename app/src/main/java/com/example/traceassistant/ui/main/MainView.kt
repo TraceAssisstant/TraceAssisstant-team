@@ -45,8 +45,8 @@ class MainView : AppCompatActivity() {
         /**
          * 开启后台服务
          */
-        val intent = Intent(this, AffairService::class.java)
-        startService(intent)
+        //val intent = Intent(this, AffairService::class.java)
+        //startService(intent)
         /**
          * 申请访问精确地址权限
          */
