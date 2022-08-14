@@ -69,7 +69,7 @@ object LocalNowLocation: AMapLocationListener {
                  */
 
                 MyLocation = amapLocation
-                Log.d("Location","succeed  ${MyLocation.city}")
+                Log.d("Location","succeed!  city:${MyLocation.city} latitude:${MyLocation.latitude}  longtitude:${MyLocation.longitude}")
             }else{
                 Log.d("LocationError","errorCode:${amapLocation.errorCode}//errorInfo:${amapLocation.errorInfo}")
             }

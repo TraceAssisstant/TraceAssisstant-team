@@ -17,6 +17,8 @@ class AffairService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+
+        //创建通知service实例
         val notificationIntent = Intent(this, NotificationService::class.java)
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -24,13 +26,12 @@ class AffairService : Service() {
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
 
-        //开启前台服务
-        Log.d("MyService", "服务已开启")
+
         try{
             for( af in  list){
-                doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time*1000)
+                Log.d("事务已添加到队列！", af.toString())
+                doNotificate(af.ttitle,af.mainContent,af.longitude,af.latitude,af.locRange,notificationIntent,af.time)
             }
-            doNotificate("测试通知标题","测试通知内容",notificationIntent,System.currentTimeMillis()+8000)
 
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
                    NotificationManager
@@ -61,14 +62,18 @@ class AffairService : Service() {
     /**
      * 执行定时信息通知的方法
      */
-    fun doNotificate(title:String ,content:String,intent: Intent,time:Long){
+    fun doNotificate(title:String,content:String, longitude:Double,latitude:Double, range:Double, intent: Intent,time:Long){
         intent.putExtra("title",title)
         intent.putExtra("contentText",content)
+        intent.putExtra("longitude",longitude)
+        intent.putExtra("latitude",latitude)
+        intent.putExtra("range",range)
+
         //闹钟开启
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
-            time,
+            time+1200000,  //提前20分钟唤醒地理监控
             PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         )
 
