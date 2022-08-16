@@ -13,8 +13,8 @@
     <!-- 允许读设备等信息，用于问题排查 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 开启前台服务权限 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".Tools.GlobalApplication"
@@ -24,6 +24,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceAssistant">
+        <activity
+            android:name=".ui.habit.ShowDrawingView"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="DrawingView"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.affairShow.AlterView"
             android:exported="false" />

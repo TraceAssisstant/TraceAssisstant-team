@@ -1,5 +1,6 @@
 package com.example.traceassistant.ui.habit
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -59,5 +60,10 @@ class HabitView : AppCompatActivity() {
             val secStr = String.format("%02d",s)
             binding.second.text = secStr
         })
+
+        binding.toDrawingView.setOnClickListener{
+            val intent=Intent("DrawingView")
+            startActivity(intent)
+        }
     }
 }

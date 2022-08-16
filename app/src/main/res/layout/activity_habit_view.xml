@@ -21,14 +21,14 @@
         android:id="@+id/hours"
         android:layout_width="118dp"
         android:layout_height="103dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="125dp"
-        android:text="00"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="124dp"
         android:fontFamily="serif"
+        android:text="00"
         android:textColor="#787474"
-        android:textSize="90sp"/>
+        android:textSize="90sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dot"
@@ -105,4 +105,16 @@
         app:layout_constraintEnd_toStartOf="@+id/stop"
         app:layout_constraintStart_toEndOf="@+id/start" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/toDrawingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="352dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/ic_baseline_ballot_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
