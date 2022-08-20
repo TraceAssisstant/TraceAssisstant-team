@@ -5,17 +5,18 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
-import com.amap.api.maps.AMap
-import com.amap.api.maps.MapsInitializer
-import com.amap.api.maps.TextureMapView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.amap.api.maps.*
 import com.amap.api.maps.model.*
-import com.amap.api.services.geocoder.GeocodeQuery
-import com.amap.api.services.geocoder.GeocodeResult
-import com.amap.api.services.geocoder.GeocodeSearch
-import com.amap.api.services.geocoder.RegeocodeResult
+import com.amap.api.services.core.PoiItem
+import com.amap.api.services.geocoder.*
+import com.amap.api.services.poisearch.PoiResult
+import com.amap.api.services.poisearch.PoiSearch
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.LocalNowLocation
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.Tools.showToast
@@ -28,7 +29,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 
-class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener,AMap.OnMapClickListener {
+class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.OnPOIClickListener,AMap.OnMapClickListener {
     private lateinit var binding: ActivityCollectionViewBinding
 
     private lateinit var mMapView: TextureMapView
@@ -211,17 +212,20 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
         /**
          * 地理搜索
          */
-        val geocodeSearch = GeocodeSearch(this)
-        geocodeSearch.setOnGeocodeSearchListener(this)
+        Log.d("Location",LocalNowLocation.getLocation()?.cityCode.toString())
         binding.searchLocationBtn.setOnClickListener {
-            val searchStr = binding.searchLocation.text.toString()
-            val query = GeocodeQuery(searchStr,"0512")
-            geocodeSearch.getFromLocationNameAsyn(query)
+            val query = PoiSearch.Query(binding.searchLocation.text.toString(),"",LocalNowLocation.getLocation()?.cityCode.toString())
+            query.pageSize = 10
+            query.pageNum = 1
+
+            val poiSearch = PoiSearch(this,query)
+            poiSearch.setOnPoiSearchListener(this)
+            poiSearch.searchPOIAsyn()
+
         }
 
-
-
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -231,6 +235,14 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
     override fun onResume() {
         super.onResume()
         mMapView.onResume()
+        /**
+         * 将视角移动到当前定位点
+         */
+        if (LocalNowLocation.getLocation()?.latitude != null && LocalNowLocation.getLocation()?.longitude != null){
+            val cameraPosition = CameraPosition(LatLng(LocalNowLocation.getLocation()!!.latitude,LocalNowLocation.getLocation()!!.longitude),10f,0f,0f)
+            val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
+            aMap?.moveCamera(cameraUpdate)
+        }
     }
 
     override fun onPause() {
@@ -244,14 +256,10 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
     }
 
 
-    override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
-        TODO("Not yet implemented")
-    }
-
+    /**
+     * 点击地图插入标记点并记录该点的坐标
+     */
     override fun onMapClick(p0: LatLng?) {
         if (this::marker.isInitialized){
             marker.remove()
@@ -266,5 +274,42 @@ class CollectionView : AppCompatActivity(),GeocodeSearch.OnGeocodeSearchListener
             marker = aMap!!?.addMarker(markerOptions)
         }
         Log.d("坐标","$latitude,$longitude")
+    }
+
+    /**
+     * 处理搜索结果
+     */
+    override fun onPoiSearched(result: PoiResult?, rCode: Int) {
+        if (rCode == 1000){
+            Log.d("SearchReq","Succeed")
+            if (result != null){
+                val listPOI = result.pois
+
+                for (i in listPOI){
+                    Log.d("SearchReq","${i.title}--${i.snippet}")
+                }
+
+                /**
+                 * 显示结果
+                 */
+                binding.locationShowLayout.visibility = View.VISIBLE
+                val layoutManager = LinearLayoutManager(this)
+                binding.locationList.layoutManager = layoutManager
+                val adapter = LocationAdapter(listPOI)
+                binding.locationList.adapter = adapter
+
+            }
+        }else{
+            Log.d("SearchReq","Fail")
+        }
+
+    }
+
+    override fun onPoiItemSearched(p0: PoiItem?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPOIClick(p0: Poi?) {
+        TODO("Not yet implemented")
     }
 }

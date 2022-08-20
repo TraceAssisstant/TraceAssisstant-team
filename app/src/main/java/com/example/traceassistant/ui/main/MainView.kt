@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.amap.api.maps.MapsInitializer
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.LocalNowLocation
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.databinding.ActivityMainViewBinding
@@ -34,11 +36,17 @@ class MainView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * 定位权限申请
+         */
+        locationPermission(this)
+
         /**
          * 开启后台服务
          */
-        val intent = Intent(this, AffairService::class.java)
-        startService(intent)
+        //val intent = Intent(this, AffairService::class.java)
+        //startService(intent)
         /**
          * 申请访问精确地址权限
          */
@@ -81,12 +89,22 @@ class MainView : AppCompatActivity() {
         //intentFilter.addAction("android.intent.action.DATE_CHANGE")//日期变化通知
         timeChangeReceiver = TimeChangeReceiver()
         registerReceiver(timeChangeReceiver, intentFilter)
+
+
+        /**
+         * 执行一次定位
+         */
+        MapsInitializer.updatePrivacyShow(this,true,true)
+        MapsInitializer.updatePrivacyAgree(this,true)
+        LocalNowLocation.initialize()
+        LocalNowLocation.startLocation()
     }
 
 
     override fun onStop() {
         super.onStop()
         unregisterReceiver(timeChangeReceiver)
+        LocalNowLocation.stopLocation()
     }
 
     inner class TimeChangeReceiver: BroadcastReceiver(){

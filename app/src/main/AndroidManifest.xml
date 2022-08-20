@@ -40,6 +40,8 @@
             android:name=".service.NotificationService"
             android:enabled="true"
             android:exported="true" />
+        
+        <service android:name="com.amap.api.location.APSService"></service>
 
         <activity
             android:name=".service.AffairNotification"

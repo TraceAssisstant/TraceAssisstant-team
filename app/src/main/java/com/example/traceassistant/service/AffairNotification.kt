@@ -19,12 +19,16 @@ class AffairNotification : AppCompatActivity() {
     //赋默认值
     var title: String = "未获取到事务标题"
     var contentText: String = "未获取到事务详细信息"
+
     var notificationCode:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_affair_notification)
+    }
 
+    override fun onStart() {
+        super.onStart()
         var buttonOK: Button = findViewById(R.id.buttonOK)
         var buttonRE: Button = findViewById(R.id.buttonRe)
 

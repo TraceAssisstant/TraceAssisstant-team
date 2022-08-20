@@ -28,24 +28,26 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="300dp"
+                    android:layout_weight="4"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="搜索"
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/searchLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/searchLocationBtn"
-                    android:layout_width="85dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
                     android:text="搜索"
+                    android:textSize="20dp"
                     tools:ignore="TouchTargetSizeCheck" />
 
             </LinearLayout>
@@ -60,6 +62,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="400dp" />
             </com.example.traceassistant.ui.affairsCollection.MapContainer>
+
+            <LinearLayout
+                android:id="@+id/locationShowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/locationList"
+                    android:layout_width="374dp"
+                    android:layout_height="150dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="34dp"
+                    android:layout_height="140dp">
+
+                    <Button
+                        android:id="@+id/nextPage"
+                        app:icon="@drawable/ic_baseline_arrow_forward_24"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:layout_width="34dp"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="19dp"
+                        app:layout_constraintBottom_toTopOf="@+id/lastPage"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/lastPage"
+                        app:icon="@drawable/ic_baseline_arrow_back_24"
+                        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                        android:layout_width="34dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="19dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nextPage" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
