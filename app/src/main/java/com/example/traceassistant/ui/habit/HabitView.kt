@@ -1,14 +1,17 @@
 package com.example.traceassistant.ui.habit
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.databinding.ActivityHabitViewBinding
+import com.example.traceassistant.logic.Repository
 
 class HabitView : AppCompatActivity() {
 
@@ -16,6 +19,7 @@ class HabitView : AppCompatActivity() {
     val viewModel by lazy { ViewModelProvider(this).get(HabitViewModel::class.java) }
     var btnNum=0//点击开始/暂停按钮的次数，奇数次开始计时，偶数次暂停计时
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHabitViewBinding.inflate(layoutInflater)

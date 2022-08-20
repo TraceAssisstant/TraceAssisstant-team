@@ -1,10 +1,14 @@
 package com.example.traceassistant.ui.habit
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.traceassistant.logic.Entity.Habit
 import com.example.traceassistant.logic.Repository
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class HabitViewModel: ViewModel() {
@@ -39,10 +43,12 @@ class HabitViewModel: ViewModel() {
     /**
      * 存入第一次开启计时的时间
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun startTime(){
         var date1:Date= Date()
         beginTime=date1.time
-        date=date1.toString()
+        val myDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        date=myDateTimeFormatter.format(LocalDateTime.now())
         Log.d("beginTime,date","begintime:${date1.time},date:${date}")
     }
     /**
@@ -127,6 +133,7 @@ class HabitViewModel: ViewModel() {
     /**
      * 停止计时
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun stop(){
         timer?.cancel()
         //如果有按下暂停，但没有按继续计时直接停止计时 计算暂停时间
@@ -141,6 +148,9 @@ class HabitViewModel: ViewModel() {
         //测试
         val strTest=Repository.habitQuery().joinToString(",")
         Log.d("habitList","${strTest}")
+        val myDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        Log.d("日期","${myDateTimeFormatter.format(LocalDateTime.now())}")
+        Log.d("当日专注/暂停时间","${Repository.habitQueryByDate(myDateTimeFormatter.format(LocalDateTime.now()).toString())}")
         secondTime = 0
         minuteTime = 0
         hourTime = 0
