@@ -5,8 +5,10 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.maps.*
 import com.amap.api.maps.model.*
 import com.amap.api.services.core.PoiItem
@@ -282,9 +284,20 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
             Log.d("SearchReq","Succeed")
             if (result != null){
                 val listPOI = result.pois
+
                 for (i in listPOI){
                     Log.d("SearchReq","${i.title}--${i.snippet}")
                 }
+
+                /**
+                 * 显示结果
+                 */
+                binding.locationShowLayout.visibility = View.VISIBLE
+                val layoutManager = LinearLayoutManager(this)
+                binding.locationList.layoutManager = layoutManager
+                val adapter = LocationAdapter(listPOI)
+                binding.locationList.adapter = adapter
+
             }
         }else{
             Log.d("SearchReq","Fail")
