@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.room.Query
+import com.example.traceassistant.Tools.DayOfMonth
 import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.logic.Dao.AffairFormDao
@@ -253,6 +254,38 @@ object Repository {
             pauseTime+=habit.pauseTime
         }
         return Pair(focusTime,pauseTime)
+    }
+
+    /**
+     * 根据月份返回当前 月份 各天专注的总时间数组
+     * @param 格式为 yyyy-mm(2020-08)格式的 月份 字符串
+     * @return 各天专注的总时间数组
+     */
+     fun focusArrayQuery(month:String):Array<Long>{
+        var days:Int = DayOfMonth.getDayNumber(month)
+        var focusArray = Array<Long>(days){0}
+        for(i in 0..focusArray.size-1){
+            var(focusTime,pauseTime) = habitQueryByDate(month+"-"+if ((i+1)<10) "0"+(i+1) else (i+1).toString())
+            focusArray.set(i,focusTime)
+//            Log.d("focus",(i+1).toString()+"->"+focusArray[i])
+        }
+        return focusArray
+     }
+
+    /**
+     * 根据月份返回当前 月份 各天暂停的总时间数组
+     * @param 格式为 yyyy-mm(2020-08)格式的 月份 字符串
+     * @return 各天暂停的总时间数组
+     */
+    fun pauseArrayQuery(month:String):Array<Long>{
+        var days:Int = DayOfMonth.getDayNumber(month)
+        var pauseArray = Array<Long>(days){0}
+        for(i in 0..pauseArray.size-1){
+            var(focusTime,pauseTime) = habitQueryByDate(month+"-"+if ((i+1)<10) "0"+(i+1) else (i+1).toString())
+            pauseArray.set(i,pauseTime)
+//            Log.d("pause",(i+1).toString()+"->"+pauseArray[i])
+        }
+        return pauseArray
     }
 
 }
