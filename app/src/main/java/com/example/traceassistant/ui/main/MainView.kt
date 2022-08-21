@@ -92,19 +92,17 @@ class MainView : AppCompatActivity() {
 
 
         /**
-         * 执行一次定位
+         * 初始化定位
          */
         MapsInitializer.updatePrivacyShow(this,true,true)
         MapsInitializer.updatePrivacyAgree(this,true)
         LocalNowLocation.initialize()
-        LocalNowLocation.startLocation()
     }
 
 
     override fun onStop() {
         super.onStop()
         unregisterReceiver(timeChangeReceiver)
-        LocalNowLocation.stopLocation()
     }
 
     inner class TimeChangeReceiver: BroadcastReceiver(){

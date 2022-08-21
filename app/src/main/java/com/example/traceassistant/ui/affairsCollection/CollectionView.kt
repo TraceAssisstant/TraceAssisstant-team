@@ -2,15 +2,18 @@ package com.example.traceassistant.ui.affairsCollection
 
 import android.content.Intent
 import android.graphics.Color
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.maps.*
 import com.amap.api.maps.model.*
+import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.core.PoiItem
 import com.amap.api.services.geocoder.*
 import com.amap.api.services.poisearch.PoiResult
@@ -25,25 +28,39 @@ import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Repository
 import com.example.traceassistant.ui.main.MainView
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 
-class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.OnPOIClickListener,AMap.OnMapClickListener {
+class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.OnPOIClickListener,AMap.OnMapClickListener{
     private lateinit var binding: ActivityCollectionViewBinding
 
     private lateinit var mMapView: TextureMapView
 
-    private var aMap: AMap? = null
+    var aMap: AMap? = null
 
-    private var latitude: Double = 0.0
-    private var longitude: Double = 0.0
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+
+    private var nowLat: Double = 0.0
+    private var nowLong: Double = 0.0
 
     private lateinit var marker: Marker
 
+    private lateinit var query: PoiSearch.Query
+
     val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
 
+    private fun refresh(){
+        finish()
+        val intent = Intent(this,CollectionView::class.java)
+        startActivity(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        LocalNowLocation.startLocation()
+
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -171,10 +188,17 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
                 val isshake: Boolean = isvibration
 
                 val data = AffairForm(title,content,time,dateSelected,longitude,latitude,0.0,level,tag,ringMusic,isshake,0)
+
+                Log.d("dataInsert",data.toString())
+
                 viewModel.insertAffair(data)
+
+                "添加成功".showToast(Toast.LENGTH_LONG)
             }catch (e: Exception){
                 Log.e("insertError",e.toString())
                 Log.d("dataBase",Repository.getAffairList().toString())
+
+                "添加失败".showToast(Toast.LENGTH_LONG)
                 return@setOnClickListener
             }
 
@@ -192,6 +216,22 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
         mMapView.onCreate(savedInstanceState)
         if(aMap == null){
             aMap = mMapView.map
+        }
+
+        if (LocalNowLocation.getLocation() == null){
+            MaterialAlertDialogBuilder(this, com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered)
+                .setMessage("尚未取得定位，是否刷新页面？")
+                .setPositiveButton("刷新"){dialog,which ->
+                    refresh()
+                }
+                .setNegativeButton("取消"){dialog,which ->
+                    "请自行刷新页面".showToast(Toast.LENGTH_LONG)
+                }
+                .show()
+        }else{
+            nowLat = LocalNowLocation.getLocation()!!.latitude
+            nowLong = LocalNowLocation.getLocation()!!.longitude
+            Log.d("nowLocation","Succeed")
         }
 
 
@@ -212,24 +252,30 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
         /**
          * 地理搜索
          */
-        Log.d("Location",LocalNowLocation.getLocation()?.cityCode.toString())
         binding.searchLocationBtn.setOnClickListener {
-            val query = PoiSearch.Query(binding.searchLocation.text.toString(),"",LocalNowLocation.getLocation()?.cityCode.toString())
+            query = PoiSearch.Query(binding.searchLocation.text.toString(),"",LocalNowLocation.getLocation()?.cityCode.toString())
             query.pageSize = 10
             query.pageNum = 1
+            query.isDistanceSort = true
 
             val poiSearch = PoiSearch(this,query)
             poiSearch.setOnPoiSearchListener(this)
+            poiSearch.bound = PoiSearch.SearchBound(LatLonPoint(nowLat,nowLong),4000)
             poiSearch.searchPOIAsyn()
 
         }
 
     }
 
+    override fun onStop() {
+        super.onStop()
+        LocalNowLocation.stopLocation()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         mMapView.onDestroy()
+        LocalNowLocation.stopLocation()
     }
 
     override fun onResume() {
@@ -239,7 +285,9 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
          * 将视角移动到当前定位点
          */
         if (LocalNowLocation.getLocation()?.latitude != null && LocalNowLocation.getLocation()?.longitude != null){
-            val cameraPosition = CameraPosition(LatLng(LocalNowLocation.getLocation()!!.latitude,LocalNowLocation.getLocation()!!.longitude),10f,0f,0f)
+            nowLat = LocalNowLocation.getLocation()!!.latitude
+            nowLong = LocalNowLocation.getLocation()!!.longitude
+            val cameraPosition = CameraPosition(LatLng(LocalNowLocation.getLocation()!!.latitude,LocalNowLocation.getLocation()!!.longitude),15f,0f,0f)
             val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
             aMap?.moveCamera(cameraUpdate)
         }
@@ -284,6 +332,12 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
             Log.d("SearchReq","Succeed")
             if (result != null){
                 val listPOI = result.pois
+                if (result.pois.size <= 0){
+                    Log.d("SearchReq","4KM内已无更多符合条件的地点")
+                    "4KM内已无更多符合条件的地点".showToast()
+                    query.pageNum -= 1
+                    return
+                }
 
                 for (i in listPOI){
                     Log.d("SearchReq","${i.title}--${i.snippet}")
@@ -295,8 +349,29 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
                 binding.locationShowLayout.visibility = View.VISIBLE
                 val layoutManager = LinearLayoutManager(this)
                 binding.locationList.layoutManager = layoutManager
-                val adapter = LocationAdapter(listPOI)
+                val adapter = LocationAdapter(listPOI,this)
                 binding.locationList.adapter = adapter
+
+                binding.nextPage.setOnClickListener {
+                    if (this::query.isInitialized){
+                        query.pageNum += 1
+
+                        val poiSearch = PoiSearch(this,query)
+                        poiSearch.setOnPoiSearchListener(this)
+                        poiSearch.bound = PoiSearch.SearchBound(LatLonPoint(nowLat,nowLong),4000)
+                        poiSearch.searchPOIAsyn()
+                    }
+                }
+                binding.lastPage.setOnClickListener {
+                    if (query.pageNum >= 1){
+                        query.pageNum -= 1
+
+                        val poiSearch = PoiSearch(this,query)
+                        poiSearch.setOnPoiSearchListener(this)
+                        poiSearch.bound = PoiSearch.SearchBound(LatLonPoint(nowLat,nowLong),4000)
+                        poiSearch.searchPOIAsyn()
+                    }
+                }
 
             }
         }else{
