@@ -87,14 +87,14 @@ public class GeoFenceService extends Service {
             Bundle bundle = intent.getExtras ();
             int statu = bundle.getInt (GeoFence.BUNDLE_KEY_FENCESTATUS);
             if (statu == GeoFenceClient.GEOFENCE_IN) {
-                Toast.makeText (getApplicationContext (),"你已进入危险区域",Toast.LENGTH_SHORT).show ();
+                Toast.makeText (getApplicationContext (),"你已进入区域",Toast.LENGTH_SHORT).show ();
                 Intent intent1 = new Intent(GeoFenceService.this,NotificationService.class);
                 startService(intent1);
                 Log.e ( "onReceive: ","进入" );
             }
             else {
                 Log.e ( "onReceive: ","离开" );
-                Toast.makeText (getApplicationContext (),"你已离开危险区域",Toast.LENGTH_LONG).show ();
+                Toast.makeText (getApplicationContext (),"你已离开区域",Toast.LENGTH_LONG).show ();
             }
         }
     };
