@@ -8,6 +8,8 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.amap.api.fence.GeoFenceClient
+import com.amap.api.fence.GeoFenceClient.GEOFENCE_IN
 import com.example.traceassistant.R
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Repository
@@ -22,6 +24,8 @@ class AffairService : Service() {
         val notificationIntent = Intent(this, NotificationService::class.java)
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        doNotificate("欢迎来到智醒事务助手","您的事务已经安排妥当！",notificationIntent,System.currentTimeMillis()+1000)
+
         //初始化数据库并获取事务信息
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
@@ -30,7 +34,7 @@ class AffairService : Service() {
         try{
             for( af in  list){
                 Log.d("事务已添加到队列！", af.toString())
-                doNotificate(af.ttitle,af.mainContent,af.longitude,af.latitude,af.locRange,notificationIntent,af.time)
+                doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time)
             }
 
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
@@ -57,23 +61,22 @@ class AffairService : Service() {
         }catch (e:Exception){
            e.printStackTrace()
         }
+
+
+
     }
 
     /**
      * 执行定时信息通知的方法
      */
-    fun doNotificate(title:String,content:String, longitude:Double,latitude:Double, range:Double, intent: Intent,time:Long){
+    fun doNotificate(title:String,content:String, intent: Intent,time:Long){
         intent.putExtra("title",title)
         intent.putExtra("contentText",content)
-        intent.putExtra("longitude",longitude)
-        intent.putExtra("latitude",latitude)
-        intent.putExtra("range",range)
-
         //闹钟开启
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
-            time+1200000,  //提前20分钟唤醒地理监控
+            time,
             PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         )
 
