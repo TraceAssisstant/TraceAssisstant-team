@@ -22,16 +22,15 @@ class NotificationService : Service() {
     var title: String = "未获取到事务标题"
     var contentText: String = "未获取到事务详细信息"
 
-    var notificationCode:Int = 0
+    var notificationCode:Int = 1
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         //获取消息内容参数
         if (intent != null) {
             title = intent.getStringExtra("title").toString()
             contentText = intent.getStringExtra("contentText").toString()
-//            longitudeA = intent.getDoubleExtra("longitude",0.0)
-//            latitudeA = intent.getDoubleExtra("latitude",0.0)
-//            range = intent.getDoubleExtra("range",0.0)
+            notificationCode = intent.getIntExtra("notificationCode",flags)
         }
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
                 NotificationManager
@@ -59,25 +58,7 @@ class NotificationService : Service() {
             .setAutoCancel(true)
             .setContentIntent(pi)
             .build()
-
-//        thread {
-//            var amp : AMapLocation?= LocalNowLocation.getLocation()
-//            for(i in 1..200){
-//                Thread.sleep(10*1000)
-//                if (amp != null) {
-//                    longitudeB = amp.longitude
-//                    latitudeB = amp.latitude
-//                    if(DistanceConversion.getDistance1(longitudeA,latitudeA,longitudeB,latitudeB)<range)
-//                        break
-//                }
-//            }
-//
-//
-//        }
         manager.notify(notificationCode, notification)
-
-
-
         return super.onStartCommand(intent, flags, startId)
     }
 

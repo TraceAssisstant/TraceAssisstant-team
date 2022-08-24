@@ -16,25 +16,22 @@ import com.example.traceassistant.logic.Repository
 import com.example.traceassistant.ui.main.MainView
 
 class AffairService : Service() {
-
+    var requestCo = 0 //闹钟编码
     override fun onCreate() {
         super.onCreate()
+        //初始化闹钟
+        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        //创建通知service实例
-        val notificationIntent = Intent(this, NotificationService::class.java)
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        doNotificate("欢迎来到智醒事务助手","您的事务已经安排妥当！",notificationIntent,System.currentTimeMillis()+1000)
+        //通知示例
+        doNotificate("欢迎来到智醒事务助手1","您的事务已经安排妥当！1",alarmManager,System.currentTimeMillis()+4000)
 
         //初始化数据库并获取事务信息
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
-
-
         try{
             for( af in  list){
                 Log.d("事务已添加到队列！", af.toString())
-                doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time)
+               // doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time)
             }
 
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
@@ -62,29 +59,30 @@ class AffairService : Service() {
            e.printStackTrace()
         }
 
-
-
     }
 
     /**
      * 执行定时信息通知的方法
      */
-    fun doNotificate(title:String,content:String, intent: Intent,time:Long){
-        intent.putExtra("title",title)
-        intent.putExtra("contentText",content)
+    fun doNotificate(title:String,content:String,alarmManager:AlarmManager,time:Long){
+        //创建通知service实例
+        val notificationIntent = Intent(this, NotificationService::class.java)
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        notificationIntent.putExtra("title",title)
+        notificationIntent.putExtra("contentText",content)
         //闹钟开启
-        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             time,
-            PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(this, requestCo++, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         )
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("MyService", "onDestroy executed")
+        Log.d("Service", "onDestroy executed")
     }
 
     override fun onBind(p0: Intent?): IBinder? {

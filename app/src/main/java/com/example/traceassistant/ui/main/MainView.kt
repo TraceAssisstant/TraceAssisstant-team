@@ -17,6 +17,7 @@ import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.logic.Entity.SignNature
 import com.example.traceassistant.service.AffairService
+import com.example.traceassistant.service.GeoFenceService
 import com.example.traceassistant.ui.affairShow.ShowView
 import com.example.traceassistant.ui.affairsCollection.CollectionView
 import com.example.traceassistant.ui.habit.HabitView
@@ -43,14 +44,16 @@ class MainView : AppCompatActivity() {
         locationPermission(this)
 
         /**
-         * 开启后台服务
+         * 开启后台定时任务&事务提醒服务
          */
-        val intent = Intent(this, AffairService::class.java)
-        startService(intent)
+        val timeServiceIntent = Intent(this, AffairService::class.java)
+        startService(timeServiceIntent)
+
         /**
-         * 申请访问精确地址权限
+         * 开启后台地理围栏&事务提醒服务
          */
-        locationPermission(this)
+        //val geoServiceIntent = Intent(this, GeoFenceService::class.java)
+        //startService(geoServiceIntent)
 
         /**
          * 导航栏
