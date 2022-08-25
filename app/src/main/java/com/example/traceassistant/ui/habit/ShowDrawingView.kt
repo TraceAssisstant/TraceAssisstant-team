@@ -1,5 +1,6 @@
 package com.example.traceassistant.ui.habit
 
+import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.icu.util.GregorianCalendar
 import android.os.Build
@@ -18,6 +19,7 @@ import com.example.traceassistant.logic.Repository
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AALabels
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.AATooltip
 import com.github.aachartmodel.aainfographics.aatools.AAColor
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -41,7 +43,7 @@ class ShowDrawingView : AppCompatActivity() {
         val myDateTimeFormatter=DateTimeFormatter.ofPattern("yyyy-MM")
         val month=myDateTimeFormatter.format(LocalDateTime.now())
         Repository.initHabitDao()
-        binding.focusTime.text="本月专注总时间：${Repository.habitQueryByMouth(month.toString()).first}"
+        binding.focusTime.text="本月专注总时间：${date_to_string(Repository.habitQueryByMouth(month.toString()).first)}"
 
         //显示当日专注时间与中断专注时间对比柱状图
         val myDateTimeFormatter1=DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -107,8 +109,23 @@ class ShowDrawingView : AppCompatActivity() {
     }
 
     /**
-     * 显示当日专注时间与中断专注时间对比折线图
+     * 将时间戳元素转换为字符串格式并返回
      */
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun date_to_string(i:Long):String{
+            if (i>=3600000){
+                return "${SimpleDateFormat("HH时mm分ss秒").format(i)}"
+            }else if (i>60000){
+                return "${SimpleDateFormat("mm分ss秒").format(i)}"
+            }else{
+                return "${SimpleDateFormat("ss秒").format(i)}"
+            }
+    }
+
+    /**
+     * 显示当日专注时间与中断专注时间对比柱状图
+     */
+    @RequiresApi(Build.VERSION_CODES.N)
     fun focus_pause_chart(day:String): AAOptions{
         Repository.initHabitDao()
         val aaChartModel : AAChartModel = AAChartModel()
@@ -153,7 +170,37 @@ function () {
                 """.trimIndent()
             )
 
+        val aaTooltip = AATooltip()
+            .useHTML(true)
+            .borderColor("#FFD700")
+            .style(AAStyle()
+                    .color("#4b2b7f")
+                    .fontSize(12)
+            )
+            .formatter(
+                """
+        function () {
+      let wholeContentStr = '<br/>';
+      let length = this.points.length;
+      for(let i = 0; i < length; i++) {
+        let yValue=this.points[i].y;
+        let yDate = new Date(this.points[i].y);
+        let prefixStr = '<span style=\"' + 'color:'+ this.points[i].color + '; font-size:13px\"' + '>◉ ';
+        if(yValue>=3600000){
+            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getHours()-8+'时'+yDate.getMinutes()+'分'+yDate.getSeconds()+'秒'+ '<br/>';
+        }else if(yValue>=60000){
+            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getMinutes()+'分'+yDate.getSeconds()+'秒'+ '<br/>';
+        }else{
+            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getSeconds()+'秒'+ '<br/>';
+        }
+      }
+        return wholeContentStr;
+    }
+                """.trimIndent()
+            )
+
         val aaOptions = aaChartModel.aa_toAAOptions()
+        aaOptions.tooltip = aaTooltip
         aaOptions.yAxis!!
             .opposite(true)
             .tickWidth(2f)
@@ -181,7 +228,7 @@ function () {
                 .name("focus time")
                 .lineWidth(5.0f)
                 .fillOpacity(0.4f)
-                .data(Repository.focusArrayQuery(select_month(month))as Array<Any>),
+                .data(Repository.focusArrayQuery(select_month(month)) as Array<Any>),
                 AASeriesElement()
                     .name("pause time")
                     .lineWidth(5.0f)
@@ -216,7 +263,36 @@ function () {
                 """.trimIndent()
             )
 
+        val aaTooltip = AATooltip()
+            .useHTML(true)
+            .borderColor("#FFD700")
+            .style(AAStyle()
+                .color("#4b2b7f")
+                .fontSize(12)
+            )
+            .formatter(
+                """
+        function () {
+      let wholeContentStr = '<br/>';
+      let length = this.points.length;
+      for(let i = 0; i < length; i++) {
+        let yValue=this.points[i].y;
+        let yDate = new Date(this.points[i].y);
+        let prefixStr = '<span style=\"' + 'color:'+ this.points[i].color + '; font-size:13px\"' + '>◉ ';
+        if(yValue>=3600000){
+            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getHours()-8+'时'+yDate.getMinutes()+'分'+yDate.getSeconds()+'秒'+ '<br/>';
+        }else if(yValue>=60000){
+            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getMinutes()+'分'+yDate.getSeconds()+'秒'+ '<br/>';
+        }else{
+            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getSeconds()+'秒'+ '<br/>';
+        }
+      }
+        return wholeContentStr;
+    }
+                """.trimIndent()
+            )
         val aaOptions = aaChartModel.aa_toAAOptions()
+        aaOptions.tooltip = aaTooltip
         aaOptions.yAxis!!
             .opposite(true)
             .tickWidth(2f)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,68 +13,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/focusTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/focusTime"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="373dp"
+                    android:layout_height="495dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="50dp">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                         android:id="@+id/focus_pause_view"
                         android:layout_width="match_parent"
-                        android:layout_height="500dp">
-                    </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
+                        android:layout_height="500dp"></com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="600dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="600dp">
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        xmlns:app="http://schemas.android.com/apk/res-auto">
+                        android:layout_height="match_parent">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:text="请选择要查看的月份的专注时间与暂停时间对比图"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:text="请选择要查看的月份的专注时间与暂停时间对比图"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <Spinner
                             android:id="@+id/spinner"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="50dp"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginTop="50dp"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
                             android:id="@+id/focus_month_view"
                             android:layout_width="match_parent"
                             android:layout_height="500dp"
+                            android:layout_marginTop="100dp"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginTop="100dp">
-                        </com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
+                            app:layout_constraintTop_toTopOf="parent"></com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
