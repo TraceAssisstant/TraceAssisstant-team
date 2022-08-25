@@ -1,5 +1,6 @@
 package com.example.traceassistant.ui.habit
 
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.icu.util.GregorianCalendar
@@ -68,6 +69,12 @@ class ShowDrawingView : AppCompatActivity() {
                 focus_month_view.aa_drawChartWithChartOptions(focus_month_chart(selectedItem))
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        //添加返回按钮
+        binding.toHabitView.setOnClickListener(){
+            val  intent=Intent("ToHabitView")
+            startActivity(intent)
         }
     }
 
