@@ -1,10 +1,14 @@
 package com.example.traceassistant.ui.habit
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
+import android.graphics.drawable.TransitionDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,14 +40,17 @@ class HabitView : AppCompatActivity() {
                 btnNum==1->{
                     viewModel.startTime()
                     viewModel.start()
+                    binding.start.setImageResource(R.drawable.ic_baseline_pause_24)
                 }//第一次开始计时时存入开始时间
                 btnNum%2==1->{
                     viewModel.start()
                     viewModel.latterPause()
+                    binding.start.setImageResource(R.drawable.ic_baseline_pause_24)
                 }
                 btnNum%2==0->{
                     viewModel.pause()
                     viewModel.formerPause()
+                    binding.start.setImageResource(R.drawable.ic_baseline_arrow_right_24)
                 }
             }
         }
