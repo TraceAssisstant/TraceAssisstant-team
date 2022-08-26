@@ -42,6 +42,8 @@ import com.example.traceassistant.logic.Dao.AffairFormDao_Impl;
 import com.example.traceassistant.logic.Entity.AffairForm;
 import com.example.traceassistant.logic.Repository;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -70,7 +72,9 @@ public class GeoFenceService extends Service {
         }
 
         Repository.INSTANCE.initAFDao();
-        List<AffairForm> affairList = Repository.INSTANCE.getAffairList();
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        List<AffairForm> affairList = Repository.INSTANCE.getAffairListByDate(formatter.format(date));
 
         //实例化地理围栏客户端
         GeoFenceClient mGeoFenceClient = new GeoFenceClient (getApplicationContext ());
