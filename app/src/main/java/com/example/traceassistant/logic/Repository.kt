@@ -136,6 +136,14 @@ object Repository {
     }
 
     /**
+     *根据日期返回当天的事务，并按照重要等级排序
+     * @param date:yyyy-mm-dd格式的日期字符串
+     * @return List<AffairForm> 事务列表
+     */
+    fun getAffairListByDateLevel(date:String ):List<AffairForm>{
+        return affairFormDao.affairQueryByLevel(date)
+    }
+    /**
      * 删除所有事务(一般用来处理测试数据,慎用)
      */
     fun deleteAffairAll(){
@@ -147,7 +155,7 @@ object Repository {
     }
 
     /**
-     * 根据主键id来对事务信息进行删除
+     * 根据主键id来对事务信息进行更新
      * @param AffairForm
      */
     fun updateAffair(affairForm: AffairForm){
@@ -159,7 +167,7 @@ object Repository {
     }
 
     /**
-     * 根据主键id来对事务信息进行删除
+     * 根据主键id来对事务状态码进行更新
      * @param id:Int(事务id)
      * @param state:Int(状态码)
      */

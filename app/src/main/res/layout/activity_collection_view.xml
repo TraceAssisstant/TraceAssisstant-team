@@ -9,7 +9,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="605dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,9 +28,9 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -42,10 +42,10 @@
 
                 <Button
                     android:id="@+id/searchLocationBtn"
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
                     android:text="搜索"
                     android:textSize="20dp"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -67,37 +67,41 @@
                 android:id="@+id/locationShowLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/locationList"
-                    android:layout_width="374dp"
-                    android:layout_height="150dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="34dp"
-                    android:layout_height="140dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/nextPage"
-                        app:icon="@drawable/ic_baseline_arrow_forward_24"
                         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                        android:layout_width="34dp"
-                        android:layout_height="60dp"
-                        android:layout_marginBottom="19dp"
-                        app:layout_constraintBottom_toTopOf="@+id/lastPage"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:layout_width="77dp"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="16dp"
+                        app:icon="@drawable/ic_baseline_arrow_forward_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                     <Button
                         android:id="@+id/lastPage"
-                        app:icon="@drawable/ic_baseline_arrow_back_24"
                         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                        android:layout_width="34dp"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="19dp"
+                        android:layout_width="77dp"
+                        android:layout_height="52dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
+                        app:icon="@drawable/ic_baseline_arrow_back_24"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nextPage" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
@@ -264,7 +268,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

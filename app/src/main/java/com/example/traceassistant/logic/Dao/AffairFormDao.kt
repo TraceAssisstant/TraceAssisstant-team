@@ -34,10 +34,10 @@ interface AffairFormDao {
     fun affairQueryByDate(tdate:String):List<AffairForm>
 
     /**
-     * 根据等级高低顺序返回所有事务的列表
+     * 根据日期返回所有事务的列表（等级高低顺序）
      */
-    @Query("select * from affair_form order by level")
-    fun affairQueryByLevel():List<AffairForm>
+    @Query("select * from affair_form where date = :date order by level")
+    fun affairQueryByLevel(date:String):List<AffairForm>
 
     /**
      * 根据id删除事务
@@ -62,4 +62,5 @@ interface AffairFormDao {
      */
     @Query("update affair_form set state = :state where id = :id")
     fun affairStateUpdate(id:Int,state:Int)
+
 }

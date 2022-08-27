@@ -24,10 +24,10 @@ object LocalNowLocation: AMapLocationListener {
          */
         mLocationOption.setNeedAddress(true)
 
-        mLocationOption.setInterval(2000)
+        mLocationOption.setInterval(1000)
 
-        mLocationOption.setOnceLocation(true)
-        mLocationOption.setOnceLocationLatest(true)
+//        mLocationOption.setOnceLocation(true)
+//        mLocationOption.setOnceLocationLatest(true)
 
         mLocationClient.setLocationOption(mLocationOption)
     }
