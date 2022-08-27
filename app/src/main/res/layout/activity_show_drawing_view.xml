@@ -18,16 +18,26 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/thisFocusTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:autoSizeTextType="uniform"/>
+
+                <TextView
                     android:id="@+id/focusTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="50dp"
+                    android:autoSizeTextType="uniform"/>
 
                 <HorizontalScrollView
                     android:layout_width="373dp"
                     android:layout_height="495dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

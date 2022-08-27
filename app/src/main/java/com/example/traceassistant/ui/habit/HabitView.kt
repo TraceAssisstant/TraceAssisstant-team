@@ -59,22 +59,38 @@ class HabitView : AppCompatActivity() {
             btnNum=0
         }
 
+        var hour:String="00"
+        var min:String="00"
+        var sec:String="0"
         viewModel.hour.observe(this, Observer { h ->
             val hourStr = String.format("%02d",h)
             binding.hours.text = hourStr
+            if (!hourStr.equals("00")){
+                hour=hourStr
+            }
         })
         viewModel.minute.observe(this, Observer { m ->
             val minStr = String.format("%02d",m)
             binding.minute.text = minStr
+            if (!minStr.equals("00")){
+                min=minStr
+            }
         })
         viewModel.second.observe(this, Observer { s ->
             val secStr = String.format("%02d",s)
             binding.second.text = secStr
+            if (!secStr.equals("00")){
+                sec=secStr
+            }
         })
 
         binding.toDrawingView.setOnClickListener{
             val intent=Intent("DrawingView")
+            intent.putExtra("hour",hour)
+            intent.putExtra("minute",min)
+            intent.putExtra("second",sec)
             startActivity(intent)
+
         }
     }
 }

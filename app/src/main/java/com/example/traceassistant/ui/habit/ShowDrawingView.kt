@@ -1,6 +1,7 @@
 package com.example.traceassistant.ui.habit
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.traceassistant.R
 import com.example.traceassistant.databinding.ActivityShowDrawingViewBinding
 import com.example.traceassistant.logic.Repository
@@ -37,11 +39,25 @@ class ShowDrawingView : AppCompatActivity() {
         val focus_pause_view = binding.focusPauseView
         val focus_month_view=binding.focusMonthView
 
+        //显示本次专注时间
+        val thisHour=intent.getStringExtra("hour")
+        val thisMinute=intent.getStringExtra("minute")
+        val thisSecond=intent.getStringExtra("second")
+        if (!thisHour.equals("00")){
+            binding.thisFocusTime.text="本次专注时间${thisHour}时${thisMinute}分${thisSecond}秒"
+        }else if (!thisMinute.equals("00")){
+            binding.thisFocusTime.text="本次专注时间${thisMinute}分${thisSecond}秒"
+        }else{
+            binding.thisFocusTime.text="本次专注时间${thisSecond}秒"
+        }
+        binding.thisFocusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
+
         //显示本月总专注时间
         val myDateTimeFormatter=DateTimeFormatter.ofPattern("yyyy-MM")
         val month=myDateTimeFormatter.format(LocalDateTime.now())
         Repository.initHabitDao()
         binding.focusTime.text="本月专注总时间：${date_to_string(Repository.habitQueryByMouth(month.toString()).first)}"
+        binding.focusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
 
         //显示当日专注时间与中断专注时间对比柱状图
         val myDateTimeFormatter1=DateTimeFormatter.ofPattern("yyyy-MM-dd")
