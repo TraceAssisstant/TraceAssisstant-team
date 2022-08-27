@@ -3,9 +3,7 @@ package com.example.traceassistant.ui.habit
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import android.icu.util.GregorianCalendar
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,8 +11,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.example.traceassistant.R
-import com.example.traceassistant.databinding.ActivityHabitViewBinding
 import com.example.traceassistant.databinding.ActivityShowDrawingViewBinding
 import com.example.traceassistant.logic.Repository
 import com.github.aachartmodel.aainfographics.aachartcreator.*
@@ -24,7 +22,6 @@ import com.github.aachartmodel.aainfographics.aaoptionsmodel.AATooltip
 import com.github.aachartmodel.aainfographics.aatools.AAColor
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class ShowDrawingView : AppCompatActivity() {
 
@@ -53,6 +50,10 @@ class ShowDrawingView : AppCompatActivity() {
 
         //选择要显示的月份专注曲线
         val spinner: Spinner = findViewById(R.id.spinner)
+        val c = Calendar.getInstance() //可以对每个时间域单独修改
+        val onlyMonth = (c[Calendar.MONTH]+1).toString()
+        Log.d("onlyMonth","${onlyMonth}")
+        var position:Int
         ArrayAdapter.createFromResource(
             this,
             R.array.month_array,
@@ -60,6 +61,9 @@ class ShowDrawingView : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
+            //设置默认选项为当月
+            position=adapter.getPosition("${month_String(onlyMonth)}")
+            spinner.setSelection(position)
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -103,6 +107,24 @@ class ShowDrawingView : AppCompatActivity() {
         }
     }
 
+    /**
+     * 将所选月与m月格式日期对应
+     */
+    fun month_String(month:String)=when(month){
+        "1"->"一月"
+        "2"->"二月"
+        "3"->"三月"
+        "4"->"四月"
+        "5"->"五月"
+        "6"->"六月"
+        "7"->"七月"
+        "8"->"八月"
+        "9"->"九月"
+        "10"->"十月"
+        "11"->"十一月"
+        "12"->"十二月"
+        else->"err"
+    }
     /**
      * 获取专注时间与中断专注时间对比折线图x轴月份数组
      */
