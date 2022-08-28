@@ -82,4 +82,7 @@ dependencies {
 //    recyclerview依赖
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
+//    AAChartModel依赖
+    implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
+
 }

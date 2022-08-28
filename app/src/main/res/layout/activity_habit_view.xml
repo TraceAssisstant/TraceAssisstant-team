@@ -21,14 +21,14 @@
         android:id="@+id/hours"
         android:layout_width="118dp"
         android:layout_height="103dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="125dp"
-        android:text="00"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="124dp"
         android:fontFamily="serif"
+        android:text="00"
         android:textColor="#787474"
-        android:textSize="90sp"/>
+        android:textSize="90sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dot"
@@ -69,40 +69,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/minute" />
 
-    <Button
+    <ImageButton
         android:id="@+id/start"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginBottom="191dp"
-        app:icon="@drawable/ic_baseline_arrow_right_24"
+        android:layout_marginStart="132dp"
+        android:layout_marginBottom="188dp"
+        android:src="@drawable/ic_baseline_arrow_right_24"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+
+    <ImageButton
         android:id="@+id/stop"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="79dp"
-        android:layout_marginBottom="190dp"
-        app:icon="@drawable/ic_baseline_stop_24"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="188dp"
+        android:src="@drawable/ic_baseline_stop_24"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/pause"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="190dp"
-        app:icon="@drawable/ic_baseline_pause_24"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toStartOf="@+id/stop"
-        app:layout_constraintStart_toEndOf="@+id/start" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/toDrawingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="352dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/ic_baseline_ballot_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

@@ -32,6 +32,14 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.habit.ShowDrawingView"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="DrawingView"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.affairShow.AlterView"
             android:exported="false" />
 
@@ -67,7 +75,12 @@
         </activity>
         <activity
             android:name=".ui.habit.HabitView"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="ToHabitView"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.affairShow.ShowView"
             android:exported="false" />
