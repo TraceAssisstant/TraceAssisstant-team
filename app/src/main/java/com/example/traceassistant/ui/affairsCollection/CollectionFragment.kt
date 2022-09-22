@@ -1,5 +1,6 @@
 package com.example.traceassistant.ui.affairsCollection
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.model.Marker
 import com.amap.api.services.poisearch.PoiSearch
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.LocalNowLocation
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.databinding.FragmentCollectionBinding
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -21,7 +23,8 @@ import java.text.SimpleDateFormat
 class CollectionFragment : Fragment() {
 
     private lateinit var binding: FragmentCollectionBinding
-    val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
+
+    private val fragmentViewModel by lazy { activity?.let { ViewModelProvider(it).get(CollectionViewModel::class.java) } }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +45,7 @@ class CollectionFragment : Fragment() {
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .build()
         binding.datePick.text = SimpleDateFormat("yyyy-MM-dd").format(datePicker.selection)
+        dateSelected = SimpleDateFormat("yyyy-MM-dd").format(datePicker.selection)
 
         datePicker.addOnPositiveButtonClickListener(){
             /**
@@ -71,12 +75,13 @@ class CollectionFragment : Fragment() {
             .setTitleText("选择时间")
             .build()
         binding.timePick.text = "12:00"
+        timeSelected = "12-00"
 
         picker.addOnPositiveButtonClickListener(){
             val minute = picker.minute
             val hour = picker.hour
             binding.timePick.text = "%02d:%02d".format(hour,minute)
-            timeSelected = "${hour}:${minute}"
+            timeSelected = "${hour}-${minute}"
         }
 
         binding.timePick.setOnClickListener(){
@@ -134,7 +139,48 @@ class CollectionFragment : Fragment() {
             }
         }
 
+        /**
+         * 下一页
+         * 前往地理位置设置页面
+         */
+        binding.toLocationPage.setOnClickListener {
+            if (binding.affairTitle.text.toString().isEmpty() || binding.affairContent.text.toString().isEmpty()){
+                "标题或内容不能为空:-)".showToast()
+                return@setOnClickListener
+            }else if (dateSelected.isEmpty() || timeSelected.isEmpty()){
+                "请选择日期时间:-)".showToast()
+                return@setOnClickListener
+            }else if (binding.level.text.toString().isEmpty()){
+                "请选择重要级别:-)".showToast()
+                return@setOnClickListener
+            }else if (tagSelected.isEmpty()){
+                "请选择标签（或者您可以自定义标签）".showToast()
+                return@setOnClickListener
+            }
+            /**
+             * 于viewModel中存储已收集的数据
+             * 最终在viewModel中进行数据插入操作
+             * 最终在viewModel中进行数据插入操作
+             */
+            if (fragmentViewModel != null){
+                fragmentViewModel!!.affairForm.let {
+                    it.atitle = binding.affairTitle.text.toString()
+                    it.amainContent = binding.affairContent.text.toString()
+                    it.adate = dateSelected
+                    it.atime = SimpleDateFormat("yyyy-MM-dd-HH-mm").parse("${dateSelected}-${timeSelected}",).time
+                    it.alevel = binding.level.text.toString().toInt()
+                    it.atag = tagSelected
+                }
+            }
 
+            /**
+             * 开启定位
+             */
+            LocalNowLocation.startLocation()
+
+            val intent = Intent(activity,LocationCollectionView::class.java)
+            startActivity(intent)
+        }
 
         return binding.root
     }
