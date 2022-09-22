@@ -4,16 +4,138 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.amap.api.maps.AMap
+import com.amap.api.maps.model.Marker
+import com.amap.api.services.poisearch.PoiSearch
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.showToast
+import com.example.traceassistant.databinding.FragmentCollectionBinding
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
+import java.text.SimpleDateFormat
 
 class CollectionFragment : Fragment() {
+
+    private lateinit var binding: FragmentCollectionBinding
+    val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_collection, container, false)
+        binding = FragmentCollectionBinding.inflate(layoutInflater)
+
+
+        /**
+         * 日期选择框
+         * 默认选中今日
+         * @param dateSelected 当前选中的日期字符串
+         */
+        var dateSelected:String = ""
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("选择预订日期")
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .build()
+        binding.datePick.text = SimpleDateFormat("yyyy-MM-dd").format(datePicker.selection)
+
+        datePicker.addOnPositiveButtonClickListener(){
+            /**
+             * @param dateStmap
+             * 此处datePicker.selection 是用户指定日期的24点整对应的时间戳
+             */
+            val dateStmap = datePicker.selection
+            val date = SimpleDateFormat("yyyy-MM-dd").format(dateStmap)
+            binding.datePick.text = date
+            dateSelected = date
+        }
+
+        binding.datePick.setOnClickListener(){
+            datePicker.show(parentFragmentManager,"选择日期")
+        }
+
+        /**
+         * 时间选择器
+         * 默认24小时制
+         * @param timeSelected 当前选择的时间字符串 格式："hour : minute"
+         */
+        var timeSelected: String = ""
+        val picker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setHour(12)
+            .setMinute(0)
+            .setTitleText("选择时间")
+            .build()
+        binding.timePick.text = "12:00"
+
+        picker.addOnPositiveButtonClickListener(){
+            val minute = picker.minute
+            val hour = picker.hour
+            binding.timePick.text = "%02d:%02d".format(hour,minute)
+            timeSelected = "${hour}:${minute}"
+        }
+
+        binding.timePick.setOnClickListener(){
+            picker.show(parentFragmentManager,"时间选择")
+        }
+
+        /**
+         * 重要级别复选下拉框
+         */
+        val items = listOf("1","2","3","4","5")
+        val adapter = activity?.let { ArrayAdapter(it,R.layout.list_item,items) }
+        binding.level.setAdapter(adapter)
+
+        /**
+         * tag信息获取
+         * tag标签默认单选
+         * 当前代码为选中tag后用Toast显示出对应的tag名称
+         * @param tagSelected 当前选中的标签
+         */
+        var tagSelected: String = ""
+        binding.tagGroup.setOnCheckedStateChangeListener { group, checkedId ->
+            val id =  group.checkedChipId
+            when(id){
+                R.id.study -> tagSelected = "学习"
+                R.id.work -> tagSelected = "工作"
+                R.id.rest -> tagSelected = "休息"
+                R.id.entertainment -> tagSelected = "娱乐"
+                R.id.sleep -> tagSelected = "睡觉"
+            }
+        }
+
+        /**
+         * 响铃与振动开关
+         * 响铃的铃声选择功能待定
+         * @param isring 是否开启响铃
+         * @param isvibration 是否开启振动
+         */
+        var isring = false
+        var isvibration = false
+        binding.ring.setOnCheckedChangeListener { button, ischecked ->
+            isring = ischecked
+            if (ischecked){
+                "开启响铃".showToast()
+            }else{
+                "禁用响铃".showToast()
+            }
+        }
+
+        binding.vibration.setOnCheckedChangeListener { button, ischecked ->
+            isvibration = ischecked
+            if (ischecked){
+                "开启振动".showToast()
+            }else{
+                "禁用振动".showToast()
+            }
+        }
+
+
+
+        return binding.root
     }
 }
