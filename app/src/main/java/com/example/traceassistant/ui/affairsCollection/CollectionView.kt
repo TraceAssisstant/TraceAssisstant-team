@@ -73,7 +73,7 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
         /**
          * 导航栏
          */
-        Navigation.initialize(R.id.addPage,this,binding.bottomNavigation)
+//        Navigation.initialize(R.id.addPage,this,binding.bottomNavigation)
 
         /**
          * 日期选择框
@@ -219,7 +219,7 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
         }
 
         if (LocalNowLocation.getLocation() == null){
-            MaterialAlertDialogBuilder(this, com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered)
+            MaterialAlertDialogBuilder(this)
                 .setMessage("尚未取得定位，是否刷新页面？")
                 .setPositiveButton("刷新"){dialog,which ->
                     refresh()

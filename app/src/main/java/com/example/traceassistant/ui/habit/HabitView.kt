@@ -32,7 +32,7 @@ class HabitView : AppCompatActivity() {
         /**
          * 导航栏
          */
-        Navigation.initialize(R.id.habitPage,this,binding.bottomNavigation)
+//        Navigation.initialize(R.id.habitPage,this,binding.bottomNavigation)
 
         binding.start.setOnClickListener {
             btnNum++

@@ -31,7 +31,7 @@ class AlterView : AppCompatActivity() {
         /**
          * 导航栏
          */
-        Navigation.initialize(R.id.showPage,this,binding.bottomNavigation)
+//        Navigation.initialize(R.id.showPage,this,binding.bottomNavigation)
 
         /**
          * 设定初始数据
