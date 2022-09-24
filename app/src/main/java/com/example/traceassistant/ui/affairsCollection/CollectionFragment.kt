@@ -162,15 +162,15 @@ class CollectionFragment : Fragment() {
              * 最终在viewModel中进行数据插入操作
              * 最终在viewModel中进行数据插入操作
              */
-            if (fragmentViewModel != null){
-                fragmentViewModel!!.affairForm.let {
-                    it.atitle = binding.affairTitle.text.toString()
-                    it.amainContent = binding.affairContent.text.toString()
-                    it.adate = dateSelected
-                    it.atime = SimpleDateFormat("yyyy-MM-dd-HH-mm").parse("${dateSelected}-${timeSelected}",).time
-                    it.alevel = binding.level.text.toString().toInt()
-                    it.atag = tagSelected
-                }
+            TempInsertData.let {
+                it.atitle = binding.affairTitle.text.toString()
+                it.amainContent = binding.affairContent.text.toString()
+                it.adate = dateSelected
+                it.atime = SimpleDateFormat("yyyy-MM-dd-HH-mm").parse("${dateSelected}-${timeSelected}",).time
+                it.alevel = binding.level.text.toString().toInt()
+                it.atag = tagSelected
+                it.isRing = isring
+                it.isVibration = isvibration
             }
 
             /**

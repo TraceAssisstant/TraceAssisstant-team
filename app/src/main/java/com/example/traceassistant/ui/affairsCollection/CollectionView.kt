@@ -349,7 +349,7 @@ class CollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.On
                 binding.locationShowLayout.visibility = View.VISIBLE
                 val layoutManager = LinearLayoutManager(this)
                 binding.locationList.layoutManager = layoutManager
-                val adapter = LocationAdapter(listPOI,this)
+                val adapter = LocationAdapter(listPOI,LocationCollectionView())
                 binding.locationList.adapter = adapter
 
                 binding.nextPage.setOnClickListener {

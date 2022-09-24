@@ -26,6 +26,7 @@
         android:theme="@style/Theme.TraceAssistant">
         <activity
             android:name=".ui.affairsCollection.LocationCollectionView"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
 
         <service

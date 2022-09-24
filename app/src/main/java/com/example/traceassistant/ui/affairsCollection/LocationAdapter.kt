@@ -15,7 +15,7 @@ import com.amap.api.services.core.PoiItem
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.LocalNowLocation
 
-class LocationAdapter(val data: ArrayList<PoiItem>,val activity: CollectionView):RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
+class LocationAdapter(val data: ArrayList<PoiItem>,val activity: LocationCollectionView):RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         val tTitle: TextView = view.findViewById(R.id.locationTitle)
         val snippet: TextView = view.findViewById(R.id.locationSite)
