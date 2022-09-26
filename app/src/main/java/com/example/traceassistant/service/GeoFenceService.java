@@ -2,6 +2,7 @@ package com.example.traceassistant.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 
 
@@ -25,9 +26,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.room.Database;
 
@@ -37,11 +41,13 @@ import com.amap.api.fence.GeoFenceListener;
 import com.amap.api.location.DPoint;
 import com.example.traceassistant.R;
 import com.example.traceassistant.Tools.LocalNowLocation;
+import com.example.traceassistant.Tools.SerialData;
 import com.example.traceassistant.logic.Dao.AffairFormDao;
 import com.example.traceassistant.logic.Dao.AffairFormDao_Impl;
 import com.example.traceassistant.logic.Entity.AffairForm;
 import com.example.traceassistant.logic.Repository;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -50,8 +56,9 @@ import java.util.List;
 public class GeoFenceService extends Service {
     DPoint centerPoint;
     //定义接收广播的action字符串
+    Handler handler;
+    int loadAffairList = 1;
     public static final String GEOFENCE_BROADCAST_ACTION = "com.location.apis.geofencedemo.broadcast";
-
     public int flags = 1;
     @Override
     public void onCreate() {
@@ -66,27 +73,54 @@ public class GeoFenceService extends Service {
         LocalNowLocation.INSTANCE.initialize();
         LocalNowLocation.INSTANCE.startLocation();
         try {
-            Thread.sleep(5000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         Repository.INSTANCE.initAFDao();
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
-        List<AffairForm> affairList = Repository.INSTANCE.getAffairListByDate(formatter.format(date));
+
+        //数据库查询线程
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<AffairForm> affairList = Repository.INSTANCE.getAffairListByDate(formatter.format(date));
+                Bundle bundle = new Bundle();
+                SerialData serialData = new SerialData();
+                serialData.setData(affairList);
+                bundle.putSerializable("affairList",serialData);
+                Message message = new Message();
+                message.what = 1;
+                message.setData(bundle);
+                handler.sendMessage(message);
+            }
+        });
+
 
         //实例化地理围栏客户端
         GeoFenceClient mGeoFenceClient = new GeoFenceClient (getApplicationContext ());
         mGeoFenceClient.setActivateAction (GeoFenceClient.GEOFENCE_IN | GeoFenceClient.GEOFENCE_OUT);
 
 
-        for (AffairForm affairForm: affairList) {
-            centerPoint = new DPoint();
-            centerPoint.setLatitude(affairForm.getLatitude());
-            centerPoint.setLongitude(affairForm.getLongitude());
-            mGeoFenceClient.addGeoFence (centerPoint, 1000, affairForm.getTtitle());
-        }
+        handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                if(msg.what==loadAffairList){
+                    Bundle bundle = msg.getData();
+                    SerialData serialData2 = (SerialData)bundle.getSerializable("affairList");
+                    List<AffairForm> affairForms =(List<AffairForm>)serialData2.getData();
+                    for (AffairForm affairForm: affairForms) {
+                        centerPoint = new DPoint();
+                        centerPoint.setLatitude(affairForm.getLatitude());
+                        centerPoint.setLongitude(affairForm.getLongitude());
+                        mGeoFenceClient.addGeoFence (centerPoint, 1000, affairForm.getTtitle());
+                    }
+                }
+                super.handleMessage(msg);
+            }
+        };
+
 
 
         GeoFenceListener geoFenceListener = new GeoFenceListener () {
@@ -99,6 +133,7 @@ public class GeoFenceService extends Service {
 
             }
         };
+
         mGeoFenceClient.setGeoFenceListener (geoFenceListener);
         //创建并设置PendingIntent
         mGeoFenceClient.createPendingIntent (GEOFENCE_BROADCAST_ACTION);

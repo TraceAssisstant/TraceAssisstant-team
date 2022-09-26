@@ -32,6 +32,7 @@ class NotificationService : Service() {
             contentText = intent.getStringExtra("contentText").toString()
             notificationCode = intent.getIntExtra("notificationCode",flags)
         }
+
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
                 NotificationManager
 

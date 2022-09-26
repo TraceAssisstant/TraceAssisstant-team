@@ -14,6 +14,7 @@ import com.example.traceassistant.R
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Repository
 import com.example.traceassistant.ui.main.MainView
+import kotlin.concurrent.thread
 
 class AffairService : Service() {
     var requestCo = 0 //闹钟编码
@@ -23,17 +24,20 @@ class AffairService : Service() {
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         //通知示例
-        doNotificate("欢迎来到智醒事务助手1","您的事务已经安排妥当！1",alarmManager,System.currentTimeMillis()+4000)
+        doNotificate("欢迎来到智醒事务助手","您的事务已经安排妥当！",alarmManager,System.currentTimeMillis()+4000)
 
         //初始化数据库并获取事务信息
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
-        try{
-            for( af in  list){
-                Log.d("事务已添加到队列！", af.toString())
-               // doNotificate(af.ttitle,af.mainContent,notificationIntent,af.time)
-            }
 
+        try{
+            thread{
+                for( af in  list){
+                    Log.d("事务已添加到通知队列！", af.toString())
+                    doNotificate(af.ttitle,af.mainContent,alarmManager,af.time*1000)
+                }
+            }
+            //前台服务
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
                    NotificationManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

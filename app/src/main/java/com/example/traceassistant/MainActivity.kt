@@ -1,14 +1,27 @@
 package com.example.traceassistant
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import com.amap.api.fence.GeoFenceClient
+import com.amap.api.location.AMapLocation
+import com.amap.api.location.AMapLocationClientOption
+import com.example.traceassistant.Tools.DayOfMonth
+import com.example.traceassistant.Tools.DistanceConversion
+import com.example.traceassistant.Tools.LocalNowLocation
 import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.databinding.ActivityMainBinding
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Entity.Habit
 import com.example.traceassistant.logic.Entity.SignNature
 import com.example.traceassistant.logic.Repository
+import com.example.traceassistant.service.AffairService
+
+import com.example.traceassistant.service.GeoFenceService
+import com.example.traceassistant.service.NotificationService
+
 import kotlin.concurrent.thread
 import kotlin.math.sign
 
@@ -20,29 +33,60 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Repository.initHabitDao()
-        var habit1:Habit = Habit("背单词",1659872212,1659874000,400,"2022-8-7")
-        var habit2:Habit = Habit("敲代码",1659877212,1659879000,300,"2022-8-7")
-        var habit3:Habit = Habit("看书",1659872212,1659875000,1000,"2022-8-6")
-        var habit4:Habit = Habit("看书2",1629872212,1629875000,2000,"2022-1-6")
-        var habit5:Habit = Habit("看书3",1629872212,1629875000,2000,"2021-1-6")
+//        var habit1:Habit = Habit("背单词",1659872212,1659874000,400,"2022-08-07")
+//        var habit2:Habit = Habit("敲代码",1659877212,1659879000,300,"2022-08-07")
+//        var habit3:Habit = Habit("看书",1659872212,1659875000,1000,"2022-08-06")
+//        var habit4:Habit = Habit("看书2",1629872212,1629875000,2000,"2022-01-06")
+//        var habit5:Habit = Habit("看书3",1629872212,1629875000,2000,"2021-01-06")
+//
+////        Repository.habitInsert(habit1)
+////        Repository.habitInsert(habit2)
+////        Repository.habitInsert(habit3)
+////        Repository.habitInsert(habit4)
+////        Repository.habitInsert(habit5)
+//
+//
+//        var habits: List<Habit> = Repository.habitQuery()
+//        for(habit in habits){
+//            Log.d("habit",habit.toString())
+//        }
+//
+//        Repository.focusArrayQuery("2022-08")
+//        Repository.pauseArrayQuery("2022-08")
+        Repository.initAFDao()
+        Repository.deleteAffairAll()
+        var affairForm1:AffairForm = AffairForm("拿快递","去新一区快递超市拿快递",798798794,"2022-8-29",
+            -112.0004,41.222825,10000.0,1,"取快递",true,true,1)
+        var affairForm2:AffairForm = AffairForm("交材料","去计算机学院交材料",798798123,"2022-8-30",
+            -112.0003,41.222824,10000.0,1,"交材料",true,true,1)
+        Repository.insertAffiar(affairForm1)
+        Repository.insertAffiar(affairForm2)
 
-//        Repository.habitInsert(habit1)
-//        Repository.habitInsert(habit2)
-//        Repository.habitInsert(habit3)
-//        Repository.habitInsert(habit4)
-//        Repository.habitInsert(habit5)
 
-        val(focusTime,pauseTime) = Repository.habitQueryByYear("2022")
+    }
 
-        Log.d("focusTime",focusTime.toString())
-        Log.d("pauseTime",pauseTime.toString())
+    override fun onStart() {
+        super.onStart()
 
+        /**
+         * 定位权限申请
+         */
+        locationPermission(this)
+        LocalNowLocation.initialize()
+        LocalNowLocation.startLocation()
 
-        var habits: List<Habit> = Repository.habitQuery()
-        for(habit in habits){
-            Log.d("habit",habit.toString())
+        var button: Button = findViewById(R.id.testBtn)
+        button.setOnClickListener {
+            var amp : AMapLocation? = LocalNowLocation.getLocation()
+            if (amp != null) {
+                Log.d("getLocation",amp.city.toString()+" "+amp.latitude.toString()+" "+amp.longitude.toString())
+                var distance = DistanceConversion.getDistance1(amp.longitude,amp.latitude,amp.longitude+1,amp.latitude+1)
+                Log.d("distance", distance.toString())
+            }
+            val intent = Intent(this, GeoFenceService::class.java)
+            startService(intent)
+
         }
-
 
     }
 }
