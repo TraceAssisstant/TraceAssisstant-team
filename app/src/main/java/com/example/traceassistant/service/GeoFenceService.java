@@ -72,17 +72,60 @@ public class GeoFenceService extends Service {
         //初始化地理位置信息
         LocalNowLocation.INSTANCE.initialize();
         LocalNowLocation.INSTANCE.startLocation();
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         Repository.INSTANCE.initAFDao();
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
+        //实例化地理围栏客户端
+        GeoFenceClient mGeoFenceClient = new GeoFenceClient (getApplicationContext ());
+        mGeoFenceClient.setActivateAction (GeoFenceClient.GEOFENCE_IN | GeoFenceClient.GEOFENCE_OUT);
+
+        //数据更新类
+        handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                if(msg.what==loadAffairList){
+                    Bundle bundle = msg.getData();
+                    SerialData serialData2 = (SerialData)bundle.getSerializable("affairList");
+                    List<AffairForm> affairForms =(List<AffairForm>)serialData2.getData();
+                    System.out.println("地理服务列表：");
+                    for (AffairForm affair : affairForms
+                         ) {
+                        System.out.println(affair.toString());
+                    }
+                    for (AffairForm affairForm: affairForms) {
+                        centerPoint = new DPoint();
+                        centerPoint.setLatitude(affairForm.getLatitude());
+                        centerPoint.setLongitude(affairForm.getLongitude());
+                        mGeoFenceClient.addGeoFence (centerPoint, 1000, affairForm.getTtitle());
+                    }
+                }
+
+
+                GeoFenceListener geoFenceListener = new GeoFenceListener () {
+                    @Override
+                    public void onGeoFenceCreateFinished(List<GeoFence> list, int i, String s) {
+                        if (i == GeoFence.ADDGEOFENCE_SUCCESS) {
+                            Toast.makeText (getApplicationContext (),"创建地理围栏成功",Toast.LENGTH_LONG).show ();
+                            Log.d("GEOFENCE","创建地理围栏成功");
+                        }
+
+                    }
+                };
+
+                mGeoFenceClient.setGeoFenceListener (geoFenceListener);
+                //创建并设置PendingIntent
+                mGeoFenceClient.createPendingIntent (GEOFENCE_BROADCAST_ACTION);
+                IntentFilter filter = new IntentFilter ();
+                filter.addAction (GEOFENCE_BROADCAST_ACTION);
+                registerReceiver (mGeoFenceReceiver, filter);
+
+                super.handleMessage(msg);
+            }
+        };
 
         //数据库查询线程
-        Thread thread = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 List<AffairForm> affairList = Repository.INSTANCE.getAffairListByDate(formatter.format(date));
@@ -95,51 +138,9 @@ public class GeoFenceService extends Service {
                 message.setData(bundle);
                 handler.sendMessage(message);
             }
-        });
+        }).start();
 
 
-        //实例化地理围栏客户端
-        GeoFenceClient mGeoFenceClient = new GeoFenceClient (getApplicationContext ());
-        mGeoFenceClient.setActivateAction (GeoFenceClient.GEOFENCE_IN | GeoFenceClient.GEOFENCE_OUT);
-
-
-        handler = new Handler(Looper.getMainLooper()){
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                if(msg.what==loadAffairList){
-                    Bundle bundle = msg.getData();
-                    SerialData serialData2 = (SerialData)bundle.getSerializable("affairList");
-                    List<AffairForm> affairForms =(List<AffairForm>)serialData2.getData();
-                    for (AffairForm affairForm: affairForms) {
-                        centerPoint = new DPoint();
-                        centerPoint.setLatitude(affairForm.getLatitude());
-                        centerPoint.setLongitude(affairForm.getLongitude());
-                        mGeoFenceClient.addGeoFence (centerPoint, 1000, affairForm.getTtitle());
-                    }
-                }
-                super.handleMessage(msg);
-            }
-        };
-
-
-
-        GeoFenceListener geoFenceListener = new GeoFenceListener () {
-            @Override
-            public void onGeoFenceCreateFinished(List<GeoFence> list, int i, String s) {
-                if (i == GeoFence.ADDGEOFENCE_SUCCESS) {
-                    Toast.makeText (getApplicationContext (),"创建地理围栏成功",Toast.LENGTH_LONG).show ();
-                    Log.d("GEOFENCE","创建地理围栏成功");
-                }
-
-            }
-        };
-
-        mGeoFenceClient.setGeoFenceListener (geoFenceListener);
-        //创建并设置PendingIntent
-        mGeoFenceClient.createPendingIntent (GEOFENCE_BROADCAST_ACTION);
-        IntentFilter filter = new IntentFilter ();
-        filter.addAction (GEOFENCE_BROADCAST_ACTION);
-        registerReceiver (mGeoFenceReceiver, filter);
         return super.onStartCommand (intent, flags, startId);
     }
 

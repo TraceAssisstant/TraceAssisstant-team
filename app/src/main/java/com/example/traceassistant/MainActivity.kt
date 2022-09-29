@@ -8,10 +8,7 @@ import android.widget.Button
 import com.amap.api.fence.GeoFenceClient
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClientOption
-import com.example.traceassistant.Tools.DayOfMonth
-import com.example.traceassistant.Tools.DistanceConversion
-import com.example.traceassistant.Tools.LocalNowLocation
-import com.example.traceassistant.Tools.locationPermission
+import com.example.traceassistant.Tools.*
 import com.example.traceassistant.databinding.ActivityMainBinding
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Entity.Habit
@@ -53,40 +50,21 @@ class MainActivity : AppCompatActivity() {
 //
 //        Repository.focusArrayQuery("2022-08")
 //        Repository.pauseArrayQuery("2022-08")
-        Repository.initAFDao()
-        Repository.deleteAffairAll()
-        var affairForm1:AffairForm = AffairForm("拿快递","去新一区快递超市拿快递",798798794,"2022-8-29",
-            -112.0004,41.222825,10000.0,1,"取快递",true,true,1)
-        var affairForm2:AffairForm = AffairForm("交材料","去计算机学院交材料",798798123,"2022-8-30",
-            -112.0003,41.222824,10000.0,1,"交材料",true,true,1)
-        Repository.insertAffiar(affairForm1)
-        Repository.insertAffiar(affairForm2)
+//        Repository.initAFDao()
+//        Repository.deleteAffairAll()
+//        var affairForm1:AffairForm = AffairForm("拿快递","去新一区快递超市拿快递",798798794,"2022-8-29",
+//            -112.0004,41.222825,10000.0,1,"取快递",true,true,1)
+//        var affairForm2:AffairForm = AffairForm("交材料","去计算机学院交材料",798798123,"2022-8-30",
+//            -112.0003,41.222824,10000.0,1,"交材料",true,true,1)
+//        Repository.insertAffiar(affairForm1)
+//        Repository.insertAffiar(affairForm2)
 
 
     }
 
     override fun onStart() {
         super.onStart()
-
-        /**
-         * 定位权限申请
-         */
-        locationPermission(this)
-        LocalNowLocation.initialize()
-        LocalNowLocation.startLocation()
-
-        var button: Button = findViewById(R.id.testBtn)
-        button.setOnClickListener {
-            var amp : AMapLocation? = LocalNowLocation.getLocation()
-            if (amp != null) {
-                Log.d("getLocation",amp.city.toString()+" "+amp.latitude.toString()+" "+amp.longitude.toString())
-                var distance = DistanceConversion.getDistance1(amp.longitude,amp.latitude,amp.longitude+1,amp.latitude+1)
-                Log.d("distance", distance.toString())
-            }
-            val intent = Intent(this, GeoFenceService::class.java)
-            startService(intent)
-
-        }
+        println("test???"+ toStamp("2022-9-29 21:14:00"))
 
     }
 }

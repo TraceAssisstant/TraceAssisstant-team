@@ -12,7 +12,6 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.amap.api.location.AMapLocation
 import com.example.traceassistant.R
-import com.example.traceassistant.Tools.DistanceConversion
 import com.example.traceassistant.Tools.LocalNowLocation
 import kotlin.concurrent.thread
 

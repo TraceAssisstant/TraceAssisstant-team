@@ -13,6 +13,7 @@ import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.locationPermission
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.service.AffairService
+import com.example.traceassistant.service.GeoFenceService
 import com.example.traceassistant.ui.MyAppFragmentAdapter
 import com.example.traceassistant.ui.affairShow.ShowFragment
 import com.example.traceassistant.ui.affairsCollection.CollectionFragment
@@ -45,8 +46,8 @@ class MainView : AppCompatActivity() {
         /**
          * 开启后台地理围栏&事务提醒服务
          */
-        //val geoServiceIntent = Intent(this, GeoFenceService::class.java)
-        //startService(geoServiceIntent)
+        val geoServiceIntent = Intent(this, GeoFenceService::class.java)
+        startService(geoServiceIntent)
 
         /**
          * 导航栏

@@ -30,13 +30,16 @@ class AffairService : Service() {
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
 
-        try{
-            thread{
-                for( af in  list){
-                    Log.d("事务已添加到通知队列！", af.toString())
-                    doNotificate(af.ttitle,af.mainContent,alarmManager,af.time*1000)
-                }
+        thread {
+            for (af in list) {
+                println("通知服务队列：")
+                println(af.toString())
+                doNotificate(af.ttitle, af.mainContent, alarmManager, af.time * 1000)
             }
+        }
+
+        try{
+
             //前台服务
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as
                    NotificationManager
