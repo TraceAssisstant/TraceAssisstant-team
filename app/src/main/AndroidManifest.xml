@@ -43,9 +43,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.affairShow.AlterView"
-            android:exported="false" />
 
         <service
             android:name=".service.NotificationService"
@@ -81,12 +78,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.affairShow.ShowView"
-            android:exported="false" />
-        <activity
-            android:name=".ui.affairsCollection.CollectionView"
-            android:exported="false" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

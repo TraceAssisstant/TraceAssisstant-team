@@ -23,11 +23,16 @@ import com.example.traceassistant.ui.setting.SettingFragment
 
 class MainView : AppCompatActivity() {
 
+    object MyActivityNow{
+        var activity : AppCompatActivity? = null
+    }
+
     private lateinit var binding: ActivityMainViewBinding
 
     val viewModel by lazy { ViewModelProvider(this).get(CollectionViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        MyActivityNow.activity = this
         super.onCreate(savedInstanceState)
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)

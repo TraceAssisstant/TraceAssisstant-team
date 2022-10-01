@@ -34,3 +34,12 @@ fun toStamp(date:String): Long {
     return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date).time/1000
 }
 
+/**
+ * 时间戳转化为当天时间，精确到分钟
+ * 无日期
+ */
+fun toDateTimeObscure(stamp:Long):String{
+    var simpleDateFormat = SimpleDateFormat("HH:mm")
+    return simpleDateFormat.format(Date(stamp*1000))
+}
+

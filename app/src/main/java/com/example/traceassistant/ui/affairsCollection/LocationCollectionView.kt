@@ -22,6 +22,7 @@ import com.example.traceassistant.R
 import com.example.traceassistant.Tools.LocalNowLocation
 import com.example.traceassistant.Tools.showToast
 import com.example.traceassistant.databinding.ActivityLocationCollectionViewBinding
+import com.example.traceassistant.ui.main.MainView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LocationCollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener,AMap.OnPOIClickListener,AMap.OnMapClickListener {
@@ -120,6 +121,17 @@ class LocationCollectionView : AppCompatActivity(),PoiSearch.OnPoiSearchListener
 
 
             viewModel.insertAffair(TempInsertData.getAffair())
+
+            val intent = Intent(this,MainView::class.java)
+            startActivity(intent)
+            MainView.MyActivityNow.activity?.finish()
+        }
+
+        /**
+         * 返回Fragment
+         */
+        binding.backToCollection.setOnClickListener {
+            finish()
         }
     }
 
