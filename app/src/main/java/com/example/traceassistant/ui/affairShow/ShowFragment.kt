@@ -78,6 +78,7 @@ class ShowFragment : Fragment() {
          * 通过地图罗列当日所有事务地点
          */
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+
             true
         }
 

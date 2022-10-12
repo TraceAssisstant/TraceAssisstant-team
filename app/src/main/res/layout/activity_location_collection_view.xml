@@ -7,8 +7,12 @@
     tools:context=".ui.affairsCollection.LocationCollectionView">
 
     <com.example.traceassistant.ui.affairsCollection.MapContainer
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="350dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,19 +23,21 @@
     </com.example.traceassistant.ui.affairsCollection.MapContainer>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/textInputLayout3"
-        android:layout_width="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="180dp"
         app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/searchLocation"
-            android:layout_width="230dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -39,12 +45,14 @@
 
     <Button
         android:id="@+id/searchLocationBtn"
-        android:layout_width="85dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="372dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="400dp"
         android:layout_marginEnd="40dp"
         android:text="搜索"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -90,8 +98,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="50dp"
-        android:layout_marginStart="306dp"
-        android:layout_marginBottom="40dp"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,11 +106,11 @@
 
     <Button
         android:id="@+id/submitAll"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="44dp"
-        android:layout_marginStart="125dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="580dp"
-        android:layout_marginEnd="126dp"
+        android:layout_marginEnd="130dp"
         android:text="完成"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
