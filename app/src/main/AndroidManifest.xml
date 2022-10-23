@@ -25,9 +25,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceAssistant">
         <activity
-            android:name=".ui.affairsCollection.LocationCollectionView"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".ui.affairShow.ShowEditAffair"
             android:exported="false" />
+        <activity
+            android:name=".ui.affairsCollection.LocationCollectionView"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
 
         <service
             android:name=".service.GeoFenceService"

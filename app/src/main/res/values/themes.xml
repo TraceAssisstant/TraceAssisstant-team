@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.TraceAssistant" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <item name="colorPrimary">#DF982E</item>
-        <item name="colorPrimaryVariant">#EDE495</item>
+        <item name="colorPrimary">#27A7BD</item>
+        <item name="colorPrimaryVariant">#00FFFF</item>
         <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#DF8A70</item>
-        <item name="colorSecondaryVariant">#DF6842</item>
-        <item name="colorOnSecondary">#FDFDFD</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="colorSecondary">#0974BA</item>
+        <item name="colorSecondaryVariant">#0D8488</item>
+        <item name="colorOnSecondary">#A6ECE1</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/purple_500</item>
 
         <item name="materialCalendarTheme">@style/ThemeOverlay.TraceAssisstant.DatePicker</item>
 
@@ -16,8 +16,8 @@
     </style>
     
     <style name="ThemeOverlay.TraceAssisstant.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">#F49C18</item>
-        <item name="colorOnPrimary">#DAD181</item>
+        <item name="colorPrimary">#27A7BD</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Material3.MediumComponent</item>
     </style>

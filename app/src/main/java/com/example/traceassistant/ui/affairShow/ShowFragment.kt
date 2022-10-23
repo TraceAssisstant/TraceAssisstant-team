@@ -46,7 +46,7 @@ class ShowFragment : Fragment() {
         binding.topAppBar.title = dateSelected
         listOfAffairForm = Repository.getAffairListByDate(dateSelected)
         Log.d("Today",listOfAffairForm.toString())
-        val adapter = ShowAffairAdapter(listOfAffairForm)
+        val adapter = activity?.let { ShowAffairAdapter(it,listOfAffairForm) }
         val layoutManager = LinearLayoutManager(context)
         binding.affairsShowView.layoutManager = layoutManager
         binding.affairsShowView.adapter = adapter
@@ -63,7 +63,7 @@ class ShowFragment : Fragment() {
             binding.topAppBar.title = dateSelected
             listOfAffairForm = Repository.getAffairListByDate(dateSelected)
 
-            val adapter = ShowAffairAdapter(listOfAffairForm)
+            val adapter = activity?.let { it1 -> ShowAffairAdapter(it1,listOfAffairForm) }
             val layoutManager = LinearLayoutManager(context)
             binding.affairsShowView.layoutManager = layoutManager
             binding.affairsShowView.adapter = adapter

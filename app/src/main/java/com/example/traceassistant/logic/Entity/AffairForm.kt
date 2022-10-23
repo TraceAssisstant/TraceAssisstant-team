@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.awt.font.TextAttribute
+import java.io.Serializable
 
 //事务实体类
 @Entity(tableName = "affair_form")
@@ -20,7 +21,7 @@ data class AffairForm(
     @ColumnInfo(name = "ring_music") val ringMusic:Boolean,
     @ColumnInfo(name = "is_shake") val isShake:Boolean,
     @ColumnInfo(name = "state") val state: Int
-){
+) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0
 
