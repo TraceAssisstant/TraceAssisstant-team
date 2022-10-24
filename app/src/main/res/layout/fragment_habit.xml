@@ -7,16 +7,86 @@
     tools:context=".ui.habit.HabitView">
 
 
+    <ImageView
+        android:layout_width="478dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/hengxian"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="120dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/wenzi3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+    <!--原数据统计按钮-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/toDrawingView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginRight="36dp"-->
+    <!--        android:layout_marginBottom="656dp"-->
+    <!--        android:src="@drawable/ic_baseline_ballot_24"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent" />-->
+
+    <ImageButton
+        android:id="@+id/toDrawingView"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="172dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/wenzi4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageButton>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="230dp"
+        android:layout_height="99dp"
+        android:src="@drawable/wenzi5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.17"></ImageView>
+
+    <com.example.traceassistant.ui.habit.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="332dp"
+        android:layout_height="333dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/habits_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.518" />
+
     <TextView
         android:id="@+id/hours"
         android:layout_width="118dp"
         android:layout_height="103dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="120dp"
         android:fontFamily="serif"
         android:text="00"
-        android:textColor="#787474"
+        android:textColor="@color/white"
         android:textSize="90sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.334"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,77 +94,128 @@
         android:id="@+id/dot"
         android:layout_width="51dp"
         android:layout_height="93dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="132dp"
         android:fontFamily="serif"
         android:text=":"
-        android:textColor="#787474"
+        android:textColor="@color/white"
         android:textSize="70sp"
-        app:layout_constraintStart_toEndOf="@+id/hours"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.507" />
+
+    <TextView
+        android:id="@+id/second"
+        android:layout_width="78dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="396dp"
+        android:fontFamily="serif"
+        android:text="00"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/minute"
         android:layout_width="110dp"
         android:layout_height="103dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="120dp"
         android:fontFamily="serif"
         android:text="00"
-        android:textColor="#787474"
+        android:textColor="@color/white"
         android:textSize="90sp"
-        app:layout_constraintStart_toEndOf="@+id/dot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.74"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--    文字条-->
     <TextView
-        android:id="@+id/second"
-        android:layout_width="78dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="317dp"
-        android:layout_marginTop="30dp"
-        android:text="00"
-        android:fontFamily="serif"
-        android:textColor="#787474"
-        android:textSize="40sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="已专注："
+        android:textColor="@color/white"
+        android:textSize="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/minute" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.361" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="319dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="140dp"
+        android:gravity="center"
+        android:text="---落日余晖的路上总是爱意弥漫---"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.641"
+        app:layout_constraintStart_toStartOf="parent"></TextView>
 
     <ImageButton
         android:id="@+id/start"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="352dp"
-        android:layout_marginBottom="188dp"
-        android:src="@drawable/ic_baseline_arrow_right_24"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="62dp"
+        android:layout_height="53dp"
+        android:src="@drawable/kaishi"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.381"
+        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.908" />
+
+    <ImageView
+        android:layout_width="92dp"
+        android:layout_height="40dp"
+        android:src="@drawable/wenzi6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958">
+
+    </ImageView>
 
     <ImageButton
         android:id="@+id/stop"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_baseline_stop_24"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:src="@drawable/jieshu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.598"
+        app:layout_constraintHorizontal_bias="0.698"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549"
+        app:layout_constraintVertical_bias="0.9"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/toDrawingView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="352dp"
-        android:layout_marginBottom="56dp"
-        android:src="@drawable/ic_baseline_ballot_24"
+    <ImageView
+        android:layout_width="82dp"
+        android:layout_height="39dp"
+        android:src="@drawable/wenzi7"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.956">
+
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
