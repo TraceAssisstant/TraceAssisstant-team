@@ -127,6 +127,7 @@ class LocationCollectionView : AppCompatActivity(), PoiSearch.OnPoiSearchListene
 
             Log.d("insert", TempInsertData.getAffair().toString())
 
+            TempInsertData.atime /= 1000
 
             viewModel.insertAffair(TempInsertData.getAffair())
 

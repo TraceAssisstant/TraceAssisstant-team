@@ -1,13 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.habit.HabitFragment">
+    tools:context=".ui.habit.HabitView">
+
 
     <TextView
+        android:id="@+id/hours"
+        android:layout_width="118dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="serif"
+        android:text="00"
+        android:textColor="#787474"
+        android:textSize="90sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dot"
+        android:layout_width="51dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="132dp"
+        android:fontFamily="serif"
+        android:text=":"
+        android:textColor="#787474"
+        android:textSize="70sp"
+        app:layout_constraintStart_toEndOf="@+id/hours"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/minute"
+        android:layout_width="110dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="serif"
+        android:text="00"
+        android:textColor="#787474"
+        android:textSize="90sp"
+        app:layout_constraintStart_toEndOf="@+id/dot"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/second"
+        android:layout_width="78dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="317dp"
+        android:layout_marginTop="30dp"
+        android:text="00"
+        android:fontFamily="serif"
+        android:textColor="#787474"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minute" />
+
+
+    <ImageButton
+        android:id="@+id/start"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="352dp"
+        android:layout_marginBottom="188dp"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.381"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/stop"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_stop_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.598"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.549"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/toDrawingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="Habit" />
-</androidx.core.widget.NestedScrollView>
+        android:layout_marginLeft="352dp"
+        android:layout_marginBottom="56dp"
+        android:src="@drawable/ic_baseline_ballot_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

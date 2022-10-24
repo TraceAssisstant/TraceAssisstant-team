@@ -37,6 +37,7 @@ class AffairNotification : AppCompatActivity() {
             var intent = Intent(this,MainView::class.java)
             startActivity(intent)
         }
+        finish()
 
     }
 }

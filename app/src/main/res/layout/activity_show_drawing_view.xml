@@ -43,12 +43,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-                        android:id="@+id/focus_pause_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="500dp"></com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
+                <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                    android:id="@+id/focus_pause_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"></com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
 
-                </HorizontalScrollView>
+            </HorizontalScrollView>
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"

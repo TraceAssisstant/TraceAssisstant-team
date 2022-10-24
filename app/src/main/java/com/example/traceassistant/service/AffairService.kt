@@ -5,12 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.amap.api.fence.GeoFenceClient
 import com.amap.api.fence.GeoFenceClient.GEOFENCE_IN
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.SerialData
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Repository
 import com.example.traceassistant.ui.main.MainView
@@ -24,19 +26,20 @@ class AffairService : Service() {
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         //通知示例
-        doNotificate("欢迎来到智醒事务助手","您的事务已经安排妥当！",alarmManager,System.currentTimeMillis()+4000)
+        doNotificate(AffairForm("通知范例1", "这是一个通知范例"
+            , 1666601940,"2022-10-24", 0.0, 0.0, 0.0, 3, "工作", true, true, 0),alarmManager,System.currentTimeMillis()+4000)
+
+
 
         //初始化数据库并获取事务信息
         Repository.initAFDao()
         var list :List<AffairForm> = Repository.getAffairList();
 
-        thread {
-            for (af in list) {
-                println("通知服务队列：")
-                println(af.toString())
-                doNotificate(af.ttitle, af.mainContent, alarmManager, af.time * 1000)
-            }
+
+        for (af in list) {
+            doNotificate(af, alarmManager, af.time * 1000)
         }
+
 
         try{
 
@@ -71,18 +74,18 @@ class AffairService : Service() {
     /**
      * 执行定时信息通知的方法
      */
-    fun doNotificate(title:String,content:String,alarmManager:AlarmManager,time:Long){
+    fun doNotificate(affairForm: AffairForm,alarmManager:AlarmManager,time:Long){
         //创建通知service实例
         val notificationIntent = Intent(this, NotificationService::class.java)
-        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        notificationIntent.putExtra("title",title)
-        notificationIntent.putExtra("contentText",content)
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        notificationIntent.putExtra("title",affairForm.ttitle)
+        notificationIntent.putExtra("content",affairForm.mainContent)
+        notificationIntent.putExtra("id",affairForm.id)
         //闹钟开启
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             time,
-            PendingIntent.getService(this, requestCo++, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(this, ++requestCo, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         )
 
     }

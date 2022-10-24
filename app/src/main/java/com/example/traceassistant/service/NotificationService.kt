@@ -13,6 +13,8 @@ import androidx.core.app.NotificationCompat
 import com.amap.api.location.AMapLocation
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.LocalNowLocation
+import com.example.traceassistant.Tools.SerialData
+import com.example.traceassistant.logic.Entity.AffairForm
 import kotlin.concurrent.thread
 
 class NotificationService : Service() {
@@ -20,15 +22,21 @@ class NotificationService : Service() {
     //赋默认值
     var title: String = "未获取到事务标题"
     var contentText: String = "未获取到事务详细信息"
-
+    var affairFormId :Int = 0
     var notificationCode:Int = 1
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
+
+
         //获取消息内容参数
         if (intent != null) {
+
+            val bundle = intent.getBundleExtra("affair")
+
             title = intent.getStringExtra("title").toString()
-            contentText = intent.getStringExtra("contentText").toString()
+            contentText = intent.getStringExtra("content").toString()
+            affairFormId = intent.getIntExtra("id",0)
             notificationCode = intent.getIntExtra("notificationCode",flags)
         }
 
