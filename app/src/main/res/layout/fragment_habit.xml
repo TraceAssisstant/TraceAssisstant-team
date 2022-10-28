@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.habit.HabitView">
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -109,13 +108,13 @@
         android:id="@+id/second"
         android:layout_width="78dp"
         android:layout_height="60dp"
-        android:layout_marginTop="396dp"
+        android:layout_marginTop="432dp"
         android:fontFamily="serif"
         android:text="00"
         android:textColor="@color/white"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintHorizontal_bias="0.648"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
