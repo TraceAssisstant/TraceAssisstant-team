@@ -91,11 +91,11 @@ class ShowDrawingView : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        //添加返回按钮
-        binding.toHabitView.setOnClickListener(){
-            val  intent=Intent("ToHabitView")
-            startActivity(intent)
-        }
+//        //添加返回按钮
+//        binding.toHabitView.setOnClickListener(){
+//            val  intent=Intent("ToHabitView")
+//            startActivity(intent)
+//        }
     }
 
     /**

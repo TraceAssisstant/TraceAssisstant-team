@@ -27,17 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-    <!--原数据统计按钮-->
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/toDrawingView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginRight="36dp"-->
-    <!--        android:layout_marginBottom="656dp"-->
-    <!--        android:src="@drawable/ic_baseline_ballot_24"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent" />-->
-
     <ImageButton
         android:id="@+id/toDrawingView"
         style="?android:attr/borderlessButtonStyle"
