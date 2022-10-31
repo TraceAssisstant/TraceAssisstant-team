@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
+                app:layout_constraintTop_toTopOf="@+id/horizontalScrollView2">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="60dp"
+                    android:text="______________________________________________________________"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/thisFocusTime"
+                    android:layout_width="164dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="16dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="这是一个例子"
+                    android:textColor="@color/black"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/focusTime"
+                    android:layout_width="164dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="40dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="这是一个例子"
+                    android:textColor="@color/black"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="120dp"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/wenzi3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.993"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <HorizontalScrollView
+                    android:id="@+id/horizontalScrollView"
+                    android:layout_width="373dp"
+                    android:layout_height="495dp"
+                    android:layout_marginTop="88dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.578"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="373dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="373dp"
+                            android:layout_height="30dp"
+                            android:textSize="17dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="请选择要查看的月份的专注时间与暂停时间对比图"
+                            android:textColor="@color/black"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="20dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                            android:id="@+id/focus_month_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="500dp"
+                            android:layout_marginTop="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"></com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </HorizontalScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

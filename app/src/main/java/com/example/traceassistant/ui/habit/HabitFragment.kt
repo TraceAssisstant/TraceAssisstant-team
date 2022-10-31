@@ -79,7 +79,7 @@ class HabitFragment : Fragment() {
         })
 
         viewModel.second.observe(viewLifecycleOwner, Observer { s ->
-            val secStr = String.format("%d",s)
+            val secStr = String.format("%02d",s)
             Log.d("second",secStr)
             second.setText(secStr)
             if (!secStr.equals("00")){
@@ -88,12 +88,12 @@ class HabitFragment : Fragment() {
         })
 
         toDrawingView.setOnClickListener{
-            val intent= Intent("DrawingView")
+            val intent= Intent(requireContext(),ShowDrawing::class.java)
             intent.putExtra("hour",hour)
             intent.putExtra("minute",min)
             intent.putExtra("second",sec)
+            Log.d("hour&minute&second","${hour}时${minute}分${second}秒")
             startActivity(intent)
         }
-
     }
 }
