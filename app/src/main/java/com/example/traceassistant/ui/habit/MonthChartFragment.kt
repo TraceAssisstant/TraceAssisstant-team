@@ -170,19 +170,20 @@ class MonthChartFragment: Fragment() {
     fun focus_month_chart(month: String): AAOptions {
         val aaChartModel = AAChartModel()
             .chartType(AAChartType.Line)//图形类型
-            .title("月度专注时间与中断专注时间折线图")//图表主标题
+            .title("月度专注数据")//图表主标题
             .dataLabelsEnabled(false)
             .colorsTheme(arrayOf("#04d69f", "#1e90ff"))
             .dataLabelsEnabled(false)
             .categories(month_day(month).toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
-                .name("focus time")
+                .name("专注时间")
                 .lineWidth(5.0f)
                 .fillOpacity(0.4f)
                 .data(Repository.focusArrayQuery(select_month(month)) as Array<Any>),
                 AASeriesElement()
-                    .name("pause time")
+                    .name("中断时间")
+                    .color("#D80E7D")
                     .lineWidth(5.0f)
                     .fillOpacity(0.4f)
                     .data(Repository.pauseArrayQuery(select_month(month))as Array<Any>)

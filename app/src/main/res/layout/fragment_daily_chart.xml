@@ -2,22 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ECECEC"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView2"
-                app:layout_constraintTop_toTopOf="@+id/horizontalScrollView2">
+                android:background="@drawable/button_shape"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="12dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -25,10 +28,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="60dp"
-                    android:text="______________________________________________________________"
+                    android:gravity="center"
+                    android:text="___________________________________________________________"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -36,8 +39,8 @@
                     android:id="@+id/thisFocusTime"
                     android:layout_width="164dp"
                     android:layout_height="24dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="26dp"
                     android:autoSizeTextType="uniform"
                     android:text="这是一个例子"
                     android:textColor="@color/black"
@@ -48,47 +51,68 @@
                     android:id="@+id/focusTime"
                     android:layout_width="164dp"
                     android:layout_height="24dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="48dp"
                     android:autoSizeTextType="uniform"
                     android:text="这是一个例子"
                     android:textColor="@color/black"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                .
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="120dp"
                     android:layout_height="53dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/wenzi3"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.993"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>.
-
-                <HorizontalScrollView
-                    android:id="@+id/horizontalScrollView"
-                    android:layout_width="373dp"
-                    android:layout_height="495dp"
-                    android:layout_marginTop="88dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.578"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
-                        android:id="@+id/focus_pause_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="500dp"></com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
-
-                </HorizontalScrollView>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </ScrollView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="373dp"
+            android:layout_height="524dp"
+            android:background="@drawable/button_shape"
+            android:padding="15dp"
+            app:layout_anchor="@+id/scrollView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="NotSibling">
+
+            <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+                android:id="@+id/focus_pause_view"
+                android:layout_width="363dp"
+                android:layout_height="485dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button_shape"></com.github.aachartmodel.aainfographics.aachartcreator.AAChartView>
+
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="324dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="625dp"
+        android:src="@drawable/wenzi8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

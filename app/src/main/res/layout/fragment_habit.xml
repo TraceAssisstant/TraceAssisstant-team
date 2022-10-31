@@ -97,13 +97,13 @@
         android:id="@+id/second"
         android:layout_width="78dp"
         android:layout_height="60dp"
-        android:layout_marginTop="432dp"
+        android:layout_marginTop="396dp"
         android:fontFamily="serif"
         android:text="00"
         android:textColor="@color/white"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.648"
+        app:layout_constraintHorizontal_bias="0.924"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,7 +156,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="62dp"
         android:layout_height="53dp"
-        android:src="@drawable/kaishi"
+        android:src="@drawable/zanting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.243"
@@ -165,9 +165,10 @@
         app:layout_constraintVertical_bias="0.908" />
 
     <ImageView
+        android:id="@+id/startimg"
         android:layout_width="92dp"
         android:layout_height="40dp"
-        android:src="@drawable/wenzi6"
+        android:src="@drawable/wenzi10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.21"

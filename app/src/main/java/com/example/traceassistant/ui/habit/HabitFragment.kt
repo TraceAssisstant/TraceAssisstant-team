@@ -40,17 +40,20 @@ class HabitFragment : Fragment() {
                 btnNum==1->{
                     viewModel.startTime()
                     viewModel.start()
-                    start.setImageResource(R.drawable.ic_baseline_pause_24)
+                    start.setImageResource(R.drawable.kaishi)
+                    startimg.setImageResource(R.drawable.wenzi6)
                 }//第一次开始计时时存入开始时间
                 btnNum%2==1->{
                     viewModel.start()
                     viewModel.latterPause()
-                    start.setImageResource(R.drawable.ic_baseline_pause_24)
+                    start.setImageResource(R.drawable.kaishi)
+                    startimg.setImageResource(R.drawable.wenzi6)
                 }
                 btnNum%2==0->{
                     viewModel.pause()
                     viewModel.formerPause()
-                    start.setImageResource(R.drawable.ic_baseline_arrow_right_24)
+                    start.setImageResource(R.drawable.zanting)
+                    startimg.setImageResource(R.drawable.wenzi10)
                 }
             }
         }

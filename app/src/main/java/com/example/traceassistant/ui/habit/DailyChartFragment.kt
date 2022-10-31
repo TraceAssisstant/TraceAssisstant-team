@@ -87,16 +87,18 @@ class DailyChartFragment: Fragment() {
         Repository.initHabitDao()
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
-            .title("当日专注时间与中断专注时间对比柱状图")
-            .backgroundColor("#4b2b7f")
+            .title("当日专注时间数据")
+            .backgroundColor("white")
             .dataLabelsEnabled(false)
             .xAxisLabelsEnabled(false)
             .series(arrayOf(
                 AASeriesElement()
-                    .name("focus time")
+                    .name("专注时间")
+                    .color("#197FEB")
                     .data(arrayOf(Repository.habitQueryByDate(day).first)),
                 AASeriesElement()
-                    .name("pause time")
+                    .color("#F04D1A")
+                    .name("中断时间")
                     .data(arrayOf(Repository.habitQueryByDate(day).second))
             )
             )
@@ -130,7 +132,7 @@ function () {
 
         val aaTooltip = AATooltip()
             .useHTML(true)
-            .borderColor("#FFD700")
+            .borderColor(AAColor.LightGray)
             .style(
                 AAStyle()
                 .color("#4b2b7f")
