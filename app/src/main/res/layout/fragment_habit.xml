@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.habit.HabitView">
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -27,17 +26,6 @@
         app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-    <!--原数据统计按钮-->
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/toDrawingView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginRight="36dp"-->
-    <!--        android:layout_marginBottom="656dp"-->
-    <!--        android:src="@drawable/ic_baseline_ballot_24"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent" />-->
 
     <ImageButton
         android:id="@+id/toDrawingView"
@@ -115,7 +103,7 @@
         android:textColor="@color/white"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintHorizontal_bias="0.924"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -168,7 +156,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="62dp"
         android:layout_height="53dp"
-        android:src="@drawable/kaishi"
+        android:src="@drawable/zanting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.243"
@@ -177,9 +165,10 @@
         app:layout_constraintVertical_bias="0.908" />
 
     <ImageView
+        android:id="@+id/startimg"
         android:layout_width="92dp"
         android:layout_height="40dp"
-        android:src="@drawable/wenzi6"
+        android:src="@drawable/wenzi10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.21"

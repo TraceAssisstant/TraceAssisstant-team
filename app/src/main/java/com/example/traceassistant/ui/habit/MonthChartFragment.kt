@@ -1,77 +1,74 @@
 package com.example.traceassistant.ui.habit
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import com.example.traceassistant.R
-import com.example.traceassistant.databinding.ActivityShowDrawingViewBinding
 import com.example.traceassistant.logic.Repository
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AALabels
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AATooltip
 import com.github.aachartmodel.aainfographics.aatools.AAColor
+import kotlinx.android.synthetic.main.fragment_daily_chart.*
+import kotlinx.android.synthetic.main.fragment_daily_chart.focusTime
+import kotlinx.android.synthetic.main.fragment_daily_chart.thisFocusTime
+import kotlinx.android.synthetic.main.fragment_month_chart.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ShowDrawingView : AppCompatActivity() {
-
-    lateinit var binding: ActivityShowDrawingViewBinding
+class MonthChartFragment: Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_month_chart, container, false)
+        return view
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_show_drawing_view)
-        binding=ActivityShowDrawingViewBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val focus_pause_view = binding.focusPauseView
-        val focus_month_view=binding.focusMonthView
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         //显示本次专注时间
-        val thisHour=intent.getStringExtra("hour")
-        val thisMinute=intent.getStringExtra("minute")
-        val thisSecond=intent.getStringExtra("second")
+        val thisHour= requireActivity().intent.getStringExtra("hour")
+        val thisMinute=requireActivity().intent.getStringExtra("minute")
+        val thisSecond=requireActivity().intent.getStringExtra("second")
+        Log.d("Hour&Minute&Second","${thisHour}时${thisMinute}分${thisSecond}秒")
         if (!thisHour.equals("00")){
-            binding.thisFocusTime.text="本次专注时间${thisHour}时${thisMinute}分${thisSecond}秒"
+            thisFocusTime.text="本次专注时间${thisHour}时${thisMinute}分${thisSecond}秒"
         }else if (!thisMinute.equals("00")){
-            binding.thisFocusTime.text="本次专注时间${thisMinute}分${thisSecond}秒"
+            thisFocusTime.text="本次专注时间${thisMinute}分${thisSecond}秒"
         }else{
-            binding.thisFocusTime.text="本次专注时间${thisSecond}秒"
+            thisFocusTime.text="本次专注时间${thisSecond}秒"
         }
-        binding.thisFocusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
+        thisFocusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
 
         //显示本月总专注时间
-        val myDateTimeFormatter=DateTimeFormatter.ofPattern("yyyy-MM")
+        val myDateTimeFormatter= DateTimeFormatter.ofPattern("yyyy-MM")
         val month=myDateTimeFormatter.format(LocalDateTime.now())
         Repository.initHabitDao()
-        binding.focusTime.text="本月专注总时间：${date_to_string(Repository.habitQueryByMouth(month.toString()).first)}"
-        binding.focusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
-
-        //显示当日专注时间与中断专注时间对比柱状图
-        val myDateTimeFormatter1=DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val day=myDateTimeFormatter1.format(LocalDateTime.now())
-        focus_pause_view.aa_drawChartWithChartOptions(focus_pause_chart(day))
+        focusTime.text="本月专注总时间：${date_to_string(Repository.habitQueryByMouth(month.toString()).first)}"
+        focusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
 
         //选择要显示的月份专注曲线
-        val spinner: Spinner = findViewById(R.id.spinner)
         val c = Calendar.getInstance() //可以对每个时间域单独修改
         val onlyMonth = (c[Calendar.MONTH]+1).toString()
         Log.d("onlyMonth","${onlyMonth}")
         var position:Int
         ArrayAdapter.createFromResource(
-            this,
+            requireContext(),
             R.array.month_array,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
@@ -90,17 +87,27 @@ class ShowDrawingView : AppCompatActivity() {
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
+    }
 
-        //添加返回按钮
-        binding.toHabitView.setOnClickListener(){
-            val  intent=Intent("ToHabitView")
-            startActivity(intent)
+    /**
+     * 将时间戳元素转换为字符串格式并返回
+     */
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun date_to_string(i:Long):String{
+        if (i>=3600000){
+            return "${SimpleDateFormat("HH时mm分ss秒").format(i)}"
+        }else if (i>60000){
+            return "${SimpleDateFormat("mm分ss秒").format(i)}"
+        }else{
+            return "${SimpleDateFormat("ss秒").format(i)}"
         }
     }
 
     /**
      * 将所选月与yyyy-mm格式日期对应
      */
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun select_month(month:String):String{
         val myDateTimeFormatter2=DateTimeFormatter.ofPattern("yyyy")
@@ -126,6 +133,7 @@ class ShowDrawingView : AppCompatActivity() {
     /**
      * 将所选月与m月格式日期对应
      */
+
     fun month_String(month:String)=when(month){
         "1"->"一月"
         "2"->"二月"
@@ -141,9 +149,11 @@ class ShowDrawingView : AppCompatActivity() {
         "12"->"十二月"
         else->"err"
     }
+
     /**
      * 获取专注时间与中断专注时间对比折线图x轴月份数组
      */
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun month_day(month: String):List<String>{
         val list= mutableListOf<String>()
@@ -154,135 +164,34 @@ class ShowDrawingView : AppCompatActivity() {
     }
 
     /**
-     * 将时间戳元素转换为字符串格式并返回
-     */
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun date_to_string(i:Long):String{
-            if (i>=3600000){
-                return "${SimpleDateFormat("HH时mm分ss秒").format(i)}"
-            }else if (i>60000){
-                return "${SimpleDateFormat("mm分ss秒").format(i)}"
-            }else{
-                return "${SimpleDateFormat("ss秒").format(i)}"
-            }
-    }
-
-    /**
-     * 显示当日专注时间与中断专注时间对比柱状图
-     */
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun focus_pause_chart(day:String): AAOptions{
-        Repository.initHabitDao()
-        val aaChartModel : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Bar)
-            .title("当日专注时间与中断专注时间对比柱状图")
-            .backgroundColor("#4b2b7f")
-            .dataLabelsEnabled(false)
-            .xAxisLabelsEnabled(false)
-            .series(arrayOf(
-                AASeriesElement()
-                    .name("focus time")
-                    .data(arrayOf(Repository.habitQueryByDate(day).first)),
-                AASeriesElement()
-                    .name("pause time")
-                    .data(arrayOf(Repository.habitQueryByDate(day).second))
-            )
-            )
-        val aaYAxisLabels = AALabels()
-            .style(AAStyle()
-                .fontSize(10f)
-                .fontWeight(AAChartFontWeightType.Bold)
-                .color(AAColor.Gray))
-            .formatter("""
-function () {
-        var yValue = this.value;
-        if (yValue == 0) {
-            return "0";
-        } else if (yValue == 600000) {
-            return "10min";
-        } else if (yValue == 1200000) {
-            return "20min";
-        } else if (yValue == 1800000) {
-            return "30min";
-        } else if (yValue == 2400000) {
-            return "40min";
-        }else if (yValue == 3000000) {
-            return "50min";
-        }else if (yValue == 3600000) {
-            return "1h";
-        }
-    }
-                """.trimIndent()
-            )
-
-        val aaTooltip = AATooltip()
-            .useHTML(true)
-            .borderColor("#FFD700")
-            .style(AAStyle()
-                    .color("#4b2b7f")
-                    .fontSize(12)
-            )
-            .formatter(
-                """
-        function () {
-      let wholeContentStr = '<br/>';
-      let length = this.points.length;
-      for(let i = 0; i < length; i++) {
-        let yValue=this.points[i].y;
-        let yDate = new Date(this.points[i].y);
-        let prefixStr = '<span style=\"' + 'color:'+ this.points[i].color + '; font-size:13px\"' + '>◉ ';
-        if(yValue>=3600000){
-            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getHours()-8+'时'+yDate.getMinutes()+'分'+yDate.getSeconds()+'秒'+ '<br/>';
-        }else if(yValue>=60000){
-            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getMinutes()+'分'+yDate.getSeconds()+'秒'+ '<br/>';
-        }else{
-            wholeContentStr+=prefixStr + this.points[i].series.name + ': '+yDate.getSeconds()+'秒'+ '<br/>';
-        }
-      }
-        return wholeContentStr;
-    }
-                """.trimIndent()
-            )
-
-        val aaOptions = aaChartModel.aa_toAAOptions()
-        aaOptions.tooltip = aaTooltip
-        aaOptions.yAxis!!
-            .opposite(true)
-            .tickWidth(2f)
-            .lineWidth(1.5f)//Y轴轴线颜色
-            .lineColor(AAColor.LightGray)//Y轴轴线颜色
-            .gridLineWidth(0f)//Y轴网格线宽度
-            .tickPositions(arrayOf(0, 600000, 1200000, 1800000, 2400000,3000000,3600000))
-            .labels(aaYAxisLabels)
-        return aaOptions
-    }
-
-    /**
      * 显示月度专注时间曲线图
      */
     @RequiresApi(Build.VERSION_CODES.O)
     fun focus_month_chart(month: String): AAOptions {
         val aaChartModel = AAChartModel()
             .chartType(AAChartType.Line)//图形类型
-            .title("月度专注时间与中断专注时间折线图")//图表主标题
+            .title("月度专注数据")//图表主标题
             .dataLabelsEnabled(false)
             .colorsTheme(arrayOf("#04d69f", "#1e90ff"))
             .dataLabelsEnabled(false)
             .categories(month_day(month).toTypedArray())
-            .series(arrayOf(AASeriesElement()
-                .name("focus time")
+            .series(arrayOf(
+                AASeriesElement()
+                .name("专注时间")
                 .lineWidth(5.0f)
                 .fillOpacity(0.4f)
                 .data(Repository.focusArrayQuery(select_month(month)) as Array<Any>),
                 AASeriesElement()
-                    .name("pause time")
+                    .name("中断时间")
+                    .color("#D80E7D")
                     .lineWidth(5.0f)
                     .fillOpacity(0.4f)
                     .data(Repository.pauseArrayQuery(select_month(month))as Array<Any>)
             ))
 
         val aaYAxisLabels = AALabels()
-            .style(AAStyle()
+            .style(
+                AAStyle()
                 .fontSize(10f)
                 .fontWeight(AAChartFontWeightType.Bold)
                 .color(AAColor.Gray))
@@ -311,7 +220,8 @@ function () {
         val aaTooltip = AATooltip()
             .useHTML(true)
             .borderColor("#FFD700")
-            .style(AAStyle()
+            .style(
+                AAStyle()
                 .color("#4b2b7f")
                 .fontSize(12)
             )

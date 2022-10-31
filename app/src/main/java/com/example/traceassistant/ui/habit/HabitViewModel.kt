@@ -113,7 +113,7 @@ class HabitViewModel: ViewModel() {
                 minute.postValue(minuteTime)
                 hour.postValue(hourTime)
 
-//                Log.d("timer","${hour.value}:${minute.value}:${second.value}")
+                Log.d("timer","${hour.value}:${minute.value}:${second.value}")
 
             }
         }

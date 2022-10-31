@@ -25,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceAssistant">
         <activity
+            android:name=".ui.habit.ShowDrawing"
+            android:exported="false" />
+        <activity
             android:name=".ui.affairShow.ShowEditAffair"
             android:exported="false" />
         <activity
