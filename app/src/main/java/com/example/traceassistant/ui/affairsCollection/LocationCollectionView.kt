@@ -2,6 +2,7 @@ package com.example.traceassistant.ui.affairsCollection
 
 import android.content.Intent
 import android.graphics.Color
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +27,7 @@ import com.example.traceassistant.ui.main.MainView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LocationCollectionView : AppCompatActivity(), PoiSearch.OnPoiSearchListener,
-    AMap.OnPOIClickListener, AMap.OnMapClickListener {
+    AMap.OnPOIClickListener, AMap.OnMapClickListener,AMap.OnMyLocationChangeListener {
     lateinit var binding: ActivityLocationCollectionViewBinding
 
     private lateinit var mMapView: TextureMapView
@@ -64,38 +65,18 @@ class LocationCollectionView : AppCompatActivity(), PoiSearch.OnPoiSearchListene
             aMap = mMapView.map
         }
 
-        if (LocalNowLocation.getLocation() == null) {
-            MaterialAlertDialogBuilder(this)
-                .setMessage("尚未取得定位，是否刷新页面？")
-                .setPositiveButton("刷新") { dialog, which ->
-                    refresh()
-                }
-                .setNegativeButton("取消") { dialog, which ->
-                    "请自行刷新页面".showToast(Toast.LENGTH_LONG)
-                }
-                .show()
-        } else {
-            nowLat = LocalNowLocation.getLocation()!!.latitude
-            nowLong = LocalNowLocation.getLocation()!!.longitude
-            Log.d("nowLocation", "Succeed")
-        }
-
 
         /**
          * 地图定位蓝点
          */
         val myLocationStyle: MyLocationStyle = MyLocationStyle()
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER)
-        myLocationStyle.showMyLocation(true)
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)
         myLocationStyle.interval(2000)
-        myLocationStyle.strokeColor(Color.TRANSPARENT)
-        myLocationStyle.radiusFillColor(Color.TRANSPARENT)
-//        myLocationStyle.anchor(0.0f,1.0f)
         aMap?.uiSettings?.isMyLocationButtonEnabled = true
+        aMap?.myLocationStyle = myLocationStyle
         aMap?.isMyLocationEnabled = true
         aMap?.setOnMapClickListener(this)
-        aMap?.myLocationStyle = myLocationStyle
-
+        aMap?.setOnMyLocationChangeListener(this)
         aMap?.showIndoorMap(true)
 
         /**
@@ -263,6 +244,17 @@ class LocationCollectionView : AppCompatActivity(), PoiSearch.OnPoiSearchListene
             Log.d("SearchReq", "Fail")
         }
 
+    }
+
+    /**
+     * 地理信息回调
+     */
+    override fun onMyLocationChange(p0: Location?) {
+        if (p0 != null) {
+            nowLat = p0.latitude
+            nowLong = p0.longitude
+            Log.d("LocationNow","经度：${p0.latitude}  纬度：${p0.longitude}")
+        }
     }
 
     override fun onPoiItemSearched(p0: PoiItem?, p1: Int) {

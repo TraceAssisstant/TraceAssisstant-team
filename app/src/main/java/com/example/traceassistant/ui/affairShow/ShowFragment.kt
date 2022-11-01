@@ -1,5 +1,6 @@
 package com.example.traceassistant.ui.affairShow
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import com.example.traceassistant.R
 import com.example.traceassistant.databinding.FragmentShowBinding
 import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Repository
+import com.example.traceassistant.ui.affairShow.MapView.MapViewActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 
@@ -78,7 +80,8 @@ class ShowFragment : Fragment() {
          * 通过地图罗列当日所有事务地点
          */
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
-
+            val intent = Intent(activity,MapViewActivity::class.java)
+            startActivity(intent)
             true
         }
 

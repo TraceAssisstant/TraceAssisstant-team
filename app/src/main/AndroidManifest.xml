@@ -25,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceAssistant">
         <activity
+            android:name=".ui.affairShow.MapView.MapViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.habit.ShowDrawing"
             android:exported="false" />
         <activity
@@ -39,16 +42,6 @@
             android:name=".service.GeoFenceService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity
-            android:name=".ui.habit.ShowDrawingView"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="DrawingView" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
         <service
             android:name=".service.NotificationService"
@@ -73,15 +66,6 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.habit.HabitView"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="ToHabitView" />
-
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
