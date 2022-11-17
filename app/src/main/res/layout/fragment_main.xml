@@ -9,39 +9,88 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="73dp"
+            android:src="@drawable/top_zhuangshi"
+            app:layout_constraintBottom_toTopOf="@+id/mainImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.222" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/wenzi3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+
+        <com.example.traceassistant.ui.main.XCRoundRectImageView
+            android:id="@+id/mainImage"
+            android:layout_width="355dp"
+            android:layout_height="355dp"
+            android:layout_marginTop="96dp"
+            app:layout_constraintBottom_toTopOf="@+id/hengxian"
+            app:layout_constraintCircleRadius="15px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.088" />
+
         <ImageView
             android:id="@+id/hengxian"
             android:layout_width="377dp"
             android:layout_height="78dp"
-            android:layout_marginTop="436dp"
-            android:src="@drawable/hengxian"
+            android:layout_marginTop="496dp"
+            android:src="@drawable/hengxian1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.529"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
+
         <ImageView
-            android:id="@+id/mainImage"
-            android:layout_width="355dp"
-            android:layout_height="355dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="1dp"
-            android:background="@drawable/zhutu_shape"
-            app:layout_constraintBottom_toTopOf="@+id/hengxian"
-            app:layout_constraintCircleRadius="15px"
+            android:layout_width="241dp"
+            android:layout_height="69dp"
+            android:src="@drawable/wenzi11"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.552"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintVertical_bias="0.975">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="192dp"
+            android:layout_height="47dp"
+            android:src="@drawable/wenzi12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/daySentence"
+
+            app:layout_constraintVertical_bias="0.387"></ImageView>
 
         <TextView
             android:id="@+id/daySentence"
             android:layout_width="334dp"
             android:layout_height="28dp"
-            android:layout_marginTop="448dp"
+            android:layout_marginTop="496dp"
             android:fontFamily="serif"
+            android:gravity="center"
             android:text="人间总是混沌局，谁也不多余，谁也不必须."
             android:textSize="17sp"
             android:textStyle="bold"
