@@ -52,7 +52,7 @@ class NotificationService : Service() {
 
         //此处为点击消息后进入的具体页面
         val intent = Intent(this, AffairNotification::class.java)
-        val pi = PendingIntent.getActivity(this, 0, intent, 0)
+        val pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val notification = NotificationCompat.Builder(this, "important")
             .setContentTitle(title)
             .setContentText(contentText)

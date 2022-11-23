@@ -85,7 +85,7 @@ class AffairService : Service() {
         alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             time,
-            PendingIntent.getService(this, ++requestCo, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(this, ++requestCo, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
         )
 
     }
