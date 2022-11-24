@@ -30,7 +30,7 @@ class MainViewModel : ViewModel() {
     //     批量插入图片签名资源
         var strList = mutableListOf<String>()
         var imageList = mutableListOf<Int>()
-        for (k in R.drawable.background01..R.drawable.background25) {
+        for (k in R.drawable.background06..R.drawable.background25) {
             imageList.add(k)
         }
         for (i in array){
