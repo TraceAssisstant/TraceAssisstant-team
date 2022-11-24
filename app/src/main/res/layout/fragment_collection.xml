@@ -12,11 +12,25 @@
         android:layout_margin="0dp"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="220dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/wenzi3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.119"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tagGroup"></ImageView>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:layout_margin="40dp"
             android:hint="标题"
             app:counterEnabled="true"
