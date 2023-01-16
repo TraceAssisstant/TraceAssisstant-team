@@ -34,10 +34,26 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+//    启用viewBinding插件
     viewBinding{
         enabled = true
     }
-//    启用viewBinding插件
+//    声明layout分包
+    sourceSets{
+        main{
+            res.srcDirs = [
+                    'src/main/res/layout/adapters',
+                    'src/main/res/layout/affairsCollection',
+                    'src/main/res/layout/affairshow',
+                    'src/main/res/layout/datePicker',
+                    'src/main/res/layout/habit',
+                    'src/main/res/layout/main',
+                    'src/main/res/layout/setting',
+                    'src/main/res',
+                    'src/main/res/layout'
+            ]
+        }
+    }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -83,6 +99,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
 //    AAChartModel依赖
-    implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
+    implementation 'com.github.AAChartModel:AAChartCore-Kotlin:7.2.0'
 
 }
