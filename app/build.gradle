@@ -42,15 +42,15 @@ android {
     sourceSets{
         main{
             res.srcDirs = [
-                    'src/main/res/layout/adapters',
-                    'src/main/res/layout/affairsCollection',
-                    'src/main/res/layout/affairshow',
-                    'src/main/res/layout/datePicker',
-                    'src/main/res/layout/habit',
-                    'src/main/res/layout/main',
-                    'src/main/res/layout/setting',
+                    'src/main/res/layouts/adapters',
+                    'src/main/res/layouts/affairsCollection',
+                    'src/main/res/layouts/affairshow',
+                    'src/main/res/layouts/datePicker',
+                    'src/main/res/layouts/habit',
+                    'src/main/res/layouts/main',
+                    'src/main/res/layouts/setting',
                     'src/main/res',
-                    'src/main/res/layout'
+                    'src/main/res/layouts'
             ]
         }
     }

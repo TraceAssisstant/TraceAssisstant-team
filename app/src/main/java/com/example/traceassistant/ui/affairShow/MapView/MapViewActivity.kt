@@ -1,11 +1,12 @@
 package com.example.traceassistant.ui.affairShow.MapView
 
+import android.content.Intent
 import android.graphics.Color
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
@@ -14,6 +15,9 @@ import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MarkerOptions
 import com.amap.api.maps.model.MyLocationStyle
+import com.amap.api.services.core.AMapException
+import com.amap.api.services.core.LatLonPoint
+import com.amap.api.services.route.*
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.toDate
 import com.example.traceassistant.databinding.ActivityMapViewBinding
@@ -21,7 +25,7 @@ import com.example.traceassistant.logic.Entity.AffairForm
 import com.example.traceassistant.logic.Repository
 import com.google.android.material.datepicker.MaterialDatePicker
 
-class MapViewActivity : AppCompatActivity(),AMap.OnMyLocationChangeListener {
+class MapViewActivity : AppCompatActivity(),AMap.OnMyLocationChangeListener,RouteSearch.OnRouteSearchListener {
 
     lateinit var mMapView: MapView
 
@@ -99,6 +103,11 @@ class MapViewActivity : AppCompatActivity(),AMap.OnMyLocationChangeListener {
             Log.d("Marker",it.`object`.toString())
             mAMap.animateCamera(CameraUpdateFactory.newLatLng(it.position))
             it.showInfoWindow()
+
+            markerUpdate()
+            showLocationBluepoint()
+            walkRouteSearch(it.position)
+
             true
         }
         mAMap.setInfoWindowAdapter(InfoWindowAdapter(this))
@@ -162,7 +171,7 @@ class MapViewActivity : AppCompatActivity(),AMap.OnMyLocationChangeListener {
             title(data.ttitle)
             snippet(data.mainContent)
             icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_location_on_24))
-            setFlat(false)
+            isFlat = false
         }
         mAMap.addMarker(markerOptions).`object` = data
     }
@@ -174,6 +183,56 @@ class MapViewActivity : AppCompatActivity(),AMap.OnMyLocationChangeListener {
                 drawMarker(LatLng(data.latitude,data.longitude),data)
             }
         }
+    }
+
+    private fun walkRouteSearch(to: LatLng){
+        val routeSearch = RouteSearch(this)
+        routeSearch.setRouteSearchListener(this)
+        val fromAndTo = RouteSearch.FromAndTo(LatLonPoint(latlng.latitude,latlng.longitude),
+            LatLonPoint(to.latitude,to.longitude)
+        )
+        val query = RouteSearch.WalkRouteQuery(fromAndTo)
+        routeSearch.calculateWalkRouteAsyn(query)
+    }
+
+    override fun onBusRouteSearched(p0: BusRouteResult?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDriveRouteSearched(p0: DriveRouteResult?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onWalkRouteSearched(result: WalkRouteResult?, errorCode: Int) {
+        if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (result?.paths != null) {
+                if (result.paths.size > 0) {
+                    Log.d("PATH","路径执行")
+                    val walkPath: WalkPath = result.paths[0] ?: return
+                    val walkRouteOverlay = WalkRouteOverlay(
+                        this, mAMap, walkPath,
+                        result.startPos,
+                        result.targetPos
+                    )
+                    walkRouteOverlay.removeFromMap()
+                    walkRouteOverlay.addToMap()
+                    walkRouteOverlay.zoomToSpan()
+//                    路线的距离与时间
+                    val dis = walkPath.distance.toInt()
+                    val dur = walkPath.duration.toInt()
+                }else{
+                    Log.d("PATH","无路径可用")
+                }
+            }else{
+                Log.d("PATH","无搜索结果")
+            }
+        }else{
+            Log.d("PATH","搜索失败")
+        }
+    }
+
+    override fun onRideRouteSearched(p0: RideRouteResult?, p1: Int) {
+        TODO("Not yet implemented")
     }
 
 }

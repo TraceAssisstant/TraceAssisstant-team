@@ -70,7 +70,7 @@ class LocationCollectionView : AppCompatActivity(), PoiSearch.OnPoiSearchListene
          * 地图定位蓝点
          */
         val myLocationStyle: MyLocationStyle = MyLocationStyle()
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW)
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
         myLocationStyle.interval(2000)
         aMap?.uiSettings?.isMyLocationButtonEnabled = true
         aMap?.myLocationStyle = myLocationStyle
