@@ -7,162 +7,169 @@
 
 
     <ImageView
-        android:layout_width="478dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="44dp"
+        android:id="@+id/imageView4"
+        android:layout_width="414dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:src="@drawable/hengxian"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
-
+        app:layout_constraintTop_toBottomOf="@+id/imageView"></ImageView>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="53dp"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/wenzi3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
     <ImageButton
         android:id="@+id/toDrawingView"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="172dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/wenzi4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="230dp"
-        android:layout_height="99dp"
+        android:layout_width="174dp"
+        android:layout_height="108dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
         android:src="@drawable/wenzi5"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.17"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"></ImageView>
 
     <com.example.traceassistant.ui.habit.CircleImageView
         android:id="@+id/image"
-        android:layout_width="332dp"
-        android:layout_height="333dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:src="@drawable/habits_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.582"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/hours"
-        android:layout_width="118dp"
-        android:layout_height="103dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="100dp"
         android:fontFamily="serif"
         android:text="00"
         android:textColor="@color/white"
         android:textSize="90sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.334"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintStart_toStartOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/dot"
-        android:layout_width="51dp"
-        android:layout_height="93dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginBottom="100dp"
         android:fontFamily="serif"
         android:text=":"
         android:textColor="@color/white"
         android:textSize="70sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507" />
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintStart_toEndOf="@+id/hours"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+ />
+
+    <!--    文字条-->
 
     <TextView
         android:id="@+id/second"
-        android:layout_width="78dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="396dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="80dp"
         android:fontFamily="serif"
         android:text="00"
         android:textColor="@color/white"
         android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.924"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/image"
+        app:layout_constraintStart_toStartOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/minute" />
 
     <TextView
         android:id="@+id/minute"
-        android:layout_width="110dp"
-        android:layout_height="103dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
         android:fontFamily="serif"
         android:text="00"
         android:textColor="@color/white"
         android:textSize="90sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.74"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/image"
 
-    <!--    文字条-->
+        app:layout_constraintStart_toEndOf="@+id/dot"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="已专注："
         android:textColor="@color/white"
         android:textSize="38dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.361" />
+        app:layout_constraintEnd_toEndOf="@+id/image"
+        app:layout_constraintStart_toStartOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="319dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="140dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="---落日余晖的路上总是爱意弥漫---"
         android:textColor="@color/black"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.641"
-        app:layout_constraintStart_toStartOf="parent"></TextView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image"></TextView>
 
     <ImageButton
         android:id="@+id/start"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="62dp"
-        android:layout_height="53dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="280dp"
         android:src="@drawable/zanting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.908" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
         android:id="@+id/startimg"
@@ -171,25 +178,27 @@
         android:src="@drawable/wenzi10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.958">
+        app:layout_constraintTop_toBottomOf="@+id/start"
+        app:layout_constraintVertical_bias="0.0">
 
     </ImageView>
 
     <ImageButton
         android:id="@+id/stop"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:layout_width="39dp"
-        android:layout_height="39dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginEnd="60dp"
         android:src="@drawable/jieshu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.698"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/start"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
@@ -198,10 +207,10 @@
         android:src="@drawable/wenzi7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintHorizontal_bias="0.778"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.956">
+        app:layout_constraintTop_toBottomOf="@+id/stop"
+        app:layout_constraintVertical_bias="0.032">
 
     </ImageView>
 
