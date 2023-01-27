@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.databinding.FragmentMainBinding
 import com.example.traceassistant.logic.Entity.SignNature
+import com.example.traceassistant.service.GeoFenceService
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -54,6 +56,15 @@ class MainFragment : Fragment() {
                 binding.mainImage.setImageResource(imageid)
             }
         })
+
+        binding.buttonTest.setOnClickListener {
+            /**
+             * 开启后台地理围栏&事务提醒服务
+             */
+            var intent : Intent = Intent()
+            intent.setClass(GlobalApplication.context, GeoFenceService::class.java)
+            activity?.startService(intent)
+        }
 
         return binding.root
     }

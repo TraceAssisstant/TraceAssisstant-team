@@ -11,17 +11,6 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="73dp"
-            android:src="@drawable/top_zhuangshi"
-            app:layout_constraintBottom_toTopOf="@+id/mainImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.222" />
-
-        <ImageView
             android:id="@+id/imageView"
             android:layout_width="120dp"
             android:layout_height="53dp"
@@ -129,6 +118,16 @@
             app:layout_constraintStart_toStartOf="@+id/mainImage"
             app:layout_constraintTop_toTopOf="@+id/mainImage"
             app:layout_constraintVertical_bias="0.421" />
+
+        <Button
+            android:id="@+id/buttonTest"
+            android:layout_width="114dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="36dp"
+            android:text="Test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,8 +26,8 @@ class AffairService : Service() {
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         //通知示例
-        doNotificate(AffairForm("通知范例1", "这是一个通知范例"
-            , 1666601940,"2022-10-24", 0.0, 0.0, 0.0, 3, "工作", true, true, 0),alarmManager,System.currentTimeMillis()+4000)
+//        doNotificate(AffairForm("通知范例1", "这是一个通知范例"
+//            , 1666601940,"2022-10-24", 0.0, 0.0, 0.0, 3, "工作", true, true, 0),alarmManager,System.currentTimeMillis()+4000)
 
 
 
