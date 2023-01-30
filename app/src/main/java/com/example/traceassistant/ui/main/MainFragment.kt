@@ -89,7 +89,7 @@ class MainFragment : Fragment() {
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("start","广播开启")
             val c = Calendar.getInstance()
-            var mMinute=c[Calendar.MINUTE]//获取当前分钟  测试用
+            var mMinute=c[Calendar.MINUTE]//获取x当前分钟  测试用
             var mDay=c[Calendar.DAY_OF_MONTH] //获取当前日期
             //id从1开始所以+1
             rsid=mDay%lastId+1

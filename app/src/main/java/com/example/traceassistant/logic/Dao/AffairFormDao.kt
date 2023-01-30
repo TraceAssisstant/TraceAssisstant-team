@@ -63,4 +63,11 @@ interface AffairFormDao {
     @Query("update affair_form set state = :state where id = :id")
     fun affairStateUpdate(id:Int,state:Int)
 
+    /**
+     * 返回某个时间点后的事务
+     */
+    @Query("select * from affair_form where time > :time order by time")
+    fun affairQueryFromTime(time:Long):List<AffairForm>
+
+
 }

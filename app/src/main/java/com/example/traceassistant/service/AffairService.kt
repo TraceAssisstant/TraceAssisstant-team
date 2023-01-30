@@ -33,7 +33,7 @@ class AffairService : Service() {
 
         //初始化数据库并获取事务信息
         Repository.initAFDao()
-        var list :List<AffairForm> = Repository.getAffairList();
+        var list :List<AffairForm> = Repository.affairQueryFromTime()
 
 
         for (af in list) {

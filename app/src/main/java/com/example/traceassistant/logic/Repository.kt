@@ -180,6 +180,14 @@ object Repository {
     }
 
     /**
+     * 返回当前时间点后的事务
+     */
+    fun affairQueryFromTime():List<AffairForm>{
+        var time:Long  = System.currentTimeMillis()/1000
+        return affairFormDao.affairQueryFromTime(time)
+    }
+
+    /**
      * 初始化habitDao*********************************************************************************
      */
     fun initHabitDao(){

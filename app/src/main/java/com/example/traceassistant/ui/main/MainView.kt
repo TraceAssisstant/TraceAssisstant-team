@@ -3,11 +3,15 @@ package com.example.traceassistant.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.amap.api.maps.MapsInitializer
 import com.example.traceassistant.R
+import com.example.traceassistant.Tools.GlobalApplication
 import com.example.traceassistant.Tools.LocalNowLocation
 import com.example.traceassistant.Tools.Navigation
 import com.example.traceassistant.Tools.locationPermission
@@ -20,8 +24,12 @@ import com.example.traceassistant.ui.affairsCollection.CollectionFragment
 import com.example.traceassistant.ui.affairsCollection.CollectionViewModel
 import com.example.traceassistant.ui.habit.HabitFragment
 import com.example.traceassistant.ui.setting.SettingFragment
+import kotlin.concurrent.thread
 
 class MainView : AppCompatActivity() {
+
+    //地理服务获取成功
+    var GeoPreSuccess = 1
 
     object MyActivityNow{
         var activity : AppCompatActivity? = null
@@ -36,6 +44,35 @@ class MainView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var handler: Handler
+
+        handler = object :Handler(Looper.getMainLooper()){
+            override fun handleMessage(msg: Message) {
+                //检测到gradeList更新线程通信
+                when(msg.what){
+                    GeoPreSuccess -> {
+                        /**
+                         * 开启后台地理围栏&事务提醒服务
+                         */
+                        var intent : Intent = Intent()
+                        intent.setClass(GlobalApplication.context, GeoFenceService::class.java)
+                        startService(intent)
+                    }
+                }
+            }
+        }
+
+        thread{
+            //初始化地理位置信息
+            LocalNowLocation.initialize()
+            LocalNowLocation.startLocation()
+            Thread.sleep(4000)
+            val msg = Message()
+            //设置标志
+            msg.what = GeoPreSuccess
+            //向主线程通信
+            handler.sendMessage(msg)
+        }
 
         /**
          * 定位权限申请
