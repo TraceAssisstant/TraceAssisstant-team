@@ -136,6 +136,13 @@ object Repository {
     }
 
     /**
+     * 返回所有未完成事务的列表
+     */
+    fun unFinishedAffairQuery():List<AffairForm>{
+        return affairFormDao.unFinishedAffairQuery()
+    }
+
+    /**
      *根据日期返回当天的事务，并按照重要等级排序
      * @param date:yyyy-mm-dd格式的日期字符串
      * @return List<AffairForm> 事务列表

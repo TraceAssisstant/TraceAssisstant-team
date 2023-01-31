@@ -123,7 +123,7 @@ public class GeoFenceService extends Service {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<AffairForm> affairList = Repository.INSTANCE.getAffairListByDate(formatter.format(date));
+                List<AffairForm> affairList = Repository.INSTANCE.getAffairList();
                 Bundle bundle = new Bundle();
                 SerialData serialData = new SerialData();
                 serialData.setData(affairList);

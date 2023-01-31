@@ -40,6 +40,12 @@ interface AffairFormDao {
     fun affairQueryByLevel(date:String):List<AffairForm>
 
     /**
+     * 返回所有未完成事务的列表（等级高低顺序）
+     */
+    @Query("select * from affair_form where state = 1 order by level")
+    fun unFinishedAffairQuery():List<AffairForm>
+
+    /**
      * 根据id删除事务
      */
     @Query("delete from affair_form where id= :tid")

@@ -11,10 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.amap.api.maps.MapsInitializer
 import com.example.traceassistant.R
-import com.example.traceassistant.Tools.GlobalApplication
-import com.example.traceassistant.Tools.LocalNowLocation
-import com.example.traceassistant.Tools.Navigation
-import com.example.traceassistant.Tools.locationPermission
+import com.example.traceassistant.Tools.*
 import com.example.traceassistant.databinding.ActivityMainViewBinding
 import com.example.traceassistant.service.AffairService
 import com.example.traceassistant.service.GeoFenceService
@@ -29,7 +26,7 @@ import kotlin.concurrent.thread
 class MainView : AppCompatActivity() {
 
     //地理服务获取成功
-    var GeoPreSuccess = 1
+    var UPDATESERVICE = 1
 
     object MyActivityNow{
         var activity : AppCompatActivity? = null
@@ -48,19 +45,28 @@ class MainView : AppCompatActivity() {
 
         handler = object :Handler(Looper.getMainLooper()){
             override fun handleMessage(msg: Message) {
-                //检测到gradeList更新线程通信
+
                 when(msg.what){
-                    GeoPreSuccess -> {
+                    //检测到数据更新后更新服务数据
+                    UPDATESERVICE -> {
                         /**
                          * 开启后台地理围栏&事务提醒服务
                          */
-                        var intent : Intent = Intent()
-                        intent.setClass(GlobalApplication.context, GeoFenceService::class.java)
-                        startService(intent)
+                        var GeoIntent : Intent = Intent()
+                        GeoIntent.setClass(GlobalApplication.context, GeoFenceService::class.java)
+                        startService(GeoIntent)
+                        /**
+                         * 开启后台定时任务&事务提醒服务
+                         */
+                        val timeServiceIntent = Intent()
+                        timeServiceIntent.setClass(GlobalApplication.context, AffairService::class.java)
+                        startService(timeServiceIntent)
                     }
                 }
             }
         }
+        //设置全局Handler
+        ServiceHandler.setHandler(handler)
 
         thread{
             //初始化地理位置信息
@@ -69,23 +75,15 @@ class MainView : AppCompatActivity() {
             Thread.sleep(4000)
             val msg = Message()
             //设置标志
-            msg.what = GeoPreSuccess
+            msg.what = UPDATESERVICE
             //向主线程通信
-            handler.sendMessage(msg)
+            ServiceHandler.getHandler().sendMessage(msg)
         }
 
         /**
          * 定位权限申请
          */
         locationPermission(this)
-
-        /**
-         * 开启后台定时任务&事务提醒服务
-         */
-        val timeServiceIntent = Intent(this, AffairService::class.java)
-        startService(timeServiceIntent)
-
-
 
         /**
          * 导航栏
