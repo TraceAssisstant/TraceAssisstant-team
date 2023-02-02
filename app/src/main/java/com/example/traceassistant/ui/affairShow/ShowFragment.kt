@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat
 class ShowFragment : Fragment() {
 
     private lateinit var binding: FragmentShowBinding
+    private var dateSelected:String = ""
 
     /**
      * Adapter的数据
@@ -39,7 +40,6 @@ class ShowFragment : Fragment() {
          * 日期选择
          * @param dateSelected 当前选择的日期
          */
-        var dateSelected:String = ""
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("选择预订日期")
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
@@ -107,5 +107,16 @@ class ShowFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listOfAffairForm = Repository.getAffairListByDate(dateSelected)
+        Log.d("Today",listOfAffairForm.toString())
+        val adapter = activity?.let { ShowAffairAdapter(it,listOfAffairForm) }
+        val layoutManager = LinearLayoutManager(context)
+        binding.affairsShowView.layoutManager = layoutManager
+        binding.affairsShowView.adapter = adapter
+        binding.showfragmentHorizonDatepicker.refreshAffair()
     }
 }

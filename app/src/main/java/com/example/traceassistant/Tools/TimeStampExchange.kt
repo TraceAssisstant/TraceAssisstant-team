@@ -31,7 +31,7 @@ fun toDateTime(stamp:Long):String{
  * 准确时间转化为时间戳
  */
 fun toStamp(date:String): Long {
-    return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date).time/1000
+    return SimpleDateFormat("yyyy-MM-dd-HH:mm").parse(date).time/1000
 }
 
 /**

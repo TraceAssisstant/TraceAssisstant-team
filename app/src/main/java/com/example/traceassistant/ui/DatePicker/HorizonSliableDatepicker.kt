@@ -29,7 +29,7 @@ class HorizonSliableDatepicker : ConstraintLayout {
     /**
      * 初始化datePicker
      */
-    public fun initialize(activity: AppCompatActivity){
+    fun initialize(activity: AppCompatActivity){
         this.activity = activity
 
         setDate(System.currentTimeMillis())
@@ -39,7 +39,7 @@ class HorizonSliableDatepicker : ConstraintLayout {
      * @param dateMillis 目标日期
      * 跳转到目标日期所在周
      */
-    public fun setDate(dateMillis: Long){
+    fun setDate(dateMillis: Long){
         midCalendar.timeInMillis = dateMillis
         midCalendar.timeInMillis = midCalendar.timeInMillis - (midCalendar.get(Calendar.DAY_OF_WEEK)-1)*MILLIS_24H
         fragments = mutableListOf(DateFragment(midCalendar))
@@ -73,6 +73,12 @@ class HorizonSliableDatepicker : ConstraintLayout {
     public fun setOnDateClickListener(operation: (date:Long)->Unit){
         for (i in fragments){
             i.setOperation(operation)
+        }
+    }
+
+    fun refreshAffair(){
+        for (i in fragments){
+            i.refreshAffair()
         }
     }
 

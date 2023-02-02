@@ -109,12 +109,31 @@ class DateFragment(private val calendar: Calendar) : Fragment() {
         return view
     }
 
-    public fun clickDate(calendar: Calendar){
+    fun clickDate(calendar: Calendar){
         clickedDate = calendar.get(Calendar.DAY_OF_WEEK)-1
     }
 
-    public fun setOperation(operation: (date:Long)->Unit){
+    fun setOperation(operation: (date:Long)->Unit){
         this.operation = operation
+    }
+
+    fun refreshAffair(){
+        if (this::sundayPoint.isInitialized &&
+            this::mondayPoint.isInitialized &&
+            this::tuesdayPoint.isInitialized &&
+            this::wednesdayPoint.isInitialized &&
+            this::thursdayPoint.isInitialized &&
+            this::fridayPoint.isInitialized &&
+            this::saturdayPoint.isInitialized){
+            sundayPoint.setBackgroundColor(Color.TRANSPARENT)
+            mondayPoint.setBackgroundColor(Color.TRANSPARENT)
+            tuesdayPoint.setBackgroundColor(Color.TRANSPARENT)
+            wednesdayPoint.setBackgroundColor(Color.TRANSPARENT)
+            thursdayPoint.setBackgroundColor(Color.TRANSPARENT)
+            fridayPoint.setBackgroundColor(Color.TRANSPARENT)
+            saturdayPoint.setBackgroundColor(Color.TRANSPARENT)
+            setAllAffair()
+        }
     }
 
     private fun setAllAffair(){

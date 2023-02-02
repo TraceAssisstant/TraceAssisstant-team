@@ -166,6 +166,9 @@ object Repository {
      * @param AffairForm
      */
     fun updateAffair(affairForm: AffairForm){
+        if (!this::affairFormDao.isInitialized){
+            initAFDao()
+        }
         try{
             affairFormDao.affairUpdate(affairForm)
         }catch (e:Exception){
