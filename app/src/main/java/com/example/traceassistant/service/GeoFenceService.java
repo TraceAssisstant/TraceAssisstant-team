@@ -84,16 +84,15 @@ public class GeoFenceService extends Service {
                     Bundle bundle = msg.getData();
                     SerialData serialData2 = (SerialData)bundle.getSerializable("affairList");
                     List<AffairForm> affairForms =(List<AffairForm>)serialData2.getData();
-                    System.out.println("地理服务列表：");
                     for (AffairForm affair : affairForms
                          ) {
-                        System.out.println(affair.toString());
+                        System.out.println("地理事务："+affair.toString());
                     }
                     for (AffairForm affairForm: affairForms) {
                         centerPoint = new DPoint();
                         centerPoint.setLatitude(affairForm.getLatitude());
                         centerPoint.setLongitude(affairForm.getLongitude());
-                        mGeoFenceClient.addGeoFence (centerPoint, 1000, affairForm.getTtitle());
+                        mGeoFenceClient.addGeoFence (centerPoint, 300, affairForm.getTtitle());
                     }
                 }
 
@@ -123,7 +122,7 @@ public class GeoFenceService extends Service {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<AffairForm> affairList = Repository.INSTANCE.getAffairList();
+                List<AffairForm> affairList = Repository.INSTANCE.unFinishedAffairQuery();
                 Bundle bundle = new Bundle();
                 SerialData serialData = new SerialData();
                 serialData.setData(affairList);

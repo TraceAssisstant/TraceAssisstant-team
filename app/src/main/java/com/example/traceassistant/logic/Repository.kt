@@ -150,6 +150,23 @@ object Repository {
     fun getAffairListByDateLevel(date:String ):List<AffairForm>{
         return affairFormDao.affairQueryByLevel(date)
     }
+
+    /**
+     * 返回所有当前时间之后未完成事务的列表（等级高低顺序）
+     */
+    fun unFinishedAffairQueryByTime():List<AffairForm>{
+        var time:Long  = System.currentTimeMillis()/1000
+        return affairFormDao.unFinishedAffairQueryByTime(time)
+    }
+
+    /**
+     * 根据事务id删除某项事务
+     * @param id Int
+     */
+    fun deleteAffairById(id:Int){
+        return affairFormDao.deleteAffairById(id)
+    }
+
     /**
      * 删除所有事务(一般用来处理测试数据,慎用)
      */

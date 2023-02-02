@@ -154,7 +154,9 @@ class ShowEditAffair : AppCompatActivity() {
          * 删除按钮
          */
         binding.confirmDelete.setOnClickListener {
-
+            val id = AFFAIR_DATA.id
+            Repository.deleteAffairById(id)
+            finish()
         }
 
         /**

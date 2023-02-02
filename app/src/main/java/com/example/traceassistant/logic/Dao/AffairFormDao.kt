@@ -46,10 +46,16 @@ interface AffairFormDao {
     fun unFinishedAffairQuery():List<AffairForm>
 
     /**
+     * 返回所有当前时间之后未完成事务的列表（等级高低顺序）
+     */
+    @Query("select * from affair_form where state = 1 and time > :time order by level")
+    fun unFinishedAffairQueryByTime(time:Long):List<AffairForm>
+
+    /**
      * 根据id删除事务
      */
     @Query("delete from affair_form where id= :tid")
-    fun affairDeleteById(tid:Int)
+    fun affairDeleteById(tid:Long)
 
     /**
      * 删除所有事务
@@ -74,6 +80,12 @@ interface AffairFormDao {
      */
     @Query("select * from affair_form where time > :time order by time")
     fun affairQueryFromTime(time:Long):List<AffairForm>
+
+    /**
+     * 根据事务id删除某项事务
+     */
+    @Query("delete from affair_form where id = :id")
+    fun deleteAffairById(id:Int)
 
 
 }

@@ -33,14 +33,13 @@ class AffairService : Service() {
 
         //初始化数据库并获取事务信息
         Repository.initAFDao()
-        var list :List<AffairForm> = Repository.affairQueryFromTime()
+        var list :List<AffairForm> = Repository.unFinishedAffairQueryByTime()
 
 
         for (af in list) {
             doNotificate(af, alarmManager, af.time * 1000)
+            println("时间事务："+af.toString())
         }
-
-
         try{
 
             //前台服务
