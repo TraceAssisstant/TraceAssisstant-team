@@ -137,7 +137,6 @@ class DateFragment(private val calendar: Calendar) : Fragment() {
     }
 
     private fun setAllAffair(){
-        Repository.initAFDao()
 
         for (i in thisWeek){
             val dateSelected = SimpleDateFormat("yyyy-MM-dd").format(i)

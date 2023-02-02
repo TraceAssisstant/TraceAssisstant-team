@@ -26,7 +26,7 @@ class MainViewModel : ViewModel() {
         val lastId=5//图文资源的总数，可扩展
         var flag=false//记录是否插入图文
         val array = GlobalApplication.context.resources.getStringArray(R.array.text)
-        Repository.initSndao()
+
     //     批量插入图片签名资源
         var strList = mutableListOf<String>()
         var imageList = mutableListOf<Int>()

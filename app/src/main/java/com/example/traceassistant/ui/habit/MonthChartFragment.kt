@@ -56,7 +56,6 @@ class MonthChartFragment: Fragment() {
         //显示本月总专注时间
         val myDateTimeFormatter= DateTimeFormatter.ofPattern("yyyy-MM")
         val month=myDateTimeFormatter.format(LocalDateTime.now())
-        Repository.initHabitDao()
         focusTime.text="本月专注总时间：${date_to_string(Repository.habitQueryByMouth(month.toString()).first)}"
         focusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
 

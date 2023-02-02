@@ -29,10 +29,7 @@ class AffairService : Service() {
 //        doNotificate(AffairForm("通知范例1", "这是一个通知范例"
 //            , 1666601940,"2022-10-24", 0.0, 0.0, 0.0, 3, "工作", true, true, 0),alarmManager,System.currentTimeMillis()+4000)
 
-
-
         //初始化数据库并获取事务信息
-        Repository.initAFDao()
         var list :List<AffairForm> = Repository.unFinishedAffairQueryByTime()
 
 

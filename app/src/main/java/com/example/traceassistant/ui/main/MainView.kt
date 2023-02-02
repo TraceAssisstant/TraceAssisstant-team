@@ -13,6 +13,7 @@ import com.amap.api.maps.MapsInitializer
 import com.example.traceassistant.R
 import com.example.traceassistant.Tools.*
 import com.example.traceassistant.databinding.ActivityMainViewBinding
+import com.example.traceassistant.logic.Repository
 import com.example.traceassistant.service.AffairService
 import com.example.traceassistant.service.GeoFenceService
 import com.example.traceassistant.ui.MyAppFragmentAdapter
@@ -69,10 +70,15 @@ class MainView : AppCompatActivity() {
         ServiceHandler.setHandler(handler)
 
         thread{
+            MapsInitializer.updatePrivacyShow(this, true, true)
+            MapsInitializer.updatePrivacyAgree(this, true)
             //初始化地理位置信息
             LocalNowLocation.initialize()
             LocalNowLocation.startLocation()
-            Thread.sleep(4000)
+            //每隔一秒检验一次地理服务状态
+
+            Thread.sleep(6000)
+
             val msg = Message()
             //设置标志
             msg.what = UPDATESERVICE

@@ -42,13 +42,13 @@ interface AffairFormDao {
     /**
      * 返回所有未完成事务的列表（等级高低顺序）
      */
-    @Query("select * from affair_form where state = 1 order by level")
+    @Query("select * from affair_form where state = 0 order by level")
     fun unFinishedAffairQuery():List<AffairForm>
 
     /**
      * 返回所有当前时间之后未完成事务的列表（等级高低顺序）
      */
-    @Query("select * from affair_form where state = 1 and time > :time order by level")
+    @Query("select * from affair_form where state = 0 and time > :time order by level")
     fun unFinishedAffairQueryByTime(time:Long):List<AffairForm>
 
     /**

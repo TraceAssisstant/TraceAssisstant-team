@@ -53,7 +53,6 @@ class DailyChartFragment: Fragment() {
         //显示本月总专注时间
         val myDateTimeFormatter= DateTimeFormatter.ofPattern("yyyy-MM")
         val month=myDateTimeFormatter.format(LocalDateTime.now())
-        Repository.initHabitDao()
         focusTime.text="本月专注总时间：${date_to_string(Repository.habitQueryByMouth(month.toString()).first)}"
         focusTime.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD))
 
@@ -84,7 +83,6 @@ class DailyChartFragment: Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun focus_pause_chart(day:String): AAOptions {
-        Repository.initHabitDao()
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Bar)
             .title("当日专注时间数据")

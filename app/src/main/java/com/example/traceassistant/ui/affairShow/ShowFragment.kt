@@ -34,7 +34,7 @@ class ShowFragment : Fragment() {
     ): View? {
 
         binding = FragmentShowBinding.inflate(layoutInflater)
-        Repository.initAFDao()
+
 
         /**
          * 日期选择

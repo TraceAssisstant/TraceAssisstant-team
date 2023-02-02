@@ -160,7 +160,6 @@ class MapViewActivity : AppCompatActivity(),AMap.OnMyLocationChangeListener,Rout
     }
 
     private fun getAffairListByDate(date: String): List<AffairForm>{
-        Repository.initAFDao()
         return Repository.getAffairListByDate(date)
     }
 

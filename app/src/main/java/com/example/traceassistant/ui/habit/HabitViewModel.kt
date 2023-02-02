@@ -142,7 +142,6 @@ class HabitViewModel: ViewModel() {
         }
         stopTime()//停止时存入结束时间
         //插入habit记录
-        Repository.initHabitDao()
         val habit:Habit= Habit(title, beginTime, endTime, pauseTime, date)
         Repository.habitInsert(habit)
         //测试

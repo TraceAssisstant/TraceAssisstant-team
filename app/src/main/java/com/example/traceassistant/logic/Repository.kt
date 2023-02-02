@@ -19,16 +19,11 @@ import kotlin.concurrent.thread
 
 object Repository {
 
-    lateinit var sndao: SignNatureDao
-    lateinit var affairFormDao: AffairFormDao
-    lateinit var habitDao: HabitDao;
+    var sndao: SignNatureDao = AppDatabase.getDatabase(GlobalApplication.context).SignNatureDao()
+    var affairFormDao: AffairFormDao=AppDatabase.getDatabase(GlobalApplication.context).AffairFormDao()
+    var habitDao: HabitDao=AppDatabase.getDatabase(GlobalApplication.context).HabitDao()
 
-    /**
-     * 初始化sndao**************************************************************************
-     */
-    fun initSndao(){
-        sndao = AppDatabase.getDatabase(GlobalApplication.context).SignNatureDao()
-    }
+
 
 
     /**
@@ -99,12 +94,6 @@ object Repository {
         return num;
     }
 
-    /**
-     *  初始化affair数据库操作对象**********************************************************************
-     */
-    fun initAFDao(){
-        affairFormDao = AppDatabase.getDatabase(GlobalApplication.context).AffairFormDao()
-    }
 
     /**
      * 插入事务数据
@@ -183,9 +172,6 @@ object Repository {
      * @param AffairForm
      */
     fun updateAffair(affairForm: AffairForm){
-        if (!this::affairFormDao.isInitialized){
-            initAFDao()
-        }
         try{
             affairFormDao.affairUpdate(affairForm)
         }catch (e:Exception){
@@ -214,12 +200,6 @@ object Repository {
         return affairFormDao.affairQueryFromTime(time)
     }
 
-    /**
-     * 初始化habitDao*********************************************************************************
-     */
-    fun initHabitDao(){
-        habitDao = AppDatabase.getDatabase(GlobalApplication.context).HabitDao()
-    }
 
     /**
      * 插入习惯养成信息

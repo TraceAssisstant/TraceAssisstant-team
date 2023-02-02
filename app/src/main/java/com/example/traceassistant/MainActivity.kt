@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Repository.initHabitDao()
 //        var habit1:Habit = Habit("背单词",1659872212,1659874000,400,"2022-08-07")
 //        var habit2:Habit = Habit("敲代码",1659877212,1659879000,300,"2022-08-07")
 //        var habit3:Habit = Habit("看书",1659872212,1659875000,1000,"2022-08-06")

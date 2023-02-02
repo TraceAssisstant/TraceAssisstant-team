@@ -68,8 +68,7 @@ public class GeoFenceService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        Repository.INSTANCE.initAFDao();
+        
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date(System.currentTimeMillis());
         //实例化地理围栏客户端

@@ -7,7 +7,6 @@ import com.example.traceassistant.logic.Repository
 class CollectionViewModel: ViewModel() {
 
     fun insertAffair(data: AffairForm){
-        Repository.initAFDao()
         Repository.insertAffiar(data)
     }
 }

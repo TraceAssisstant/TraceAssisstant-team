@@ -7,7 +7,6 @@ import com.example.traceassistant.logic.Repository
 class ShowViewModel: ViewModel() {
 
     fun alterAffair(data: AffairForm){
-        Repository.initAFDao()
         Repository.updateAffair(data)
     }
 }
