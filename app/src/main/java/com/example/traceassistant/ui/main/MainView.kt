@@ -50,6 +50,7 @@ class MainView : AppCompatActivity() {
                 when(msg.what){
                     //检测到数据更新后更新服务数据
                     UPDATESERVICE -> {
+
                         /**
                          * 开启后台地理围栏&事务提醒服务
                          */

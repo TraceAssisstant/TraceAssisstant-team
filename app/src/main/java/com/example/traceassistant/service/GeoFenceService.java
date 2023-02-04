@@ -59,7 +59,7 @@ public class GeoFenceService extends Service {
     Handler handler;
     int loadAffairList = 1;
     public static final String GEOFENCE_BROADCAST_ACTION = "com.location.apis.geofencedemo.broadcast";
-    public int flags = 1;
+    public int flags = 2;
     @Override
     public void onCreate() {
 

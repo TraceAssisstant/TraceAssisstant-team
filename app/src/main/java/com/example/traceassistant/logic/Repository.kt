@@ -23,9 +23,6 @@ object Repository {
     var affairFormDao: AffairFormDao=AppDatabase.getDatabase(GlobalApplication.context).AffairFormDao()
     var habitDao: HabitDao=AppDatabase.getDatabase(GlobalApplication.context).HabitDao()
 
-
-
-
     /**
      * 存储图文对象
      * @param signNature : 签名对象
