@@ -58,38 +58,34 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/locationList"
-        android:visibility="gone"
-        android:layout_width="251dp"
-        android:layout_height="141dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="422dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/submitAll"
+        app:layout_constraintEnd_toStartOf="@+id/nextPage"
+        app:layout_constraintStart_toEndOf="@+id/lastPage"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <Button
         android:id="@+id/nextPage"
-        android:visibility="gone"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="50dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="468dp"
-        android:layout_marginEnd="28dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
         app:icon="@drawable/ic_baseline_arrow_forward_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/lastPage"
-        android:visibility="gone"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="50dp"
         android:layout_height="42dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="468dp"
+        android:visibility="invisible"
         app:icon="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
