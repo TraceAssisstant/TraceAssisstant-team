@@ -24,13 +24,22 @@
             app:navigationIcon="@drawable/ic_baseline_calendar_today_24"
             app:title="DATE" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/affairsShowView"
+        <com.example.traceassistant.ui.DatePicker.HorizonSliableDatepicker
+            android:id="@+id/showfragment_horizon_datepicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topAppBar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/affairsShowView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showfragment_horizon_datepicker" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

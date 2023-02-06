@@ -106,7 +106,6 @@ public class GeoFenceService extends Service {
                     @Override
                     public void onGeoFenceCreateFinished(List<GeoFence> list, int i, String s) {
                         if (i == GeoFence.ADDGEOFENCE_SUCCESS) {
-                            Toast.makeText (getApplicationContext (),"创建地理围栏成功",Toast.LENGTH_LONG).show ();
                             Log.d("GEOFENCE","创建地理围栏成功");
                         }
 
@@ -152,18 +151,16 @@ public class GeoFenceService extends Service {
             Bundle bundle = intent.getExtras ();
             int statu = bundle.getInt (GeoFence.BUNDLE_KEY_FENCESTATUS);
             if (statu == GeoFenceClient.GEOFENCE_IN) {
-                Toast.makeText (getApplicationContext (),"你已进入区域",Toast.LENGTH_SHORT).show ();
                 Intent intent1 = new Intent(GeoFenceService.this,NotificationService.class);
                 String customId = bundle.getString(GeoFence.BUNDLE_KEY_CUSTOMID);
                 intent1.putExtra("title",customId);
-                intent1.putExtra("contentText","您进入该事务区域："+customId);
+                intent1.putExtra("content","您进入该事务区域："+customId);
                 intent1.putExtra("notificationCode",flags++);
                 startService(intent1);
                 Log.e ( "onReceive: ","进入" );
             }
             else {
                 Log.e ( "onReceive: ","离开" );
-                Toast.makeText (getApplicationContext (),"你已离开区域",Toast.LENGTH_LONG).show ();
             }
         }
     };

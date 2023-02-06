@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.traceassistant.R
@@ -69,6 +70,10 @@ class ShowFragment : Fragment() {
             val layoutManager = LinearLayoutManager(context)
             binding.affairsShowView.layoutManager = layoutManager
             binding.affairsShowView.adapter = adapter
+
+            if (dateStmap != null) {
+                binding.showfragmentHorizonDatepicker.setDate(dateStmap)
+            }
         }
 
         binding.topAppBar.setNavigationOnClickListener {
@@ -83,6 +88,21 @@ class ShowFragment : Fragment() {
             val intent = Intent(activity,MapViewActivity::class.java)
             startActivity(intent)
             true
+        }
+
+        /**
+         * 横向日期条
+         */
+        binding.showfragmentHorizonDatepicker.initialize(activity as AppCompatActivity)
+        binding.showfragmentHorizonDatepicker.setOnDateClickListener {
+            dateSelected = SimpleDateFormat("yyyy-MM-dd").format(it)
+            binding.topAppBar.title = dateSelected
+            listOfAffairForm = Repository.getAffairListByDate(dateSelected)
+            Log.d("Today",listOfAffairForm.toString())
+            val adapter = activity?.let { fragmentActivity -> ShowAffairAdapter(fragmentActivity,listOfAffairForm) }
+            val layoutManager = LinearLayoutManager(context)
+            binding.affairsShowView.layoutManager = layoutManager
+            binding.affairsShowView.adapter = adapter
         }
 
 

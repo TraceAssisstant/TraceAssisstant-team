@@ -48,11 +48,7 @@ class MainView : AppCompatActivity() {
         val timeServiceIntent = Intent(this, AffairService::class.java)
         startService(timeServiceIntent)
 
-        /**
-         * 开启后台地理围栏&事务提醒服务
-         */
-        val geoServiceIntent = Intent(this, GeoFenceService::class.java)
-        startService(geoServiceIntent)
+
 
         /**
          * 导航栏

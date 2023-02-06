@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.traceassistant.R
@@ -21,7 +20,6 @@ import com.github.aachartmodel.aainfographics.aaoptionsmodel.AALabels
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AAStyle
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.AATooltip
 import com.github.aachartmodel.aainfographics.aatools.AAColor
-import kotlinx.android.synthetic.main.fragment_daily_chart.*
 import kotlinx.android.synthetic.main.fragment_daily_chart.focusTime
 import kotlinx.android.synthetic.main.fragment_daily_chart.thisFocusTime
 import kotlinx.android.synthetic.main.fragment_month_chart.*
