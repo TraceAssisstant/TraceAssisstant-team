@@ -57,14 +57,6 @@ class MainFragment : Fragment() {
             }
         })
 
-        binding.buttonTest.setOnClickListener {
-            /**
-             * 开启后台地理围栏&事务提醒服务
-             */
-            var intent : Intent = Intent()
-            intent.setClass(GlobalApplication.context, GeoFenceService::class.java)
-            activity?.startService(intent)
-        }
 
         return binding.root
     }

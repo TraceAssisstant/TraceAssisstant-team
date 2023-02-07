@@ -1,3 +1,6 @@
+/**
+ * 根据时间提醒的服务
+ */
 package com.example.traceassistant.service
 
 import android.app.*

@@ -1,3 +1,6 @@
+/**
+ * 高德sdk 定位服务初始化类
+ */
 package com.example.traceassistant.Tools
 
 import android.util.Log

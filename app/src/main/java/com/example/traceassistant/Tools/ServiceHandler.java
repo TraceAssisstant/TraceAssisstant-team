@@ -1,3 +1,6 @@
+/**
+ * 服务更新的主线程消息接收类
+ */
 package com.example.traceassistant.Tools;
 
 import android.os.Handler;

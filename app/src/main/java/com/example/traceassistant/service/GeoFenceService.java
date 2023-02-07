@@ -1,3 +1,6 @@
+/**
+ * 根据地理位置提醒的服务
+ */
 package com.example.traceassistant.service;
 
 import android.app.Service;

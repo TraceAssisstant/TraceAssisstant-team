@@ -1,3 +1,6 @@
+/**
+ * 通知类
+ */
 package com.example.traceassistant.service
 
 import android.app.NotificationChannel

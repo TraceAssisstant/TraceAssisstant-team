@@ -1,3 +1,6 @@
+/**
+ * 根据经纬度，计算两点间的距离的工具类
+ */
 package com.example.traceassistant.Tools;
 
 public class DistanceConversion {

@@ -1,3 +1,6 @@
+/**
+ * 通知操作统一类，方便向用户发送通知
+ */
 package com.example.traceassistant.service
 
 import android.app.NotificationChannel

@@ -1,3 +1,6 @@
+/**
+ * 导航栏操作类
+ */
 package com.example.traceassistant.Tools
 
 import androidx.viewpager2.widget.ViewPager2

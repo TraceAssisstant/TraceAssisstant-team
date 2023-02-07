@@ -1,3 +1,6 @@
+/**
+ * 事务实体类
+ */
 package com.example.traceassistant.logic.Entity
 
 import androidx.room.ColumnInfo
@@ -6,7 +9,6 @@ import androidx.room.PrimaryKey
 import java.awt.font.TextAttribute
 import java.io.Serializable
 
-//事务实体类
 @Entity(tableName = "affair_form")
 data class AffairForm(
     @ColumnInfo(name = "title") val ttitle: String,

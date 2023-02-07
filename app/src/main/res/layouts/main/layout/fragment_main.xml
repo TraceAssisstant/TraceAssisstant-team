@@ -48,19 +48,6 @@
 
 
         <ImageView
-            android:layout_width="241dp"
-            android:layout_height="69dp"
-            android:src="@drawable/wenzi11"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.552"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.975">
-
-        </ImageView>
-
-        <ImageView
             android:id="@+id/imageView3"
             android:layout_width="192dp"
             android:layout_height="47dp"
@@ -71,7 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/daySentence"
 
-            app:layout_constraintVertical_bias="0.387"></ImageView>
+            app:layout_constraintVertical_bias="0.562"></ImageView>
 
         <TextView
             android:id="@+id/daySentence"
@@ -118,16 +105,6 @@
             app:layout_constraintStart_toStartOf="@+id/mainImage"
             app:layout_constraintTop_toTopOf="@+id/mainImage"
             app:layout_constraintVertical_bias="0.421" />
-
-        <Button
-            android:id="@+id/buttonTest"
-            android:layout_width="114dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="36dp"
-            android:text="Test"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

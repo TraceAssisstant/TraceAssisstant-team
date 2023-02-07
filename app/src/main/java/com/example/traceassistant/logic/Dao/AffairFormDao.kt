@@ -1,3 +1,6 @@
+/**
+ * 事务表的DAO接口
+ */
 package com.example.traceassistant.logic.Dao
 
 import androidx.room.Dao

@@ -1,3 +1,6 @@
+/**
+ * 图文实体类
+ */
 package com.example.traceassistant.logic.Entity
 
 import androidx.room.ColumnInfo
@@ -14,7 +17,6 @@ data class SignNature(
 ){
         @PrimaryKey(autoGenerate = true)
         var id:Int = 0
-
 
         override fun toString(): String {
                 return "id(day): "+id+" "+super.toString();

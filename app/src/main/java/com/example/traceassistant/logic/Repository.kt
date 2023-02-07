@@ -1,3 +1,6 @@
+/**
+ * 封装本应用的业务逻辑
+ */
 package com.example.traceassistant.logic
 
 import android.util.Log

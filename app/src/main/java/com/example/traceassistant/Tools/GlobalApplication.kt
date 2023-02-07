@@ -1,11 +1,12 @@
+/**
+ * 默认的自定义Application，可全局获取Context
+ */
 package com.example.traceassistant.Tools
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 
-
-//默认的自定义Application，可全局获取Context
 class GlobalApplication: Application() {
     companion object{
         @SuppressLint("StaticFieldLeak")

@@ -1,3 +1,6 @@
+/**
+ * Room框架初始化类
+ */
 package com.example.traceassistant.logic.Database
 
 import android.content.Context

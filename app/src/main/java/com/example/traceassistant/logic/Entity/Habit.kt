@@ -1,3 +1,6 @@
+/**
+ * 习惯实体类
+ */
 package com.example.traceassistant.logic.Entity
 
 import androidx.room.ColumnInfo
