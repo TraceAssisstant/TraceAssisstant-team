@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.example.traceassistant.ui.affairsCollection
 
 import android.content.Intent
